@@ -1,0 +1,92 @@
+.cut-text{
+    text-decoration: none;
+    text-overflow: ellipsis; /* เพิ่ม ... จุดจุดจุดท้ายสุด */ 
+    display: block; 
+    overflow: hidden; 
+    white-space: nowrap; 
+    width: 255px; /* กำหนดความกว้าง */ 
+}
+label{
+    font-size: 1.2rem !important;
+}
+div{
+    font-size: 1.2rem !important;
+}
+input{
+    font-size: 1.2rem !important;
+}
+textarea{
+    font-size: 1.2rem !important;
+}
+button{
+    font-size: 1.2rem !important;
+    height: 33px;
+}
+select.form-control:not([size]):not([multiple]){
+    height: 34px !important;
+    font-size: 1.2rem !important;
+}
+table{
+    font-size: 1.2rem !important;
+}
+form  {
+    resize: vertical;
+    overflow: auto;
+}
+.nav-title ul li {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    cursor: pointer;
+    width: 90px;
+    text-align: center;
+}
+.nav-title ul {
+    padding: 0;
+    margin: 0 auto;
+}
+.ul_list {
+    width: 470px;
+}
+.nav-title ul li a div {
+    padding-top: 5px;
+}
+.thum{
+  padding-top: 100px;
+  padding-left: 150px !important;
+}
+.modal-dialog{
+  padding-top: 160px;
+}
+@media (max-width: 768px){
+    div {
+        font-size: 1.1rem !important;
+    }
+    .nav-title ul li{
+        width: 65px !important;
+    }
+    .ul_list {
+        width: 530px !important;
+    }
+    .cssLL{
+        border-top: solid 1px;
+        border-top-color: lightgray;
+        padding-right: 1.2%;
+        padding-top: 1.2%;
+        padding-bottom: 1.2%;
+        border-top-style: dashed;
+        padding-top: 10px;
+    }
+}
+@media (max-width: 414px){
+    div {
+        font-size: 1.1rem !important;
+    }
+    .nav-title ul li{
+        width: 65px !important;
+    }
+    .ul_list {
+        width: 100% !important;
+    }
+
+}
