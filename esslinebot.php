@@ -42,6 +42,8 @@ if (!empty($bot->isEvents)) {
                     )
             ));  
        $bot->replyMessage($replyToken,$replyData);
+    }else{
+        $bot->replyMessage($replyToken,'Hello!');
     }
 }
 
