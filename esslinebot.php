@@ -61,7 +61,7 @@ if (!empty($bot->isEvents)) {
     $bot->replyMessageNew($bot->replyToken,"ไม่มีรายการที่เลือก");
     }
     */
-    $imageMapUrl = 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar';
+    $imageMapUrl = 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar.png?_ignored=';
     $replyData = new ImagemapMessageBuilder(
         $imageMapUrl,
         'This is Title',
