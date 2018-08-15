@@ -1,4 +1,4 @@
-<?php
+<?php 
 include('vendor/autoload.php');
 use \LINE\LINEBot;
 use \LINE\LINEBot\HTTPClient;
@@ -12,6 +12,14 @@ use \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use \LINE\LINEBot\MessageBuilder\LocationMessageBuilder;
 use \LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
 
+//Image map message Builder;
+use LINE\LINEBot\ImagemapActionBuilder;
+use LINE\LINEBot\ImagemapActionBuilder\AreaBuilder;
+use LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder ;
+use LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder;
+use LINE\LINEBot\MessageBuilder\Imagemap\BaseSizeBuilder;
+use LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder;
+
 // use \LINE\LINEBot\MessageBuilder\ButtonTemplateBuilder;
 //------------------------con-------------------//
 use \LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
@@ -21,11 +29,12 @@ use \LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
 //------------test template------------------------------//
 use \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
+use \LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
+use \LINE\LINEBot\MessageBuilder\LinkMessageBuilder;
 
 class BOT_API extends LINEBot
 {
-
-    /* ====================================================================================
+/* ====================================================================================
      * Variable
      * ==================================================================================== */
 
@@ -92,811 +101,171 @@ class BOT_API extends LINEBot
         parent::__construct($this->httpClient, [ 'channelSecret' => $channelSecret ]);
     }
 
-    public function sendMessageNew($to = null, $message = null)
-    {
-        $messageBuilder = new TextMessageBuilder($message);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
-            'to' => $to,
-            // 'toChannel' => 'Channel ID,
-            'messages'  => $messageBuilder->buildMessage()
-        ]);
-    }
+public function SendMessageTo($ToLineID = null, $message = null){
+    $messageBuilder = new TextMessageBuilder($message);
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
+        'to' => $ToLineID,
+        // 'toChannel' => 'Channel ID,
+        'messages'  => $messageBuilder->buildMessage()
+    ]);
+}
 
-    public function replyMessageNewregis($replyToken = null, $message = null)
-    {
+public function replyMessageNew($replyToken = null, $message = null){
+    $messageBuilder = new TextMessageBuilder($message);
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $replyToken,
+        'messages'   => $messageBuilder->buildMessage(),
+    ]);
+}
+
+public function SendLanguage($replyToken = null, $LineID, $Text = null){
+    $img_url = "https://www.prosofthcm.com/upload/5934/eo3hrcpDoM.png";
+
         $actions = array(
-            New MessageTemplateActionBuilder("ย้อนกลับ", "ย้อนกลับ"),
-            New MessageTemplateActionBuilder("ยกเลิก", "ยกเลิก")
-          );
-        $button  = new ConfirmTemplateBuilder("เมนู" , $actions);
-        $outputText = new TemplateMessageBuilder("confim message", $button);
-
-        $messageBuilder = new TextMessageBuilder($message);
-
-        $multiMessage = new MultiMessageBuilder;
-        $multiMessage->add($messageBuilder);
-        $multiMessage->add($outputText);
-        $reply = $multiMessage;
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $reply->buildMessage(),
-        ]);
-    }
-
-    public function replyMessageNew($replyToken = null, $message = null)
-    {
-        $messageBuilder = new TextMessageBuilder($message);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $messageBuilder->buildMessage(),
-        ]);
-    }
-
-    public function isSuccess()
-    {
-        return !empty($this->response->isSucceeded()) ? true : false;
-    }
-
-
-    function ConnectDatabase()
-    {   
-        $connectstr_dbhost = '31.170.166.134';
-        $connectstr_dbname = 'u663869224_line';
-        $connectstr_dbusername = 'u663869224_hrmi';
-        $connectstr_dbpassword = 'v06dt22ssn';
-    
-        $link = mysqli_connect($connectstr_dbhost, $connectstr_dbusername, $connectstr_dbpassword, $connectstr_dbname);
-    
-        if (!$link)
-        {
-            echo "Error: Unable to connect to MySQL." . PHP_EOL;
-            echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-            echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-            exit;
-        }
-        mysqli_set_charset($link, "utf8");
-    
-        return $link;
-    }
-
-    public function bottom($replyToken = null){
-        $actions = array(
-          New MessageTemplateActionBuilder("ลงทะเบียน", "ลงทะเบียน"),
-          New MessageTemplateActionBuilder("ยกเลิก", "ยกเลิก")
+            New UriTemplateActionBuilder("Thai", "http://lineservice.prosofthcm.com/LineService/Language/Language/".$LineID."/Thai"),
+            New UriTemplateActionBuilder("English", "http://lineservice.prosofthcm.com/LineService/Language/Language/".$LineID."/English")
         );
-        $button  = new ConfirmTemplateBuilder("คุณยังไม่ได้ทำการลงทะเบียน\nYou have not yet registered" , $actions);
-        $outputText = new TemplateMessageBuilder("confim message", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-              'replyToken' => $replyToken,
-              'messages'   => $outputText->buildMessage(),
-          ]);
-    }
-
-  public function bottomcancel($replyToken = null, $result = null)
-    {
-        $actions = array(
-          New MessageTemplateActionBuilder("ย้อนกลับ", "ย้อนกลับ"),
-          New MessageTemplateActionBuilder("ยกเลิก", "ยกเลิก")
-    );
-    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
-        $button = new ButtonTemplateBuilder("ประเภทการลา", "".$result."", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Type Approved", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-    }
-
-  public function cancelUnregister($replyToken = null, $result = null)
-    {
-        $actions = array(
-          New MessageTemplateActionBuilder("ยกเลิก", "ยกเลิก")
-    );
-        $img_url = "https://www.prosofthcm.com/upload/5934/67m2YbOk6S.jpg";
-        $button = new ButtonTemplateBuilder("การลบทะเบียน", "".$result."", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Type Approved", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-    }
-
-  public function SendLanguage($replyToken = null)
-    {
-        $actions = array(
-        new MessageTemplateActionBuilder("ภาษาไทย", "ภาษาไทย"),
-        new MessageTemplateActionBuilder("English", "English"),
-        new MessageTemplateActionBuilder("ยกเลิก", "ยกเลิก")
-    
-    );
-        $img_url = "https://www.prosofthcm.com/upload/5934/eo3hrcpDoM.png";
-        $button = new ButtonTemplateBuilder("Language", "กรุณาเลือกภาษาที่ใช้แสดง\nPlease select a display language.", $img_url, $actions);
+        $button = new ButtonTemplateBuilder("Setting", $Text."กรุณาเลือกภาษาที่จะใช้\nPlease select a display language.", $img_url, $actions);
         $outputText = new TemplateMessageBuilder("Setting Language", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-    }
 
-    public function SendRELanguage($replyToken = null, $resu = null)
-    {
-        $actions = array(
-          new MessageTemplateActionBuilder("ไทย", "ไทย"),
-          new MessageTemplateActionBuilder("อังกฤษ", "อังกฤษ"),
-          new MessageTemplateActionBuilder("ยกเลิก", "ยกเลิก"),
-    
-    );
-        $img_url = "https://www.prosofthcm.com/upload/5934/eo3hrcpDoM.png";
-        $button = new ButtonTemplateBuilder("ภาษา", "".$resu."\nกรุณาเลือกภาษาที่ต้องการเปลี่ยน", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Setting Language", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-    }
 
-    public function Location($replyToken = null)
-    {
-        $messageBuilder = new TextMessageBuilder("line://nv/location");
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $messageBuilder->buildMessage(),
-        ]);
-    }
-
-   
-///////////////////////////////////////////////*โต้ตอบด้วยเทมเพตภาษาไทย*/////////////////////////////////////////////////
-///////////////////////////////////////////////*โต้ตอบด้วยเทมเพตภาษาไทย*/////////////////////////////////////////////////
-
-public function leave_appro($replyToken = null)
-{
-    $actions = array(
-        new MessageTemplateActionBuilder("ขอลา", "ขอลา"),
-        new MessageTemplateActionBuilder("อนุมัติเอกสาร", "Approved"),
-        new MessageTemplateActionBuilder("ประวัติการลา", "ประวัติการลา"),
-        new MessageTemplateActionBuilder("กลับเมนูหลัก", "กลับเมนูหลัก")
-
-);
-    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
-    $button = new ButtonTemplateBuilder("การลา", "กรุณาเลือกรายการที่ต้องการ", $img_url, $actions);
-    $outputText = new TemplateMessageBuilder("Setting Language", $button);
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
       'replyToken' => $replyToken,
       'messages'   => $outputText->buildMessage(),
   ]);
 }
 
-public function levelist($replyToken = null, $resu = null)
+public function ApproveCenter($replyToken = null,$LineID)
 {
     $actions = array(
-        new MessageTemplateActionBuilder("ประวัติลาป่วย", "ประวัติลาป่วย"),
-        new MessageTemplateActionBuilder("ประวัติลากิจ", "ประวัติลากิจ"),
-        new MessageTemplateActionBuilder("ประวัติลาพักร้อน", "ประวัติลาพักร้อน"),
-        new MessageTemplateActionBuilder("กลับเมนูหลัก", "กลับเมนูหลัก")
-
-);
-    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
-    $button = new ButtonTemplateBuilder("ประวัติการลา", "เลือกประวัติการลาที่ต้องการ\n".$resu."", $img_url, $actions);
-    $outputText = new TemplateMessageBuilder("Setting Language", $button);
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-      'replyToken' => $replyToken,
-      'messages'   => $outputText->buildMessage(),
-  ]);
-}
-
-   public function SendSettingTH($replyToken = null, $name = null, $result = null)
-    {
-        $actions = array(
-            new MessageTemplateActionBuilder("เปลี่ยนภาษา", "เปลี่ยนภาษา"),
-            new MessageTemplateActionBuilder("ยกเลิกการลงทะเบียน", "ยกเลิกการลงทะเบียน"),
-            new MessageTemplateActionBuilder("กลับ เมนูหลัก", "เมนู"),
-    
-    );
-        $img_url = "https://www.prosofthcm.com/upload/5934/67m2YbOk6S.jpg";
-        $button = new ButtonTemplateBuilder("ตั้งค่า (".$name.")", "กรุณาเลือกรายการที่ต้องการ\n".$result."", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Setting Language", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-    }
-    
-    public function SendTemplate($replyToken = null, $resu = null)
-    {
-        $actions = array(
-        new MessageTemplateActionBuilder("ลงชื่อเข้างาน", "ลงชื่อเข้างาน"),
-        new MessageTemplateActionBuilder("ขอลา/อนุมัติเอกสาร", "ขอลา/อนุมัติเอกสาร"),
-        new MessageTemplateActionBuilder("ตั้งค่า", "ตั้งค่า")
-
-    );
-        $img_url = "https://www.prosofthcm.com/upload/5934/HDIVJszBfE.jpg";
-        $button = new ButtonTemplateBuilder("เมนู", "".$resu."\nกรุณาเลือกรายการที่ต้องการ", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Menu", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-    }
-
-    public function TESTApproveds($replyToken = null,$text)
-    {
-        $link = ConnectDatabase();
-        $sql = "SELECT hrTimeLeaveRecord.Docuno,hrTimeLeaveRecord.DocuDate,hrTimeLeaveRecord.LeaveRemark,emPerson.Title,
-        emPerson.FirstName,emPerson.LastName 
-        FROM hrTimeLeaveRecord ,emEmployee,emPerson 
-        WHERE hrTimeLeaveRecord.EmpID = emEmployee.EmpID 
-        AND hrTimeLeaveRecord.Docuno = '".$text."'
-        AND emPerson.PersonID = emEmployee.PersonID";
-        $result = mysqli_query($link, $sql);
-        $str = "";
-        if (mysqli_num_rows($result) > 0)
-        {
-            while($row = mysqli_fetch_assoc($result))
-            {
-                  $B = substr($row['DocuDate'],0, 10);
-                  $str = "วันที่ ".$B."\n".$row['Title']." ".$row['FirstName']." \nสาเหตุการลา ".$row['LeaveRemark'];
-            } 
-        }
-        
-        $actions = array(
-            new MessageTemplateActionBuilder("อนุมัติ", "Y".$text.""),
-            new MessageTemplateActionBuilder("ไม่อนุมัติ", "N".$text.""),
-            new MessageTemplateActionBuilder("ยกเลิก", "ยกเลิก")
-
+        New UriTemplateActionBuilder("Leave Record", "http://lineservice.prosofthcm.com/LineService/Leave/LeaveInfo/".$LineID),
+        New MessageTemplateActionBuilder("Approve Request", "Approve Request"),
+        New MessageTemplateActionBuilder("Test", "Test"),
+        New MessageTemplateActionBuilder("Test", "Test")
          );
 
-        $img_url = "https://www.prosofthcm.com/upload/5934/5d1apZw0Oh.jpg";
-        $button = new ButtonTemplateBuilder("รายละเอียดการลา", $str , $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Approved", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-      $link->close();
-    }
-
-    public function MNGApprovedDeputi($replyToken = null, $userId)
-    {
-        $link = ConnectDatabase();
-        $MenuID = 'c12ee3e6-56e5-4824-a5e3-147add72ce3c';
-        $sqls = "SELECT emGrantApprove.GrantApproveID AS GrantID 
-                FROM emGrantApprove,emLineuserconnect 
-                WHERE emGrantApprove.ApproverID = emLineuserconnect.EmpID
-                AND emLineuserconnect.UserID = '".$userId."' ";
-                $results = mysqli_query($link, $sqls);
-                if (mysqli_num_rows($results) > 0) 
-                {   
-                    $arr = [];  
-                    while($row = mysqli_fetch_assoc($results)) 
-                    {
-                        $sql1 = "SELECT GrantApproveID,DeputizeGrantApproveID
-                        FROM emDeputizeApprove
-                        WHERE  DeputizeGrantApproveID = '".$row['GrantID']."'
-                        AND CONVERT(emDeputizeApprove.StartDate,DATE) <= CONVERT(curdate(),DATE)            
-                        AND CONVERT(emDeputizeApprove.EndDate,DATE) >= CONVERT(curdate(),DATE)";
-                        $result1 = mysqli_query($link, $sql1);
-                        
-                        while($row1 = mysqli_fetch_assoc($result1)) 
-                        {
-                            $sql2 = "SELECT Record.Docuno as Docuno
-                            FROM hrTimeLeaveRecord AS Record 
-                            LEFT JOIN emEmpApproved AS empApp ON empApp.EmpID = Record.EmpID
-                            LEFT JOIN emGrantApprove AS empGrant ON empGrant.GrantApproveID = empApp.GrantApproveID
-                            WHERE empApp.GrantApproveID = '".$row1['GrantApproveID']."'
-                            AND Record.ApproveStatus = 'W' ORDER BY Docuno  DESC LIMIT 0, 3";
-                            $result2 = mysqli_query($link, $sql2);  
-                                if (mysqli_num_rows($result2) > 0)
-                                {
-                                    while($row2 = mysqli_fetch_assoc($result2))
-                                    {
-                                        array_push($arr,new MessageTemplateActionBuilder("".$row2['Docuno']."", "".$row2['Docuno'].""));            
-                                    }
-                                    array_push($arr,new MessageTemplateActionBuilder("ย้อนกลับ", "ย้อนกลับ")); 
-                                }
-                        }
-                    }
-                }
-
-         $actions = $arr;
-
     $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
-        $button = new ButtonTemplateBuilder("เอกสารขออนุมัติลา(แทน)", "กรุณาเลือกเอกสารขออนุมัติลา", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Document No", $button);       
+    $button  = new ButtonTemplateBuilder("Approve Center", "รายการ", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Approve Center", $button);
 
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-      $link->close();
-    }
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $replyToken,
+        'messages'   => $outputText->buildMessage(),
+    ]);
+}
 
-    public function reMNGApprovedDeputi($replyToken = null, $userId , $message = null)
-    {
-        $link = ConnectDatabase();
-        $MenuID = 'c12ee3e6-56e5-4824-a5e3-147add72ce3c';
-        $sqls = "SELECT emGrantApprove.GrantApproveID AS GrantID 
-                FROM emGrantApprove,emLineuserconnect 
-                WHERE emGrantApprove.ApproverID = emLineuserconnect.EmpID
-                AND emLineuserconnect.UserID = '".$userId."' ";
-                $results = mysqli_query($link, $sqls);
-                if (mysqli_num_rows($results) > 0) 
-                {   
-                    $arr = [];  
-                    while($row = mysqli_fetch_assoc($results)) 
-                    {
-                        $sql1 = "SELECT GrantApproveID,DeputizeGrantApproveID
-                        FROM emDeputizeApprove
-                        WHERE  DeputizeGrantApproveID = '".$row['GrantID']."'
-                        AND CONVERT(emDeputizeApprove.StartDate,DATE) <= CONVERT(curdate(),DATE)            
-                        AND CONVERT(emDeputizeApprove.EndDate,DATE) >= CONVERT(curdate(),DATE)";
-                        $result1 = mysqli_query($link, $sql1);
-                        
-                        while($row1 = mysqli_fetch_assoc($result1)) 
-                        {
-                            $sql2 = "SELECT Record.Docuno as Docuno
-                            FROM hrTimeLeaveRecord AS Record 
-                            LEFT JOIN emEmpApproved AS empApp ON empApp.EmpID = Record.EmpID
-                            LEFT JOIN emGrantApprove AS empGrant ON empGrant.GrantApproveID = empApp.GrantApproveID
-                            WHERE empApp.GrantApproveID = '".$row1['GrantApproveID']."'
-                            AND Record.ApproveStatus = 'W' ORDER BY Docuno  DESC LIMIT 0, 3";
-                            $result2 = mysqli_query($link, $sql2);  
-                                if (mysqli_num_rows($result2) > 0)
-                                {
-                                    while($row2 = mysqli_fetch_assoc($result2))
-                                    {
-                                        array_push($arr,new MessageTemplateActionBuilder("".$row2['Docuno']."", "".$row2['Docuno'].""));            
-                                    }
-                                    array_push($arr,new MessageTemplateActionBuilder("ย้อนกลับ", "ย้อนกลับ")); 
-                                }
-                        }
-                    }
-                }
+public function TimeAttendance($replyToken = null, $LineID)
+{
+    $actions = array(
+        New UriTemplateActionBuilder("Time Stamp", "http://lineservice.prosofthcm.com/LineService/Location/LocationInfo/".$LineID),
+        New MessageTemplateActionBuilder("Leave Information", "Leave Information"),
+        New MessageTemplateActionBuilder("Leave Permission", "Leave Permission"),
+        New UriTemplateActionBuilder("testStamp", "http://lineservice.prosofthcm.com/LineService/TestLocation/TestLocation")
+         );
 
-         $actions = $arr;
+    $img_url = "https://www.prosofthcm.com/upload/5934/5d1apZw0Oh.jpg";
+    $button  = new ButtonTemplateBuilder("Time Attendence", "รายการ", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Time Attendence", $button);
 
-    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
-        $button = new ButtonTemplateBuilder("เอกสารขออนุมัติลา(แทน)", "กรุณาเลือกเอกสารขออนุมัติลา", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Document No", $button);
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $replyToken,
+        'messages'   => $outputText->buildMessage(),
+    ]);
+}
 
-        $messageBuilder = new TextMessageBuilder($message);
+public function Payroll($replyToken = null)
+{
+    $actions = array(
+        New MessageTemplateActionBuilder("Test", "Test"),
+        New MessageTemplateActionBuilder("Test", "Test"),
+        New MessageTemplateActionBuilder("Test", "Test"),
+        New MessageTemplateActionBuilder("Test", "Test")
+         );
 
-        $multiMessage = new MultiMessageBuilder;
-        $multiMessage->add($messageBuilder);
-        $multiMessage->add($outputText);
-        $reply = $multiMessage;        
+    $img_url = "https://www.prosofthcm.com/upload/5934/HDIVJszBfE.jpg";
+    $button  = new ButtonTemplateBuilder("Payroll", "รายการ", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Payroll", $button);
 
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $reply->buildMessage(),
-      ]);
-      $link->close();
-    }
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $replyToken,
+        'messages'   => $outputText->buildMessage(),
+    ]);
+}
 
-    public function MNGApproved($replyToken = null, $userId)
-    {
-        $link = ConnectDatabase();
-        $MenuID = 'c12ee3e6-56e5-4824-a5e3-147add72ce3c';
-        $sqls = "SELECT emGrantApprove.GrantApproveID AS GrantID 
-                FROM emGrantApprove,emLineuserconnect 
-                WHERE emGrantApprove.ApproverID = emLineuserconnect.EmpID
-                AND emLineuserconnect.UserID = '".$userId."' ";
-                $results = mysqli_query($link, $sqls);
-                if (mysqli_num_rows($results) > 0) 
-                {
-                    $arr = [];
-                    while($row = mysqli_fetch_assoc($results)) 
-                    {
-                        $sql1 = "SELECT Record.Docuno
-                                FROM hrTimeLeaveRecord AS Record 
-                                LEFT JOIN emEmpApproved AS empApp ON empApp.EmpID = Record.EmpID
-                                LEFT JOIN emGrantApprove AS empGrant ON empGrant.GrantApproveID = empApp.GrantApproveID
-                                WHERE empApp.GrantApproveID = '".$row['GrantID']."'
-                                AND Record.ApproveStatus = 'W' ORDER BY Docuno  DESC LIMIT 0, 3";
-                                $result1 = mysqli_query($link, $sql1);
-                                
-                                if (mysqli_num_rows($result1) > 0)
-                                {
-                                    while($row1 = mysqli_fetch_assoc($result1))
-                                    {
-                                        array_push($arr,new MessageTemplateActionBuilder("".$row1['Docuno']."", "".$row1['Docuno'].""));     
-                                    }
-                                    array_push($arr,new MessageTemplateActionBuilder("ย้อนกลับ", "ย้อนกลับ")); 
-                                }
-                    }
-                }
-         $actions = $arr;
+public function Organization($replyToken = null)
+{
+    $actions = array(
+        New MessageTemplateActionBuilder("Calendar", "Calendar"),
+        New MessageTemplateActionBuilder("News", "News"),
+        New MessageTemplateActionBuilder("Address", "Address"),
+        New MessageTemplateActionBuilder("Phone No.", "Phone No.")
+         );
 
-    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
-        $button = new ButtonTemplateBuilder("เอกสารขออนุมัติลา(หลัก)", "กรุณาเลือกเอกสารขออนุมัติลา", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Document No", $button);
+    $img_url = "https://www.prosofthcm.com/upload/5934/HDIVJszBfE.jpg";
+    $button  = new ButtonTemplateBuilder("Organization", "รายการ", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Organization", $button);
 
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-      $link->close();
-    }
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $replyToken,
+        'messages'   => $outputText->buildMessage(),
+    ]);
+}
 
-    public function reMNGApproved($replyToken = null, $userId, $message = null)
-    {
-        $link = ConnectDatabase();
-        $MenuID = 'c12ee3e6-56e5-4824-a5e3-147add72ce3c';
-        $sqls = "SELECT emGrantApprove.GrantApproveID AS GrantID 
-                FROM emGrantApprove,emLineuserconnect 
-                WHERE emGrantApprove.ApproverID = emLineuserconnect.EmpID
-                AND emLineuserconnect.UserID = '".$userId."' ";
-                $results = mysqli_query($link, $sqls);
-                if (mysqli_num_rows($results) > 0) 
-                {   
-                    $arr = [];  
-                    while($row = mysqli_fetch_assoc($results)) 
-                    {
-                        $sql1 = "SELECT GrantApproveID,DeputizeGrantApproveID
-                        FROM emDeputizeApprove
-                        WHERE  DeputizeGrantApproveID = '".$row['GrantID']."'
-                        AND CONVERT(emDeputizeApprove.StartDate,DATE) <= CONVERT(curdate(),DATE)            
-                        AND CONVERT(emDeputizeApprove.EndDate,DATE) >= CONVERT(curdate(),DATE)";
-                        $result1 = mysqli_query($link, $sql1);
-                        
-                        while($row1 = mysqli_fetch_assoc($result1)) 
-                        {
-                            $sql2 = "SELECT Record.Docuno as Docuno
-                            FROM hrTimeLeaveRecord AS Record 
-                            LEFT JOIN emEmpApproved AS empApp ON empApp.EmpID = Record.EmpID
-                            LEFT JOIN emGrantApprove AS empGrant ON empGrant.GrantApproveID = empApp.GrantApproveID
-                            WHERE empApp.GrantApproveID = '".$row1['GrantApproveID']."'
-                            AND Record.ApproveStatus = 'W' ORDER BY Docuno  DESC LIMIT 0, 3";
-                            $result2 = mysqli_query($link, $sql2);  
-                                if (mysqli_num_rows($result2) > 0)
-                                {
-                                    while($row2 = mysqli_fetch_assoc($result2))
-                                    {
-                                        array_push($arr,new MessageTemplateActionBuilder("".$row2['Docuno']."", "".$row2['Docuno'].""));            
-                                    }
-                                    array_push($arr,new MessageTemplateActionBuilder("ย้อนกลับ", "ย้อนกลับ")); 
-                                }
-                        }
-                    }
-                }
+public function Setting($replyToken = null, $LineID)
+{
+    $actions = array(        
+        New UriTemplateActionBuilder("Register", "http://lineservice.prosofthcm.com/LineService/Register/RegisterInfo/".$LineID),
+        New MessageTemplateActionBuilder("Language", "Language"),
+        New MessageTemplateActionBuilder("Choose Profile", "Choose Profile"),
+        New MessageTemplateActionBuilder("Web Service URL", "Web Service URL")
+         );
 
-         $actions = $arr;
+    $img_url = "https://www.prosofthcm.com/upload/5934/67m2YbOk6S.jpg";
+    $button  = new ButtonTemplateBuilder("Setting", "รายการ", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Setting", $button);
 
-    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
-        $button = new ButtonTemplateBuilder("เอกสารขออนุมัติลา(หลัก)", "กรุณาเลือกเอกสารขออนุมัติลา", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Document No", $button);
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $replyToken,
+        'messages'   => $outputText->buildMessage(),
+    ]);
+}
 
-        $messageBuilder = new TextMessageBuilder($message);
+public function AboutUs($replyToken = null)
+{
+    $actions = array(
+        New UriTemplateActionBuilder("Redirect", "https://www.prosofthcm.com/"),
+        New MessageTemplateActionBuilder("Test", "Test"),
+        New MessageTemplateActionBuilder("Test", "Test"),
+        New MessageTemplateActionBuilder("Test", "Test")
+         );
 
-        $multiMessage = new MultiMessageBuilder;
-        $multiMessage->add($messageBuilder);
-        $multiMessage->add($outputText);
-        $reply = $multiMessage;
+    $img_url = "https://www.prosofthcm.com/upload/5934/HDIVJszBfE.jpg";
+    $button  = new ButtonTemplateBuilder("About Us", "รายการ", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("About Us", $button);
 
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $reply->buildMessage(),
-      ]);
-      $link->close();
-    }
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $replyToken,
+        'messages'   => $outputText->buildMessage(),
+    ]);
+}
 
-    public function SendApproved($replyToken = null, $result = null)
-    {
+public function SendLeaveType($replyToken = null, $Text = null)
+{
         $actions = array(
             new MessageTemplateActionBuilder("ลาป่วย", "ลาป่วย"),
             new MessageTemplateActionBuilder("ลากิจ", "ลากิจ"),
             new MessageTemplateActionBuilder("ลาพักร้อน", "ลาพักร้อน"),
             new MessageTemplateActionBuilder("ยกเลิก", "ยกเลิก"),
-
-    );
-    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
-        $button = new ButtonTemplateBuilder("ประเภทการลา", "".$result."", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Type Approved", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-    }
-
-      public function SendApprovedfail($replyToken = null, $result = null)
-    {
-        $actions = array(
-            new MessageTemplateActionBuilder("ลาป่วย", "ลาป่วย"),
-            new MessageTemplateActionBuilder("ลากิจ", "ลากิจ"),
-            new MessageTemplateActionBuilder("ลาพักร้อน", "ลาพักร้อน"),
-            New MessageTemplateActionBuilder("ยกเลิก", "ยกเลิก")
-    );
-    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
-        $button = new ButtonTemplateBuilder("ประเภทการลา", "".$result."", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Type Approved", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-    }
-
-    public function home($replyToken = null , $resu = null)
-    {
-        $actions = array(
-            new MessageTemplateActionBuilder("Menu(เมนู)", "Menu")
-    );
-    $img_url = "https://www.prosofthcm.com/upload/5934/HDIVJszBfE.jpg";
-        $button = new ButtonTemplateBuilder("Menu(เมนู)", $resu, $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Type Approved", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-    }
-
-///////////////////////////////////////////////*สิ้นสุดการโต้ตอบด้วยภาษาไทย*/////////////////////////////////////////////////
-///////////////////////////////////////////////*สิ้นสุดการโต้ตอบด้วยภาษาไทย*/////////////////////////////////////////////////
-
-////////////////////////////////////////////////*โต้ตอบด้วยเทมเพต ENG*////////////////////////////////////////////////////
-////////////////////////////////////////////////*โต้ตอบด้วยเทมเพต ENG*////////////////////////////////////////////////////
-
-    public function SendSettingENG($replyToken = null)
-    {
-        $columns = array();
-        $img_url = "https://www.prosofthcm.com/upload/5934/67m2YbOk6S.jpg";
-        for ($i=0;$i<1;$i++) {
-            $actions = array(
-            new MessageTemplateActionBuilder("Change Language", "Language"),
-            new MessageTemplateActionBuilder("UnCancel Registrationregister", "Unregister"),
-        );
-            $column = new CarouselColumnTemplateBuilder("Setting Language", "Please select the items you want.", $img_url, $actions);
-            $columns[] = $column;
-        }
-        $carousel = new CarouselTemplateBuilder($columns);
-        $outputText = new TemplateMessageBuilder("Setting", $carousel);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-                'replyToken' => $replyToken,
-                'messages'   => $outputText->buildMessage(),
-            ]);
-    }
-
-    public function SendTemplateENG($replyToken = null)
-    {
-        $actions = array(
-       new MessageTemplateActionBuilder("Leave", "Leave"),
-       new MessageTemplateActionBuilder("Approved", "Approved"),
-       new MessageTemplateActionBuilder("Setting Language", "Language")
-   );
-        $img_url = "https://www.prosofthcm.com/upload/5934/HDIVJszBfE.jpg";
-        $button = new ButtonTemplateBuilder("Menu", "Please select the items you want.", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Menu", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-         'replyToken' => $replyToken,
-         'messages'   => $outputText->buildMessage(),
-     ]);
-    }
-
-    public function ApprovedENG($replyToken = null,$text)
-    {
-        $link = ConnectDatabase();
-        $sql = "SELECT hrTimeLeaveRecord.Docuno,hrTimeLeaveRecord.DocuDate,hrTimeLeaveRecord.LeaveRemark,emPerson.Title,
-        emPerson.FirstName,emPerson.LastName 
-        FROM hrTimeLeaveRecord ,emEmployee,emPerson 
-        WHERE hrTimeLeaveRecord.EmpID = emEmployee.EmpID 
-        AND hrTimeLeaveRecord.Docuno = '".$text."' 
-        AND emPerson.PersonID = emEmployee.PersonID";
-        $result = mysqli_query($link, $sql);
-        $str = "";
-        if (mysqli_num_rows($result) > 0)
-        {
-            while($row = mysqli_fetch_assoc($result))
-            {
-                  $B = substr($row['DocuDate'],0, 10);
-                  $str = "Date ".$B." ".$row['Title']." ".$row['FirstName']." Remake ".$row['LeaveRemark'];
-            } 
-        }
-        
-        $actions = array(
-            new MessageTemplateActionBuilder("Approved", "Y".$text.""),
-            new MessageTemplateActionBuilder("Not Approved", "N".$text.""),
-            new MessageTemplateActionBuilder("Cancel", "Cancel")
-
-         );
-
-        $img_url = "https://www.prosofthcm.com/upload/5934/5d1apZw0Oh.jpg";
-        $button = new ButtonTemplateBuilder("lease select an item", $str , $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Approved", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-      $link->close();
-    }
-
-
-    public function MNGApprovedDeputiENG($replyToken = null,$userId)
-    {
-        $link = ConnectDatabase();
-        $MenuID = 'c12ee3e6-56e5-4824-a5e3-147add72ce3c';
-        $sqls = "SELECT emGrantApprove.GrantApproveID AS GrantID 
-                FROM emGrantApprove,emLineuserconnect 
-                WHERE emGrantApprove.ApproverID = emLineuserconnect.EmpID
-                AND emLineuserconnect.UserID = '".$userId."' ";
-                $results = mysqli_query($link, $sqls);
-                if (mysqli_num_rows($results) > 0) 
-                {
-                    while($row = mysqli_fetch_assoc($results)) 
-                    {
-                        $sql1 = "SELECT Record.Docuno 
-                                FROM hrTimeLeaveRecord AS Record , emGrantApprove AS GrantApp
-                                LEFT JOIN emDeputizeApprove AS Deputi ON Deputi.DeputizeGrantApproveID = GrantApp.GrantApproveID
-                                AND Deputi.IsDeleted =0 
-                                AND Deputi.MenuID = '".$MenuID."'
-                                AND CONVERT(Deputi.StartDate,DATE) <= CONVERT(curdate(),DATE)            
-                                AND CONVERT(Deputi.EndDate,DATE) >= CONVERT(curdate(),DATE)
-                                WHERE  Record.ApproveStatus = 'W' 
-                                AND Record.IsDeleted = 0
-                                AND Deputi.DeputizeGrantApproveID = '".$row['GrantID']."'
-                                AND GrantApp.MenuID =  '".$MenuID."'
-                                GROUP BY Record.Docuno";
-                                $result1 = mysqli_query($link, $sql1);
-                                $arr = [];
-                                if (mysqli_num_rows($result1) > 0)
-                                {
-                                    while($row1 = mysqli_fetch_assoc($result1))
-                                    {
-                                        array_push($arr,new MessageTemplateActionBuilder("".$row1['Docuno']."", "".$row1['Docuno']."")); 
-                                            
-                                    }
-                                }
-                    }
-                }
-
-         $actions = $arr;
-
-    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
-        $button = new ButtonTemplateBuilder("เอกสารขออนุมัติลา", "กรุณาเลือกเอกสารขออนุมัติลา", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Document No", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-      $link->close();
-    }
-
-
-    public function MNGApprovedENG($replyToken = null,$userId)
-    {
-        $link = ConnectDatabase();
-        $MenuID = 'c12ee3e6-56e5-4824-a5e3-147add72ce3c';
-        $sqls = "SELECT emGrantApprove.GrantApproveID AS GrantID 
-                FROM emGrantApprove,emLineuserconnect 
-                WHERE emGrantApprove.ApproverID = emLineuserconnect.EmpID
-                AND emLineuserconnect.UserID = '".$userId."' ";
-                $results = mysqli_query($link, $sqls);
-                if (mysqli_num_rows($results) > 0) 
-                {
-                    while($row = mysqli_fetch_assoc($results)) 
-                    {
-                        $sql1 = "SELECT Record.Docuno
-                                FROM hrTimeLeaveRecord AS Record 
-                                LEFT JOIN emEmpApproved AS empApp ON empApp.EmpID = Record.EmpID
-                                LEFT JOIN emGrantApprove AS empGrant ON empGrant.GrantApproveID = empApp.GrantApproveID
-                                WHERE empApp.GrantApproveID = '".$row['GrantID']."'
-                                AND Record.ApproveStatus = 'W'";
-                                $result1 = mysqli_query($link, $sql1);
-                                $arr = [];
-                                if (mysqli_num_rows($result1) > 0)
-                                {
-                                    while($row1 = mysqli_fetch_assoc($result1))
-                                    {
-                                        array_push($arr,new MessageTemplateActionBuilder("".$row1['Docuno']."", "".$row1['Docuno']."")); 
-                                            
-                                    }
-                                }
-                    }
-                }
-
-     $actions = $arr;
-
-    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
-        $button = new ButtonTemplateBuilder("Document on leave", "Please select an item.", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Document No", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-      $link->close();
-    }
-
-    public function SendApprovedENG($replyToken = null)
-    {
-        $actions = array(
-            new MessageTemplateActionBuilder("Sick leave", "L-001"),
-            new MessageTemplateActionBuilder("Errand leave", "L-002"),
-            new MessageTemplateActionBuilder("Holiday leave", "L-003"),
-            new MessageTemplateActionBuilder("Cancel", "Cancel"),
-
-    );
-    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
-        $button = new ButtonTemplateBuilder("Type of leave", "Please select an item.", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Type Approved", $button);
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-          'replyToken' => $replyToken,
-          'messages'   => $outputText->buildMessage(),
-      ]);
-    }
-
-
-    public static function verify($access_token)
-    {
-        $ch = curl_init('https://api.line.me/v1/oauth/verify');
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [ 'Authorization: Bearer ' . $access_token ]);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        $result = curl_exec($ch);
-        curl_close($ch);
-        return json_decode($result);
-    }
-
-    public function showlistleave($replyToken = null, $message = null)
-    {
-        $actions = array(
-            New MessageTemplateActionBuilder("กลับเมนูหลัก", "กลับเมนูหลัก"),
-            New MessageTemplateActionBuilder("ย้อนกลับ", "ย้อนกลับ")
-          );
-
-        $messageBuilder = new TextMessageBuilder($message);
-        $button  = new ConfirmTemplateBuilder("เมนู" , $actions);
-        $outputText = new TemplateMessageBuilder("confim message", $button);
-
-        $multiMessage = new MultiMessageBuilder;
-        $multiMessage->add($messageBuilder);
-        $multiMessage->add($outputText);
-        $reply = $multiMessage;
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $reply->buildMessage(),
-        ]);
-    }
-
-    public function showapprove($replyToken = null, $message = null)
-    {
-        $actions = array(
-            new MessageTemplateActionBuilder("ลงชื่อเข้างาน", "ลงชื่อเข้างาน"),
-            new MessageTemplateActionBuilder("ขอลา/อนุมัติเอกสาร", "ขอลา/อนุมัติเอกสาร"),
-            new MessageTemplateActionBuilder("ตั้งค่า", "ตั้งค่า")
         );
 
-        $button  = new ConfirmTemplateBuilder("เมนู" , $actions);
-        $outputText = new TemplateMessageBuilder("confim message", $button);
-        $messageBuilder = new TextMessageBuilder($message);
-
-        $multiMessage = new MultiMessageBuilder;
-        $multiMessage->add($messageBuilder);
-        $multiMessage->add($outputText);
-        $reply = $multiMessage;
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $reply->buildMessage(),
-        ]);
-    }
-
-    public function testtt($replyToken = null, $userId, $message = null)
-    {
-        $actions = array(
-            new MessageTemplateActionBuilder("ลงชื่อเข้างาน", "ลงชื่อเข้างาน"),
-            new MessageTemplateActionBuilder("ขอลา/อนุมัติเอกสาร", "ขอลา/อนุมัติเอกสาร"),
-            new MessageTemplateActionBuilder("ตั้งค่า", "ตั้งค่า")
-        );
-
-        $messageBuilder = new TextMessageBuilder($message);
-        $button  = new ConfirmTemplateBuilder("เมนู" , $actions);
-        $outputText = new TemplateMessageBuilder("confim message", $button);
-
-        $multiMessage = new MultiMessageBuilder;
-        $multiMessage->add($messageBuilder);
-        $multiMessage->add($outputText);
-        $reply = $multiMessage;
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $reply->buildMessage(),
-        ]);
-    }
+    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
+    $button = new ButtonTemplateBuilder("ประเภทการลา", $Text."เลือกประเภทการลา", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Type Approved", $button);
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+      'replyToken' => $replyToken,
+      'messages'   => $outputText->buildMessage(),
+  ]);
+}
 
 }
+?>
