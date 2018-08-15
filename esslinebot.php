@@ -7,45 +7,33 @@ $access_token  = 'mDXYsTvt05NiOjLkB4i0sSBL+u67LR/F0+xsdo4gzX3ApRhwnzZm+OHuMRpU8r
 
 
 $bot = new BOT_API($channelSecret, $access_token);
-//$idnews = $_POST['txtNews'];
-
-/*
-if(!empty($idnews)){
-
-    $str = NEWS($idnews);
-    
-    $arr = SendUserID();
-    $iCount = count($arr);
-    for ($i = 0; $i<$iCount; $i++) {
-        $bot->sendMessageNew($arr[$i],$str);
+// แปลงข้อความรูปแบบ JSON  ให้อยู่ในโครงสร้างตัวแปร array
+if(!is_null($events)){
+    // ถ้ามีค่า สร้างตัวแปรเก็บ replyToken ไว้ใช้งาน
+    $typeMessage = $events['events'][0]['message']['type'];
+    $userMessage = $events['events'][0]['message']['text'];
+    switch ($typeMessage){
+        case 'text':
+            switch ($userMessage) {
+                case "A":
+                    $textReplyMessage = "คุณพิมพ์ A";
+                    break;
+                case "B":
+                    $textReplyMessage = "คุณพิมพ์ B";
+                    break;
+                default:
+                    $textReplyMessage = " คุณไม่ได้พิมพ์ A และ B";
+                    break;                                      
+            }
+            break;
+        default:
+            $textReplyMessage = json_encode($events);
+            break;  
     }
-// return echo "success";
 }
-*/
-//$bot->replyMessageNew($replyToken,'Hello!');
-if (!empty($bot->isEvents)) {
-    if($bot->text == "im")
-    {
-        $imageMapUrl = 'http://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar';
-        $replyData = new ImagemapMessageBuilder(
-            $imageMapUrl,
-            'This is Title',
-            new BaseSizeBuilder(699,1040),
-            array(
-                new ImagemapMessageActionBuilder(
-                    'test image map',
-                    new AreaBuilder(0,0,520,699)
-                    ),
-                new ImagemapUriActionBuilder(
-                    'http://www.ninenik.com',
-                    new AreaBuilder(520,0,520,699)
-                    )
-            ));  
-       $bot->replyMessage($replyToken,$replyData);
-    }else{
-        $bot->replyMessageNew($replyToken,'Hello!');
-    }
-}else{
-    $bot->replyMessageNew($replyToken,'Hello!');
-}
+// ส่วนของคำสั่งจัดเตียมรูปแบบข้อความสำหรับส่ง
+$textMessageBuilder = new TextMessageBuilder($textReplyMessage);
+ 
+//l ส่วนของคำสั่งตอบกลับข้อความ
+$response = $bot->replyMessage($replyToken,$textMessageBuilder);
 ?>
