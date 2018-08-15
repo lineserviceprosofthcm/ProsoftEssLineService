@@ -7,33 +7,75 @@ $access_token  = 'mDXYsTvt05NiOjLkB4i0sSBL+u67LR/F0+xsdo4gzX3ApRhwnzZm+OHuMRpU8r
 
 
 $bot = new BOT_API($channelSecret, $access_token);
-// แปลงข้อความรูปแบบ JSON  ให้อยู่ในโครงสร้างตัวแปร array
-if(!is_null($events)){
-    // ถ้ามีค่า สร้างตัวแปรเก็บ replyToken ไว้ใช้งาน
-    $typeMessage = $events['events'][0]['message']['type'];
-    $userMessage = $events['events'][0]['message']['text'];
-    switch ($typeMessage){
-        case 'text':
-            switch ($userMessage) {
-                case "A":
-                    $textReplyMessage = "คุณพิมพ์ A";
-                    break;
-                case "B":
-                    $textReplyMessage = "คุณพิมพ์ B";
-                    break;
-                default:
-                    $textReplyMessage = " คุณไม่ได้พิมพ์ A และ B";
-                    break;                                      
-            }
-            break;
-        default:
-            $textReplyMessage = json_encode($events);
-            break;  
+$idnews = $_POST['txtNews'];
+
+
+if(!empty($idnews)){
+
+    $str = NEWS($idnews);
+    
+    $arr = SendUserID();
+    $iCount = count($arr);
+    for ($i = 0; $i<$iCount; $i++) {
+        $bot->sendMessageNew($arr[$i],$str);
     }
+// return echo "success";
 }
-// ส่วนของคำสั่งจัดเตียมรูปแบบข้อความสำหรับส่ง
-$textMessageBuilder = new TextMessageBuilder($textReplyMessage);
- 
-//l ส่วนของคำสั่งตอบกลับข้อความ
-$response = $bot->replyMessage($replyToken,$textMessageBuilder);
+
+if (!empty($bot->isEvents)) {
+    if($bot->text == "im")
+    {
+        
+        $bot->ApproveCenter($bot->replyToken,$bot->userId);
+    }
+/*
+    if($bot->text == "ApproveCenter")
+    {
+        $bot->ApproveCenter($bot->replyToken,$bot->userId);
+    }
+    elseif($bot->text == "TimeAttendance")
+    {
+        $bot->TimeAttendance($bot->replyToken,$bot->userId);
+    }
+    elseif($bot->text == "Payroll")
+    {
+        $bot->Payroll($bot->replyToken);
+    }
+    elseif($bot->text == "Organization")
+    {
+        $bot->Organization($bot->replyToken);
+    }
+    elseif($bot->text == "Setting")
+    {
+        $bot->Setting($bot->replyToken,$bot->userId);
+    }
+    elseif($bot->text == "Language")
+    {
+        $bot->SendLanguage($bot->replyToken,$bot->userId);
+    }
+    elseif($bot->text == "AboutUs")
+    {
+        $bot->AboutUs($bot->replyToken);
+    }
+    elseif($bot->text == "Leave")
+    {
+        $bot->SendLeaveType($bot->replyToken);
+    }
+    else
+    {
+    $bot->replyMessageNew($bot->replyToken,"ไม่มีรายการที่เลือก");
+    }
+    */
+    $bot->replyMessageNew($bot->replyToken, print "<html><body><div class='alert alert-danger' role='alert'>Failed to add data</div></body></html>");
+}
+
+if ($bot->isSuccess()) 
+{
+  echo 'Succeeded!';
+  exit();
+}
+
+// Failed
+echo $bot->response->getHTTPStatus . ' ' . $bot->response->getRawBody();
+exit();
 ?>
