@@ -57,7 +57,7 @@ if (!empty($bot->isEvents)) {
                 $imgUri,
                 $imgMessage
             ]);
-            $bot->replyMessageNew($bot->$replyToken,$replyData);
+            $bot->replyMessageNew($bot->$replyToken,'image map try');
         }
         catch{
             $bot->replyMessageNew($bot->replyToken, $imageMapUrl);
