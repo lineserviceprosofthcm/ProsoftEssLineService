@@ -23,47 +23,9 @@ if(!empty($idnews)){
 }
 
 if (!empty($bot->isEvents)) {
-/*
-    if($bot->text == "ApproveCenter")
-    {
-        $bot->ApproveCenter($bot->replyToken,$bot->userId);
-    }
-    elseif($bot->text == "TimeAttendance")
-    {
-        $bot->TimeAttendance($bot->replyToken,$bot->userId);
-    }
-    elseif($bot->text == "Payroll")
-    {
-        $bot->Payroll($bot->replyToken);
-    }
-    elseif($bot->text == "Organization")
-    {
-        $bot->Organization($bot->replyToken);
-    }
-    elseif($bot->text == "Setting")
-    {
-        $bot->Setting($bot->replyToken,$bot->userId);
-    }
-    elseif($bot->text == "Language")
-    {
-        $bot->SendLanguage($bot->replyToken,$bot->userId);
-    }
-    elseif($bot->text == "AboutUs")
-    {
-        $bot->AboutUs($bot->replyToken);
-    }
-    elseif($bot->text == "Leave")
-    {
-        $bot->SendLeaveType($bot->replyToken);
-    }
-    else
-    {
-    $bot->replyMessageNew($bot->replyToken,"ไม่มีรายการที่เลือก");
-    }
-    */
     $imageMapUrl = 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar.png?_ignored=';
     $bot->replyMessageNew($bot->$replyToken,$imageMapUrl);
-    $replyData = new ImagemapMessageBuilder(
+    /*$replyData = new ImagemapMessageBuilder(
         $imageMapUrl,
         'This is Title',
         new BaseSizeBuilder(200,300),
@@ -78,7 +40,7 @@ if (!empty($bot->isEvents)) {
                 )
         )); 
     //$bot->replyMessageNew($bot->replyToken, 'test image map');
-    $bot->replyMessageNew($bot->$replyToken,$replyData);
+    $bot->replyMessageNew($bot->$replyToken,$replyData);*/
 }
 
 if ($bot->isSuccess()) 
