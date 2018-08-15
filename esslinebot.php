@@ -23,42 +23,23 @@ if(!empty($idnews)){
 }
 
 if (!empty($bot->isEvents)) {
-    $imageMapUrl = 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar.png/300';
-    /*
-    $replyData = new ImagemapMessageBuilder(
-        $imageMapUrl,
-        'This is Title',
-        new BaseSizeBuilder(200,300),
-        array(
-            new \LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder(
-                'test image map',
-                new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,0,120,200)
-                ),
-            new \LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder(
-                'https://www.ninenik.com',
-                new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(120,0,120,200)
-                )
-        )); 
-        */
+    $imageMapUrl = 'https://hcmdemo.prosoft.co.th/Content/Setup/Images/OrgUnitType.png/300';
         try {
-            $bot->replyMessageNew($bot->$replyToken,'image map try');
-            $imgUri = new \LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder(
-                'https://www.ninenik.com',
-                new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,0,300,120)
-            );
-            $imgMessage = new \LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder(
-                'Some Tag Line',
-                new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,120,300,120)
-            );
-            $replyData = new \LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder(
+            $replyData = new ImagemapMessageBuilder(
                 $imageMapUrl,
-                'Text to be displayed',
-            $baseSizeBuilder,
-            [
-                $imgUri,
-                $imgMessage
-            ]);
-
+                'This is Title',
+                new BaseSizeBuilder(200,300),
+                array(
+                    new ImagemapMessageActionBuilder(
+                        'test image map',
+                        new AreaBuilder(0,0,120,300)
+                        ),
+                    new ImagemapUriActionBuilder(
+                        'https://www.ninenik.com',
+                        new AreaBuilder(120,0,120,300)
+                        )
+                )); 
+            $bot->replyMessageNew($bot->$replyToken,'image map try');
         }
         catch{
             $bot->replyMessageNew($bot->replyToken, $imageMapUrl);
