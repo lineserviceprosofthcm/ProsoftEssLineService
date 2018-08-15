@@ -23,7 +23,7 @@ if(!empty($idnews)){
 }
 
 if (!empty($bot->isEvents)) {
-    switch($bot->text){
+    /*switch($bot->text){
         case:'ApproveCenter'
             $bot->ApproveCenter($bot->replyToken,$bot->userId);
         break;
@@ -51,17 +51,63 @@ if (!empty($bot->isEvents)) {
         default:
             $bot->replyMessageNew($bot->replyToken,"ไม่มีรายการที่เลือก");
         break;
+    }*/
+    //$bot->replyMessageNew($bot->replyToken, $bot->response);
+    var postData = {
+        "replyToken": $bot->replyToken,
+        "messages": [{
+          "type": "imagemap",
+          "baseUrl": "https://www.prosofthcm.com/upload/5934/eo3hrcpDoM.png",
+          "altText": "this is an imagemap",
+          "baseSize": {
+            "height": 300,
+            "width": 300
+          },
+          "actions": [{
+              "type": "uri",
+              "linkUri": "https://www.google.co.jp",
+              "area": {
+                "x": 0,
+                "y": 0,
+                "width": 300,
+                "height": 100
+              }
+            },
+            {
+              "type": "uri",
+              "linkUri": "https://translate.google.co.jp",
+              "area": {
+                "x": 0,
+                "y": 100,
+                "width": 100,
+                "height": 100
+              }
+            },
+            {
+              "type": "uri",
+              "linkUri": "https://www.google.co.jp/maps",
+              "area": {
+                "x": 100,
+                "y": 100,
+                "width": 100,
+                "height": 100
+              }
+            }
+          ]
+        }]
+      };
     }
-    $bot->replyMessageNew($bot->replyToken, $bot->response);
-}
-
-if ($bot->isSuccess()) 
-{
-  echo 'Succeeded!';
-  exit();
+    var options = {
+      "method": "post",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + $access_token
+      },
+      "payload": JSON.stringify(postData)
+    };
+    UrlFetchApp.fetch("https://api.line.me/v2/bot/message/reply", options);
 }
 
 // Failed
 echo $bot->response->getHTTPStatus . ' ' . $bot->response->getRawBody();
-exit();
 ?>
