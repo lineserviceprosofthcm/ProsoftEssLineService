@@ -23,11 +23,6 @@ if(!empty($idnews)){
 }
 
 if (!empty($bot->isEvents)) {
-    if($bot->text == "im")
-    {
-        
-        $bot->ApproveCenter($bot->replyToken,$bot->userId);
-    }
 /*
     if($bot->text == "ApproveCenter")
     {
@@ -66,7 +61,7 @@ if (!empty($bot->isEvents)) {
     $bot->replyMessageNew($bot->replyToken,"ไม่มีรายการที่เลือก");
     }
     */
-    $bot->replyMessageNew($bot->replyToken, print "<html><body><div class='alert alert-danger' role='alert'>Failed to add data</div></body></html>");
+    $bot->replyMessageNew($bot->replyToken, 'test image map');
 }
 
 if ($bot->isSuccess()) 
