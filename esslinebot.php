@@ -23,32 +23,54 @@ if(!empty($idnews)){
 }
 
 if (!empty($bot->isEvents)) {
-    $imageMapUrl = 'http://hcmdemo.prosoft.co.th/Content/Setup/Images/OrgUnitType.png';
-        try {
-            /*
-            $replyData = new ImagemapMessageBuilder(
-                $imageMapUrl,
-                'This is Title',
-                new BaseSizeBuilder(200,300),
-                array(
-                    new ImagemapMessageActionBuilder(
-                        'test image map',
-                        new AreaBuilder(0,0,120,300)
-                        ),
-                    new ImagemapUriActionBuilder(
-                        'https://www.ninenik.com',
-                        new AreaBuilder(120,0,120,300)
-                        )
-                )); 
-*/
-                $picFullSize = 'http://hcmdemo.prosoft.co.th/Content/Setup/Images/OrgUnitType.png';
-                    $picThumbnail = 'http://hcmdemo.prosoft.co.th/Content/Setup/Images/OrgUnitType.png/240';
-                    $replyData = new ImageMessageBuilder($picFullSize,$picThumbnail);
-            $bot->replyMessageNew($bot->$replyToken,$replyData);
-        }
-        catch{
-            $bot->replyMessageNew($bot->replyToken, $imageMapUrl);
-        }
+    switch($bot->text){
+        case:'ApproveCenter'
+            $bot->ApproveCenter($bot->replyToken,$bot->userId);
+        break;
+        case:'TimeAttendance'
+            $bot->TimeAttendance($bot->replyToken,$bot->userId);
+        break;
+        case:'Payroll'
+            $bot->Payroll($bot->replyToken;
+        break;
+        case:'Organization'
+            $bot->Organization($bot->replyToken);
+        break;
+        case:'Setting'
+            $bot->Setting($bot->replyToken,$bot->userId);
+        break;
+        case:'Language'
+            $bot->Language($bot->replyToken,$bot->userId);
+        break;
+        case:'AboutUs'
+            $bot->AboutUs($bot->replyToken);
+        break;
+        case:'Leave'
+            $bot->SendLeaveType($bot->replyToken);
+        break;
+        default:
+            $bot->replyMessageNew($bot->replyToken,"ไม่มีรายการที่เลือก");
+        break;
+    }
+    /*
+    $imageMapUrl = 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar.png?_ignored=';
+    $replyData = new ImagemapMessageBuilder(
+        $imageMapUrl,
+        'This is Title',
+        new BaseSizeBuilder(200,300),
+        array(
+            new \LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder(
+                'test image map',
+                new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,0,120,200)
+                ),
+            new ImagemapUriActionBuilder(
+                'https://www.ninenik.com',
+                new AreaBuilder(120,0,120,200)
+                )
+        )); 
+        */
+    //$bot->replyMessageNew($bot->replyToken, 'test image map');
+    //$bot->replyMessage($replyToken,$replyData);
 }
 
 if ($bot->isSuccess()) 
