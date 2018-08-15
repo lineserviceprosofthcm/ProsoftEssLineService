@@ -62,7 +62,7 @@ if (!empty($bot->isEvents)) {
     }
     */
     $imageMapUrl = 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar.png?_ignored=';
-    $bot->replyMessage($replyToken,$imageMapUrl);
+    $bot->replyMessageNew($bot->$replyToken,$imageMapUrl);
     $replyData = new ImagemapMessageBuilder(
         $imageMapUrl,
         'This is Title',
@@ -78,7 +78,7 @@ if (!empty($bot->isEvents)) {
                 )
         )); 
     //$bot->replyMessageNew($bot->replyToken, 'test image map');
-    $bot->replyMessage($replyToken,$replyData);
+    $bot->replyMessageNew($bot->$replyToken,$replyData);
 }
 
 if ($bot->isSuccess()) 
