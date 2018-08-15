@@ -41,6 +41,7 @@ if (!empty($bot->isEvents)) {
         )); 
         */
         try {
+            $bot->replyMessageNew($bot->$replyToken,'image map try');
             $imgUri = new \LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder(
                 'https://www.ninenik.com',
                 new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,0,300,120)
@@ -57,7 +58,7 @@ if (!empty($bot->isEvents)) {
                 $imgUri,
                 $imgMessage
             ]);
-            $bot->replyMessageNew($bot->$replyToken,'image map try');
+
         }
         catch{
             $bot->replyMessageNew($bot->replyToken, $imageMapUrl);
