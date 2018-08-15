@@ -62,18 +62,19 @@ if (!empty($bot->isEvents)) {
     }
     */
     $imageMapUrl = 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar.png?_ignored=';
+    $bot->replyMessage($replyToken,$imageMapUrl);
     $replyData = new ImagemapMessageBuilder(
         $imageMapUrl,
         'This is Title',
         new BaseSizeBuilder(200,300),
         array(
-            new ImagemapMessageActionBuilder(
+            new \LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder(
                 'test image map',
-                new AreaBuilder(0,0,120,200)
+                new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,0,120,200)
                 ),
-            new ImagemapUriActionBuilder(
+            new \LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder(
                 'https://www.ninenik.com',
-                new AreaBuilder(120,0,120,200)
+                new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(120,0,120,200)
                 )
         )); 
     //$bot->replyMessageNew($bot->replyToken, 'test image map');
