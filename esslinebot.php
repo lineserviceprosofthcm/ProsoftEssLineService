@@ -40,7 +40,7 @@ if (!empty($bot->isEvents)) {
                 )
         )); 
         */
-    $bot->replyMessageNew($bot->replyToken, 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar.png?_ignored=');
+    $bot->replyMessageNew($bot->replyToken, $imageMapUrl);
     //$bot->replyMessageNew($bot->$replyToken,$replyData);
 }
 
