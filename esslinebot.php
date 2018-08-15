@@ -40,26 +40,28 @@ if (!empty($bot->isEvents)) {
                 )
         )); 
         */
-    $imgUri = new \LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder(
-        'https://www.ninenik.com',
-        new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,0,300,120)
-    );
-    $imgMessage = new \LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder(
-        'Some Tag Line',
-        new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,120,300,120)
-    );
-    $replyData = new \LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder(
-        $imageMapUrl,
-        'Text to be displayed',
-    $baseSizeBuilder,
-    [
-        $imgUri,
-        $imgMessage
-    ]);
-
-//$response = $bot->replyMessage($event->getReplyToken(), $ImageMapMessageBuilder);
-    //$bot->replyMessageNew($bot->replyToken, $imageMapUrl);
-    $bot->replyMessageNew($bot->$replyToken,$replyData);
+        try {
+            $imgUri = new \LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder(
+                'https://www.ninenik.com',
+                new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,0,300,120)
+            );
+            $imgMessage = new \LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder(
+                'Some Tag Line',
+                new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,120,300,120)
+            );
+            $replyData = new \LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder(
+                $imageMapUrl,
+                'Text to be displayed',
+            $baseSizeBuilder,
+            [
+                $imgUri,
+                $imgMessage
+            ]);
+            $bot->replyMessageNew($bot->$replyToken,$replyData);
+        }
+        catch{
+            $bot->replyMessageNew($bot->replyToken, $imageMapUrl);
+        }
 }
 
 if ($bot->isSuccess()) 
