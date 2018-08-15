@@ -24,7 +24,7 @@ if(!empty($idnews)){
 
 if (!empty($bot->isEvents)) {
     $imageMapUrl = 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar.png/300';
-    
+    /*
     $replyData = new ImagemapMessageBuilder(
         $imageMapUrl,
         'This is Title',
@@ -39,9 +39,27 @@ if (!empty($bot->isEvents)) {
                 new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(120,0,120,200)
                 )
         )); 
+        */
+    $imgUri = new \LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder(
+        'https://www.ninenik.com',
+        new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,0,300,120)
+    );
+    $imgMessage = new \LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder(
+        'Some Tag Line',
+        new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,120,300,120)
+    );
+    $replyData = new \LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder(
+        $imageMapUrl,
+        'Text to be displayed',
+    $baseSizeBuilder,
+    [
+        $imgUri,
+        $imgMessage
+    ]);
 
-    $bot->replyMessageNew($bot->replyToken, $imageMapUrl);
-    //$bot->replyMessageNew($bot->$replyToken,$replyData);
+//$response = $bot->replyMessage($event->getReplyToken(), $ImageMapMessageBuilder);
+    //$bot->replyMessageNew($bot->replyToken, $imageMapUrl);
+    $bot->replyMessage($bot->$replyToken,$replyData);
 }
 
 if ($bot->isSuccess()) 
