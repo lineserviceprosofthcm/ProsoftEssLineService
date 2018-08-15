@@ -24,7 +24,7 @@ if(!empty($idnews)){
 
 if (!empty($bot->isEvents)) {
     $imageMapUrl = 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar.png?_ignored=';
-    $bot->replyMessageNew($bot->$replyToken,$imageMapUrl);
+    //$bot->replyMessageNew($bot->$replyToken,$imageMapUrl);
     /*$replyData = new ImagemapMessageBuilder(
         $imageMapUrl,
         'This is Title',
@@ -39,8 +39,9 @@ if (!empty($bot->isEvents)) {
                 new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(120,0,120,200)
                 )
         )); 
-    //$bot->replyMessageNew($bot->replyToken, 'test image map');
-    $bot->replyMessageNew($bot->$replyToken,$replyData);*/
+        */
+    $bot->replyMessageNew($bot->replyToken, 'test image map');
+    //$bot->replyMessageNew($bot->$replyToken,$replyData);
 }
 
 if ($bot->isSuccess()) 
