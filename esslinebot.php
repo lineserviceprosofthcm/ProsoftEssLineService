@@ -22,8 +22,8 @@ if(!empty($idnews)){
 // return echo "success";
 }
 */
-$bot->replyMessageNew($replyToken,'Hello!');
-/*if (!empty($bot->isEvents)) {
+//$bot->replyMessageNew($replyToken,'Hello!');
+if (!empty($bot->isEvents)) {
     if($bot->text == "im")
     {
         $imageMapUrl = 'http://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar';
@@ -43,9 +43,9 @@ $bot->replyMessageNew($replyToken,'Hello!');
             ));  
        $bot->replyMessage($replyToken,$replyData);
     }else{
-        $bot->replyMessage($replyToken,'Hello!');
+        $bot->replyMessageNew($replyToken,'Hello!');
     }
 }else{
     $bot->replyMessageNew($replyToken,'Hello!');
-}*/
+}
 ?>
