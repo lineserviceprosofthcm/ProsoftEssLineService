@@ -59,7 +59,7 @@ if (!empty($bot->isEvents)) {
 
 //$response = $bot->replyMessage($event->getReplyToken(), $ImageMapMessageBuilder);
     //$bot->replyMessageNew($bot->replyToken, $imageMapUrl);
-    $bot->replyMessage($bot->$replyToken,$replyData);
+    $bot->replyMessageNew($bot->$replyToken,$replyData);
 }
 
 if ($bot->isSuccess()) 
