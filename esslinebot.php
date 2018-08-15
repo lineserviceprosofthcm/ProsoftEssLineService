@@ -52,25 +52,7 @@ if (!empty($bot->isEvents)) {
             $bot->replyMessageNew($bot->replyToken,"ไม่มีรายการที่เลือก");
         break;
     }
-    /*
-    $imageMapUrl = 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar.png?_ignored=';
-    $replyData = new ImagemapMessageBuilder(
-        $imageMapUrl,
-        'This is Title',
-        new BaseSizeBuilder(200,300),
-        array(
-            new \LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder(
-                'test image map',
-                new \LINE\LINEBot\ImagemapActionBuilder\AreaBuilder(0,0,120,200)
-                ),
-            new ImagemapUriActionBuilder(
-                'https://www.ninenik.com',
-                new AreaBuilder(120,0,120,200)
-                )
-        )); 
-        */
-    //$bot->replyMessageNew($bot->replyToken, 'test image map');
-    //$bot->replyMessage($replyToken,$replyData);
+    $bot->replyMessageNew($bot->replyToken, $bot->response);
 }
 
 if ($bot->isSuccess()) 
