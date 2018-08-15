@@ -23,7 +23,7 @@ if(!empty($idnews)){
 }
 
 if (!empty($bot->isEvents)) {
-    $imageMapUrl = 'https://hcmdemo.prosoft.co.th/Content/Setup/Images/OrgUnitType';
+    $imageMapUrl = 'https://hcmdemo.prosoft.co.th/Content/Setup/Images/OrgUnitType.png';
         try {
             /*
             $replyData = new ImagemapMessageBuilder(
@@ -41,10 +41,10 @@ if (!empty($bot->isEvents)) {
                         )
                 )); 
 */
-                //$picFullSize = 'https://www.mywebsite.com/imgsrc/photos/f/simpleflower';
-                    $picThumbnail = $imageMapUrl.'/240';
-                    $replyData = new ImageMessageBuilder($imageMapUrl,$picThumbnail);
-            $bot->replyMessageNew($bot->$replyToken,$replyData);
+                $picFullSize = 'https://hcmdemo.prosoft.co.th/Content/Setup/Images/OrgUnitType.png';
+                    $picThumbnail = 'https://hcmdemo.prosoft.co.th/Content/Setup/Images/OrgUnitType.png/240';
+                    $replyData = new ImageMessageBuilder($picFullSize,$picThumbnail);
+            $bot->replyMessageNew($bot->$replyToken,'image map try');
         }
         catch{
             $bot->replyMessageNew($bot->replyToken, $imageMapUrl);
