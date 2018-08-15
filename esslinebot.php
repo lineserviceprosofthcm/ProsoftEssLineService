@@ -23,7 +23,7 @@ if(!empty($idnews)){
 }
 
 if (!empty($bot->isEvents)) {
-    $imageMapUrl = 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar.png?_ignored=';
+    $imageMapUrl = 'https://prosoft.gotdns.com/ESS/Content/Default/Images/icon-calendar.png/300';
     //$bot->replyMessageNew($bot->$replyToken,$imageMapUrl);
     /*$replyData = new ImagemapMessageBuilder(
         $imageMapUrl,
