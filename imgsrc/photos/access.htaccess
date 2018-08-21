@@ -1,0 +1,7 @@
+Options +FollowSymLinks -MultiViews
+# Turn mod_rewrite on
+RewriteEngine On
+RewriteBase /imgsrc/photos
+RewriteRule ^([f|c|r|w|h]+)/([^/]*)/([0-9]{2,})-([0-9]{2,})$ pic.php?mode=$1&file=$2&width=$3&height=$4 [NC,L,QSA]
+RewriteRule ^([f|c|r|w|h]+)/([^/]*)/([0-9]{2,})$ pic.php?mode=$1&file=$2&width=$3 [NC,L,QSA]
+RewriteRule ^([f|c|r|w|h]+)/([^/]*) pic.php?mode=$1&file=$2 [NC,L,QSA]
