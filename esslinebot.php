@@ -54,63 +54,6 @@ if (!empty($bot->isEvents)) {
     $Language = GetLanguage($bot->userId);
     if($Language == "th-TH")
     {
-        /*if($bot->text == "Approve Center")
-        {
-            $bot->ApproveCenter($bot->replyToken,$bot->userId);
-        }
-        elseif($bot->text == "Time Attendance")
-        {
-            $bot->TimeAttendance($bot->replyToken,$bot->userId);
-        }
-        elseif($bot->text == "จำนวนวันอนุญาตลา")
-        {
-            $Text = LeaveRemainNum($bot->userId);
-            $bot->replyMessageNew($bot->replyToken,$Text);
-        }
-        elseif($bot->text == "Payroll")
-        {
-            $bot->Payroll($bot->replyToken,$bot->userId);
-        }
-        elseif($bot->text == "ขอสลิปเงินเดือน")
-        {
-            $Text = EPaySlip($bot->userId);
-            $bot->replyMessageNew($bot->replyToken,$Text);
-        }
-        elseif($bot->text == "Organization")
-        {
-            $bot->Organization($bot->replyToken,$bot->userId);
-        }
-        elseif($bot->text == "วันหยุดองค์กร")
-        {
-            $Text = calendar($bot->userId);
-            $bot->replyMessageNew($bot->replyToken,$Text);
-        }
-        elseif($bot->text == "ที่ตั้งองค์กร")
-        {
-            $Text = LocationOrganization($bot->userId);
-            $bot->LocationOrg($bot->replyToken,$Text);
-        }
-        elseif($bot->text == "Setting")
-        {
-            $bot->Setting($bot->replyToken,$bot->userId);
-        }
-        elseif($bot->text == "เปลี่ยนภาษา")
-        {
-            $bot->SendLanguage($bot->replyToken,$bot->userId);
-        }
-        elseif($bot->text == "ภาษาไทย (Thai)" || $bot->text == "ภาษาอังกฤษ (English)")
-        {   
-            $Text = ChangeLanguage($bot->userId,$bot->text);
-            $bot->replyMessageNew($bot->replyToken,$Text);
-        }
-        elseif($bot->text == "AboutUs")
-        {
-            $bot->AboutUs($bot->replyToken);
-        }
-        else
-        {
-            $bot->BOT_New($bot->replyToken,$bot->text);
-        }*/
         switch($bot->text){
             case "Approve Center":
                 $bot->ApproveCenter($bot->replyToken,$bot->userId);
@@ -118,7 +61,7 @@ if (!empty($bot->isEvents)) {
             case "Time Attendance":
                 $bot->TimeAttendance($bot->replyToken,$bot->userId);
             break;
-            case "วันอนุญาตลา":
+            case "สิทธิ์การลาและวันลาคงเหลือ":
                 $Text = LeaveRemainNum($bot->userId);
                 $bot->replyMessageNew($bot->replyToken,$Text);
             break;
@@ -164,64 +107,6 @@ if (!empty($bot->isEvents)) {
     }
     else if($Language == "en-US") //#####################################################################################
     {
-        /*if($bot->text == "Approve Center")
-        {
-            $bot->ApproveCenterEng($bot->replyToken,$bot->userId);
-        }
-        elseif($bot->text == "Time Attendance")
-        {
-            $bot->TimeAttendanceEng($bot->replyToken,$bot->userId);
-        }
-        elseif($bot->text == "Leave Remain")
-        {
-            $Text = LeaveRemainNumEng($bot->userId);
-            $bot->replyMessageNew($bot->replyToken,$Text);
-            //$bot->LeaveRemain($bot->replyToken);
-        }
-        elseif($bot->text == "Payroll")
-        {
-            $bot->PayrollEng($bot->replyToken,$bot->userId);
-        }
-        elseif($bot->text == "E-Pay Slip")
-        {
-            $Text = EPaySlip($bot->userId);
-            $bot->replyMessageNew($bot->replyToken,$Text);
-        }
-        elseif($bot->text == "Organization")
-        {
-            $bot->OrganizationEng($bot->replyToken,$bot->userId);
-        }
-        elseif($bot->text == "Calendar")
-        {
-            $Text = CalendarEng($bot->userId);
-            $bot->replyMessageNew($bot->replyToken,$Text);
-        }
-        elseif($bot->text == "Location")
-        {
-            $Text = LocationOrganization($bot->userId);
-            $bot->LocationOrg($bot->replyToken,$Text);
-        }
-        elseif($bot->text == "Setting")
-        {
-            $bot->SettingEng($bot->replyToken,$bot->userId);
-        }
-        elseif($bot->text == "Language")
-        {
-            $bot->SendLanguage($bot->replyToken,$bot->userId);
-        }
-        elseif($bot->text == "ภาษาไทย (Thai)" || $bot->text == "ภาษาอังกฤษ (English)")
-        {   
-            $Text = ChangeLanguage($bot->userId,$bot->text);
-            $bot->replyMessageNew($bot->replyToken,$Text);
-        }
-        elseif($bot->text == "AboutUs")
-        {
-            $bot->AboutUs($bot->replyToken);
-        }
-        else
-        {
-            $bot->BOT_New($bot->replyToken,$bot->text);
-        }*/
         switch($bot->text){
             case "Approve Center":
                 $bot->ApproveCenterEng($bot->replyToken,$bot->userId);
