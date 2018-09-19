@@ -3,9 +3,8 @@
 require('line-bot.php');
 include('essconnect.php');
 
-$channelSecret = '592e8df851742b42aa264f7e9e5fb26c';
-$access_token  = '8YB0v5Ltt9ENVQPRQNExtnowRfWteWwdD13Y7s4+E4pRqNGVjFwVacuauvTYUFFUvhFT8A7JOD0AOTUsYDWqXRGXa5Z1Ta3Qzb38JNSzpmB6CQmllEiHJh0SZSBkgI+EYnR0DSwWJuvwBTXe4PkMeQdB04t89/1O/w1cDnyilFU=';
-
+$channelSecret = '24b8330e076be1a325adf77ff6d0f555';
+$access_token  = 'mDXYsTvt05NiOjLkB4i0sSBL+u67LR/F0+xsdo4gzX3ApRhwnzZm+OHuMRpU8r/XGtALW0RmQoE7jXdwy3tp1CWw4Hg33idfG3RK1DU0SPL48NKxwfEZC57QdfOPFYxyTvw7qJ9le6IZ3BQWL6to8AdB04t89/1O/w1cDnyilFU=';
 $NewsHDID = $_POST['NewsHDID'];
 $News = $_POST['News'];
 $LineIDLeaveRecord = $_POST['LineIDLeaveRecord'];
