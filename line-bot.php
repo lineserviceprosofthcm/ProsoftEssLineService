@@ -63,9 +63,6 @@ class BOT_API extends LINEBot
     public $response        = null;
 
     public $userId          = null;
-    public $AppLink         = null;
-    
-
 
     /* ====================================================================================
      * Custom
@@ -197,9 +194,7 @@ public function Register($replyToken = null, $LineID){
 }
 public function ApproveCenter($replyToken = null,$LineID)
 {
-    $Link = null;
-    $files = glob('URL/*');
-    foreach($files as $file) { $Link = str_replace("URL/","",(str_replace(".txt","",$file))); }
+    $Link = AppLink();
     $actions = array(
         New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$Link."/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
         New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://lineservice.prosofthcm.com/LineService/AbstainTime/AbstainTimeInfo/".$LineID),
@@ -607,7 +602,7 @@ public function LocationMessage($replyToken = null, $text)
         ]);
     }
 }
-public function AppLink()
+function AppLink()
 {
    $Link = null;
    $files = glob('URL/*');
