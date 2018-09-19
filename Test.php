@@ -4,14 +4,15 @@
 <?php 
   
 
-function square($num)
+function square()
 {
-    return $num * $num;
+   $Link = null;
+   $files = glob('URL/*');
+   foreach($files as $file) { $Link = str_replace("URL/","",(str_replace(".txt","",$file))); }
+   return $Link;
 }
-echo square(4);   
+echo square();   
 
-
-  
 ?>
   
 </BODY>
