@@ -1,113 +1,168 @@
 <?php
 
-include('line-bot.php');
+require('line-bot.php');
+include('essconnect.php');
 
-$channelSecret = '24b8330e076be1a325adf77ff6d0f555';
-$access_token  = 'mDXYsTvt05NiOjLkB4i0sSBL+u67LR/F0+xsdo4gzX3ApRhwnzZm+OHuMRpU8r/XGtALW0RmQoE7jXdwy3tp1CWw4Hg33idfG3RK1DU0SPL48NKxwfEZC57QdfOPFYxyTvw7qJ9le6IZ3BQWL6to8AdB04t89/1O/w1cDnyilFU=';
+$channelSecret = '592e8df851742b42aa264f7e9e5fb26c';
+$access_token  = '8YB0v5Ltt9ENVQPRQNExtnowRfWteWwdD13Y7s4+E4pRqNGVjFwVacuauvTYUFFUvhFT8A7JOD0AOTUsYDWqXRGXa5Z1Ta3Qzb38JNSzpmB6CQmllEiHJh0SZSBkgI+EYnR0DSwWJuvwBTXe4PkMeQdB04t89/1O/w1cDnyilFU=';
 
-
+$NewsHDID = $_POST['NewsHDID'];
+$News = $_POST['News'];
+$LineIDLeaveRecord = $_POST['LineIDLeaveRecord'];
+$Detail = $_POST['Detail'];
+$LineID_NextApprove = $_POST['LineID_NextApprove'];
+$WaitApprove = $_POST['WaitApprove'];
+$LineID_EmpID = $_POST['LineID_EmpID'];
+$ApproveStatus = $_POST['ApproveStatus'];
 $bot = new BOT_API($channelSecret, $access_token);
-$idnews = $_POST['txtNews'];
 
 
-if(!empty($idnews)){
-
-    $str = NEWS($idnews);
-    
-    $arr = SendUserID();
+// แจ้งข่าวสาร
+if(!empty($NewsHDID)){
+    $arr = SendNewsTo($NewsHDID);
     $iCount = count($arr);
     for ($i = 0; $i<$iCount; $i++) {
-        $bot->sendMessageNew($arr[$i],$str);
+        $bot->SendMessageTo($arr[$i],$News);
     }
-// return echo "success";
+}
+
+// แจ้งเอกสารลาหาผู้อนุมัติ
+if(!empty($LineIDLeaveRecord)){
+    $bot->SendMessageApproveTo($LineIDLeaveRecord,$Detail);
+}
+
+// แจ้งเอกสารคนอนุมัติถัดไป
+if(!empty($LineID_NextApprove)){
+    $bot->SendMessageApproveTo($LineID_NextApprove ,$WaitApprove);
+}
+
+// แจ้งเอกสารหาผู้ขอลา
+if(!empty($LineID_EmpID)){
+    $bot->SendMessageToEmpRequest($LineID_EmpID ,$ApproveStatus);
 }
 
 if (!empty($bot->isEvents)) {
-    /*switch($bot->text){
-        case:'ApproveCenter'
-            $bot->ApproveCenter($bot->replyToken,$bot->userId);
-        break;
-        case:'TimeAttendance'
-            $bot->TimeAttendance($bot->replyToken,$bot->userId);
-        break;
-        case:'Payroll'
-            $bot->Payroll($bot->replyToken;
-        break;
-        case:'Organization'
-            $bot->Organization($bot->replyToken);
-        break;
-        case:'Setting'
-            $bot->Setting($bot->replyToken,$bot->userId);
-        break;
-        case:'Language'
-            $bot->Language($bot->replyToken,$bot->userId);
-        break;
-        case:'AboutUs'
-            $bot->AboutUs($bot->replyToken);
-        break;
-        case:'Leave'
-            $bot->SendLeaveType($bot->replyToken);
-        break;
-        default:
-            $bot->replyMessageNew($bot->replyToken,"ไม่มีรายการที่เลือก");
-        break;
-    }*/
-    //$bot->replyMessageNew($bot->replyToken, $bot->response);
-    var postData = {
-        "replyToken": $bot->replyToken,
-        "messages": [{
-          "type": "imagemap",
-          "baseUrl": "https://www.prosofthcm.com/upload/5934/eo3hrcpDoM.png",
-          "altText": "this is an imagemap",
-          "baseSize": {
-            "height": 300,
-            "width": 300
-          },
-          "actions": [{
-              "type": "uri",
-              "linkUri": "https://www.google.co.jp",
-              "area": {
-                "x": 0,
-                "y": 0,
-                "width": 300,
-                "height": 100
-              }
-            },
-            {
-              "type": "uri",
-              "linkUri": "https://translate.google.co.jp",
-              "area": {
-                "x": 0,
-                "y": 100,
-                "width": 100,
-                "height": 100
-              }
-            },
-            {
-              "type": "uri",
-              "linkUri": "https://www.google.co.jp/maps",
-              "area": {
-                "x": 100,
-                "y": 100,
-                "width": 100,
-                "height": 100
-              }
-            }
-          ]
-        }]
-      };
+    $Language = GetLanguage($bot->userId);
+    if($Language == "th-TH")
+    {
+        switch($bot->text){
+            case "Approve Center":
+                $bot->ApproveCenter($bot->replyToken,$bot->userId);
+            break;
+            case "Time Attendance":
+                $bot->TimeAttendance($bot->replyToken,$bot->userId);
+            break;
+            case "วันอนุญาตลา":
+                $Text = LeaveRemainNum($bot->userId);
+                $bot->replyMessageNew($bot->replyToken,$Text);
+            break;
+            case "Payroll":
+                $bot->Payroll($bot->replyToken,$bot->userId);
+            break;
+            case "ขอสลิปเงินเดือน":
+                $Text = EPaySlip($bot->userId);
+                $bot->replyMessageNew($bot->replyToken,$Text);
+            break;
+            case "Organization":
+                $bot->Organization($bot->replyToken,$bot->userId);
+            break;
+            case "วันหยุดองค์กร":
+                $Text = calendar($bot->userId);
+                $bot->replyMessageNew($bot->replyToken,$Text);
+            break;
+            case "ที่ตั้งองค์กร":
+                $Text = LocationOrganization($bot->userId);
+                $bot->LocationOrg($bot->replyToken,$Text);
+            break;
+            case "Setting":
+                $bot->Setting($bot->replyToken,$bot->userId);
+            break;
+            case "เปลี่ยนภาษา":
+                $bot->SendLanguage($bot->replyToken,$bot->userId);
+            break;
+            case "ภาษาไทย (Thai)":
+                $Text = ChangeLanguage($bot->userId,$bot->text);
+                $bot->replyMessageNew($bot->replyToken,$Text);
+            break;
+            case "ภาษาอังกฤษ (English)":
+                $Text = ChangeLanguage($bot->userId,$bot->text);
+                $bot->replyMessageNew($bot->replyToken,$Text);
+            break;
+            case "AboutUs":
+                $bot->AboutUs($bot->replyToken);
+            break;
+            default:
+                $bot->default($bot->replyToken,$bot->text);
+            break;
+        }
     }
-    var options = {
-      "method": "post",
-      "headers": {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + $access_token
-      },
-      "payload": JSON.stringify(postData)
-    };
-    UrlFetchApp.fetch("https://api.line.me/v2/bot/message/reply", options);
+    else if($Language == "en-US") //#####################################################################################
+    {
+        switch($bot->text){
+            case "Approve Center":
+                $bot->ApproveCenterEng($bot->replyToken,$bot->userId);
+            break;
+            case "Time Attendance":
+                $bot->TimeAttendanceEng($bot->replyToken,$bot->userId);
+            break;
+            case "Leave Remain":
+                $Text = LeaveRemainNumEng($bot->userId);
+                $bot->replyMessageNew($bot->replyToken,$Text);
+            break;
+            case "Payroll":
+                $bot->PayrollEng($bot->replyToken,$bot->userId);
+            break;
+            case "E-Pay Slip":
+                $Text = EPaySlip($bot->userId);
+                $bot->replyMessageNew($bot->replyToken,$Text);
+            break;
+            case "Organization":
+                $bot->OrganizationEng($bot->replyToken,$bot->userId);
+            break;
+            case "Organization Calendar":
+                $Text = CalendarEng($bot->userId);
+                $bot->replyMessageNew($bot->replyToken,$Text);
+            break;
+            case "Location of Organization":
+                $Text = LocationOrganization($bot->userId);
+                $bot->LocationOrg($bot->replyToken,$Text);
+            break;
+            case "Setting":
+                $bot->Setting($bot->replyToken,$bot->userId);
+            break;
+            case "Language":
+                $bot->SendLanguage($bot->replyToken,$bot->userId);
+            break;
+            case "ภาษาไทย (Thai)":
+                $Text = ChangeLanguage($bot->userId,$bot->text);
+                $bot->replyMessageNew($bot->replyToken,$Text);
+            break;
+            case "ภาษาอังกฤษ (English)":
+                $Text = ChangeLanguage($bot->userId,$bot->text);
+                $bot->replyMessageNew($bot->replyToken,$Text);
+            break;
+            case "AboutUs":
+                $bot->AboutUs($bot->replyToken);
+            break;
+            default:
+                $bot->default($bot->replyToken,$bot->text);
+            break;
+        }
+    }
+    else
+    {
+        $bot->SendLanguage($bot->replyToken,$bot->userId);
+    }
+}
+
+if ($bot->isSuccess()) 
+{
+  echo 'Succeeded!';
+  exit();
 }
 
 // Failed
 echo $bot->response->getHTTPStatus . ' ' . $bot->response->getRawBody();
+exit();
 ?>
+
