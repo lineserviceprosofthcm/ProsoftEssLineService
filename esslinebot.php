@@ -65,7 +65,7 @@ if (!empty($bot->isEvents)) {
                 $bot->replyMessageNew($bot->replyToken,$Text);
             break;
             case "Payroll":
-                $bot->Payroll($bot->replyToken,$bot->userId,$);
+                $bot->Payroll($bot->replyToken,$bot->userId);
             break;
             case "ขอสลิปเงินเดือน":
                 $Text = EPaySlip($bot->userId);
