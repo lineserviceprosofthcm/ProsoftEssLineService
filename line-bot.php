@@ -66,6 +66,7 @@ class BOT_API extends LINEBot
 
     public $objOpen         = null;
     public $file            = null;
+    public $LineAPIURL            = null;
 
     /* ====================================================================================
      * Custom
@@ -73,7 +74,8 @@ class BOT_API extends LINEBot
     const DEFAULT_ENDPOINT_BASE = 'https://api.line.me';
     $objOpen = null;opendir("URL");
     $file = readdir($objOpen);
-    
+    while (($file = readdir($objOpen)) !== false){ $LineAPIURL = $file; }
+
     
     public function __construct($channelSecret, $access_token)
     {
@@ -294,7 +296,7 @@ public function TimeAttendanceEng($replyToken = null, $LineID)
 public function Payroll($replyToken = null,$LineID)
 {
     $actions = array(
-        New MessageTemplateActionBuilder("ขอสลิปเงินเดือน", "ขอสลิปเงินเดือน")
+        New MessageTemplateActionBuilder("ขอสลิปเงินเดือน", $LineAPIURL)
         //New MessageTemplateActionBuilder("ขอเอกสาร 50 ทวิ", "ขอเอกสาร 50 ทวิ"),
         //New MessageTemplateActionBuilder("Works Cer.Request", "Works Cer.Request"),
         //New MessageTemplateActionBuilder("Salary Cer.Request", "Salary Cer.Request")
