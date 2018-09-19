@@ -197,8 +197,9 @@ public function Register($replyToken = null, $LineID){
 }
 public function ApproveCenter($replyToken = null,$LineID)
 {
+    $Link = AppLink();
     $actions = array(
-        New UriTemplateActionBuilder("ขออนุมัติลา", "https://".AppLink()."/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
+        New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$Link."/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
         New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://lineservice.prosofthcm.com/LineService/AbstainTime/AbstainTimeInfo/".$LineID),
         New UriTemplateActionBuilder("อนุมัติเอกสารลา", "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$LineID),
         New UriTemplateActionBuilder("อนุมัติยกเว้นรูดบัตร", "https://lineservice.prosofthcm.com/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$LineID)
