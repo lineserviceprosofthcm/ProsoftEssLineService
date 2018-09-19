@@ -247,7 +247,7 @@ public function ApproveCenterEng($replyToken = null,$LineID)
     ]);
 }
 
-public function TimeAttendance($replyToken = null, $LineID, $Link)
+public function TimeAttendance($replyToken = null, $LineID)
 {
     $actions = array(
         New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$Link."/LineService/TimeStamp/TimeStampInfo/".$LineID),
