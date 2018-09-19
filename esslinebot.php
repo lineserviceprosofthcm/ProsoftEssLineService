@@ -252,7 +252,7 @@ if (!empty($bot->isEvents)) {
                 $bot->LocationOrg($bot->replyToken,$Text);
             break;
             case "Setting":
-                $bot->Setting($bot->replyToken,$bot->userId);
+                $bot->SettingEng($bot->replyToken,$bot->userId);
             break;
             case "Language":
                 $bot->SendLanguage($bot->replyToken,$bot->userId);
