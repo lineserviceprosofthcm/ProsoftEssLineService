@@ -275,8 +275,13 @@ if (!empty($bot->isEvents)) {
     }
     else
     {
-        //$bot->SendLanguage($bot->replyToken,$bot->userId);
-        $bot->replyMessageNew($bot->replyToken,$Language."sdff".$bot->userId);
+        if($bot->text == "ภาษาไทย (Thai)"){
+            $bot->replyMessageNew($bot->replyToken,"T");
+        }else if($bot->text == "ภาษาอังกฤษ (English)"){
+            $bot->replyMessageNew($bot->replyToken,"E");
+        }else{
+        $bot->SendLanguage($bot->replyToken,$bot->userId);
+        }
     }
 }
 
