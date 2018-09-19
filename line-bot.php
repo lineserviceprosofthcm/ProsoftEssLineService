@@ -64,11 +64,17 @@ class BOT_API extends LINEBot
 
     public $userId          = null;
 
+    public $objOpen         = null;
+    public $file            = null;
+
     /* ====================================================================================
      * Custom
      * ==================================================================================== */
     const DEFAULT_ENDPOINT_BASE = 'https://api.line.me';
-
+    $objOpen = null;opendir("URL");
+    $file = readdir($objOpen);
+    
+    
     public function __construct($channelSecret, $access_token)
     {
         $this->httpClient     = new CurlHTTPClient($access_token);
