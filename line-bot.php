@@ -66,7 +66,7 @@ class BOT_API extends LINEBot
 
     public $objOpen         = null;
     public $file            = null;
-    public $LineAPIURL            = null;
+    public $LineAPIURL      = null;
 
     /* ====================================================================================
      * Custom
@@ -204,9 +204,9 @@ public function SendLanguage($replyToken = null, $LineID){
   ]);
 }
 
-public function Register($replyToken = null, $LineID){
+public function Register($replyToken = null, $LineID, $LineAPIURL){
     $actions = array(
-        New UriTemplateActionBuilder("ลงทะเบียน", "https://lineservice.prosofthcm.com/LineService/Register/RegisterInfo/".$LineID),
+        New UriTemplateActionBuilder("ลงทะเบียน", "https://".$LineAPIURL."/LineService/Register/RegisterInfo/".$LineID),
         New MessageTemplateActionBuilder("ย้อนกลับ", "ย้อนกลับ")
     );
     $button  = new ConfirmTemplateBuilder("ลงทะเบียนใช้งาน\nYou have not yet registered" , $actions);
