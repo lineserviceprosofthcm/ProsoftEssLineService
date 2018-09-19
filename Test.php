@@ -3,7 +3,7 @@
 <BODY BGCOLOR=#FFFFFF>
 <?php 
   echo "Hello World"; 
-  $files = glob('URL');
+  $files = glob('URL/*');
    foreach($files as $file) {
        echo $file;
    }
