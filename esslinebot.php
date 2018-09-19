@@ -153,7 +153,7 @@ if (!empty($bot->isEvents)) {
                         $Text = ChangeLanguage($bot->userId,$bot->text);
                         $bot->replyMessageNew($bot->replyToken,$Text);
                     break;
-                    ase "ภาษาอังกฤษ (English)":
+                    case "ภาษาอังกฤษ (English)":
                         $Text = ChangeLanguage($bot->userId,$bot->text);
                         $bot->replyMessageNew($bot->replyToken,$Text);
                     break;
