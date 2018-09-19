@@ -3,9 +3,9 @@
 <BODY BGCOLOR=#FFFFFF>
 <?php 
   echo "Hello World"; 
-  $files = glob('URL/*txt');
+  $files = glob('URL');
    foreach($files as $file) {
-       echo "filename:".$file."<br />";
+       echo $file;
    }
 
   
