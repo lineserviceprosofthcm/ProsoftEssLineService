@@ -24,27 +24,93 @@ if(!empty($NewsHDID)){
     for ($i = 0; $i<$iCount; $i++) {
         $bot->SendMessageTo($arr[$i],$News);
     }
+    //$ArrID = array("U7fb3dc484426fb164c424df09b7a42ba","U05a39ae3a619678ef4b1b58111980a79");
+    //$iCount = count($ArrID);
+    //for ($i = 0; $i<$iCount; $i++) {
+    //    $bot->SendMessageTo($ArrID[$i],$News);
+    //}
+    //$bot->SendMessageTo("U7fb3dc484426fb164c424df09b7a42ba",$News);
 }
 
 // แจ้งเอกสารลาหาผู้อนุมัติ
 if(!empty($LineIDLeaveRecord)){
     $bot->SendMessageApproveTo($LineIDLeaveRecord,$Detail);
+    //$bot->SendMessageApproveTo("U7fb3dc484426fb164c424df09b7a42ba",$Detail);
 }
 
 // แจ้งเอกสารคนอนุมัติถัดไป
 if(!empty($LineID_NextApprove)){
     $bot->SendMessageApproveTo($LineID_NextApprove ,$WaitApprove);
+    //$bot->SendMessageApproveTo("U7fb3dc484426fb164c424df09b7a42ba",$WaitApprove);
 }
 
 // แจ้งเอกสารหาผู้ขอลา
 if(!empty($LineID_EmpID)){
     $bot->SendMessageToEmpRequest($LineID_EmpID ,$ApproveStatus);
+    //$bot->SendMessageToEmpRequest("U7fb3dc484426fb164c424df09b7a42ba",$ApproveStatus);
 }
 
 if (!empty($bot->isEvents)) {
     $Language = GetLanguage($bot->userId);
     if($Language == "th-TH")
     {
+        /*if($bot->text == "Approve Center")
+        {
+            $bot->ApproveCenter($bot->replyToken,$bot->userId);
+        }
+        elseif($bot->text == "Time Attendance")
+        {
+            $bot->TimeAttendance($bot->replyToken,$bot->userId);
+        }
+        elseif($bot->text == "จำนวนวันอนุญาตลา")
+        {
+            $Text = LeaveRemainNum($bot->userId);
+            $bot->replyMessageNew($bot->replyToken,$Text);
+        }
+        elseif($bot->text == "Payroll")
+        {
+            $bot->Payroll($bot->replyToken,$bot->userId);
+        }
+        elseif($bot->text == "ขอสลิปเงินเดือน")
+        {
+            $Text = EPaySlip($bot->userId);
+            $bot->replyMessageNew($bot->replyToken,$Text);
+        }
+        elseif($bot->text == "Organization")
+        {
+            $bot->Organization($bot->replyToken,$bot->userId);
+        }
+        elseif($bot->text == "วันหยุดองค์กร")
+        {
+            $Text = calendar($bot->userId);
+            $bot->replyMessageNew($bot->replyToken,$Text);
+        }
+        elseif($bot->text == "ที่ตั้งองค์กร")
+        {
+            $Text = LocationOrganization($bot->userId);
+            $bot->LocationOrg($bot->replyToken,$Text);
+        }
+        elseif($bot->text == "Setting")
+        {
+            $bot->Setting($bot->replyToken,$bot->userId);
+        }
+        elseif($bot->text == "เปลี่ยนภาษา")
+        {
+            $bot->SendLanguage($bot->replyToken,$bot->userId);
+        }
+        elseif($bot->text == "ภาษาไทย (Thai)" || $bot->text == "ภาษาอังกฤษ (English)")
+        {   
+            $Text = ChangeLanguage($bot->userId,$bot->text);
+            $bot->replyMessageNew($bot->replyToken,$Text);
+        }
+        elseif($bot->text == "AboutUs")
+        {
+            $bot->AboutUs($bot->replyToken);
+        }
+        else
+        {
+            $bot->BOT_New($bot->replyToken,$bot->text);
+        }*/
         switch($bot->text){
             case "Approve Center":
                 $bot->ApproveCenter($bot->replyToken,$bot->userId);
@@ -92,12 +158,70 @@ if (!empty($bot->isEvents)) {
                 $bot->AboutUs($bot->replyToken);
             break;
             default:
-                $bot->default($bot->replyToken,$bot->text);
+                $bot->BOT_New($bot->replyToken,$bot->text);
             break;
         }
     }
     else if($Language == "en-US") //#####################################################################################
     {
+        /*if($bot->text == "Approve Center")
+        {
+            $bot->ApproveCenterEng($bot->replyToken,$bot->userId);
+        }
+        elseif($bot->text == "Time Attendance")
+        {
+            $bot->TimeAttendanceEng($bot->replyToken,$bot->userId);
+        }
+        elseif($bot->text == "Leave Remain")
+        {
+            $Text = LeaveRemainNumEng($bot->userId);
+            $bot->replyMessageNew($bot->replyToken,$Text);
+            //$bot->LeaveRemain($bot->replyToken);
+        }
+        elseif($bot->text == "Payroll")
+        {
+            $bot->PayrollEng($bot->replyToken,$bot->userId);
+        }
+        elseif($bot->text == "E-Pay Slip")
+        {
+            $Text = EPaySlip($bot->userId);
+            $bot->replyMessageNew($bot->replyToken,$Text);
+        }
+        elseif($bot->text == "Organization")
+        {
+            $bot->OrganizationEng($bot->replyToken,$bot->userId);
+        }
+        elseif($bot->text == "Calendar")
+        {
+            $Text = CalendarEng($bot->userId);
+            $bot->replyMessageNew($bot->replyToken,$Text);
+        }
+        elseif($bot->text == "Location")
+        {
+            $Text = LocationOrganization($bot->userId);
+            $bot->LocationOrg($bot->replyToken,$Text);
+        }
+        elseif($bot->text == "Setting")
+        {
+            $bot->SettingEng($bot->replyToken,$bot->userId);
+        }
+        elseif($bot->text == "Language")
+        {
+            $bot->SendLanguage($bot->replyToken,$bot->userId);
+        }
+        elseif($bot->text == "ภาษาไทย (Thai)" || $bot->text == "ภาษาอังกฤษ (English)")
+        {   
+            $Text = ChangeLanguage($bot->userId,$bot->text);
+            $bot->replyMessageNew($bot->replyToken,$Text);
+        }
+        elseif($bot->text == "AboutUs")
+        {
+            $bot->AboutUs($bot->replyToken);
+        }
+        else
+        {
+            $bot->BOT_New($bot->replyToken,$bot->text);
+        }*/
         switch($bot->text){
             case "Approve Center":
                 $bot->ApproveCenterEng($bot->replyToken,$bot->userId);
@@ -145,7 +269,7 @@ if (!empty($bot->isEvents)) {
                 $bot->AboutUs($bot->replyToken);
             break;
             default:
-                $bot->default($bot->replyToken,$bot->text);
+                $bot->BOT_New($bot->replyToken,$bot->text);
             break;
         }
     }
