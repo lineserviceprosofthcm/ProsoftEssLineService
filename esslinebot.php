@@ -275,12 +275,11 @@ if (!empty($bot->isEvents)) {
     }
     else
     {
-        if($bot->text == "ภาษาไทย (Thai)"){
-            $bot->replyMessageNew($bot->replyToken,"T");
-        }else if($bot->text == "ภาษาอังกฤษ (English)"){
-            $bot->replyMessageNew($bot->replyToken,"E");
+        if($bot->text == "ภาษาไทย (Thai)" || $bot->text == "ภาษาอังกฤษ (English)"){
+            $Text = ChangeLanguage($bot->userId,$bot->text);
+            $bot->replyMessageNew($bot->replyToken,$Text);
         }else{
-        $bot->SendLanguage($bot->replyToken,$bot->userId);
+            $bot->SendLanguage($bot->replyToken,$bot->userId);
         }
     }
 }
