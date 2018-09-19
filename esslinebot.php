@@ -15,9 +15,9 @@ $WaitApprove = $_POST['WaitApprove'];
 $LineID_EmpID = $_POST['LineID_EmpID'];
 $ApproveStatus = $_POST['ApproveStatus'];
 $bot = new BOT_API($channelSecret, $access_token);
-$ApiUrl = null;
-$files = glob('URL/*');
-foreach($files as $file) { $ApiUrl = $file; }
+//$ApiUrl = null;
+//$files = glob('URL/*');
+//foreach($files as $file) { $ApiUrl = $file; }
 
 // แจ้งข่าวสาร
 if(!empty($NewsHDID)){
@@ -61,7 +61,7 @@ if (!empty($bot->isEvents)) {
                 $bot->ApproveCenter($bot->replyToken,$bot->userId);
             break;
             case "Time Attendance":
-                $bot->TimeAttendance($bot->replyToken,$bot->userId,$ApiUrl);
+                $bot->TimeAttendance($bot->replyToken,$bot->userId);
             break;
             case "สิทธิ์การลาและวันลาคงเหลือ":
                 $Text = LeaveRemainNum($bot->userId);
