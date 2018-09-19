@@ -78,7 +78,7 @@ class BOT_API extends LINEBot
         $this->endpointBase   = LINEBot::DEFAULT_ENDPOINT_BASE;
         $this->content        = file_get_contents('php://input');
         $events               = json_decode($this->content, true);
-        $this->AppLink        = AppLink();
+        //$this->AppLink        = AppLink();
         if (!empty($events['events'])) {
             $this->isEvents = true;
             $this->events   = $events['events'];
@@ -198,7 +198,7 @@ public function Register($replyToken = null, $LineID){
 public function ApproveCenter($replyToken = null,$LineID)
 {
     $actions = array(
-        New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$ApiLink."/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
+        New UriTemplateActionBuilder("ขออนุมัติลา", "https://".AppLink()."/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
         New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://lineservice.prosofthcm.com/LineService/AbstainTime/AbstainTimeInfo/".$LineID),
         New UriTemplateActionBuilder("อนุมัติเอกสารลา", "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$LineID),
         New UriTemplateActionBuilder("อนุมัติยกเว้นรูดบัตร", "https://lineservice.prosofthcm.com/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$LineID)
