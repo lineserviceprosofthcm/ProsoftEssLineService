@@ -197,7 +197,9 @@ public function Register($replyToken = null, $LineID){
 }
 public function ApproveCenter($replyToken = null,$LineID)
 {
-    $Link->AppLink();
+    $Link = null;
+    $files = glob('URL/*');
+    foreach($files as $file) { $Link = str_replace("URL/","",(str_replace(".txt","",$file))); }
     $actions = array(
         New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$Link."/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
         New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://lineservice.prosofthcm.com/LineService/AbstainTime/AbstainTimeInfo/".$LineID),
@@ -605,9 +607,6 @@ public function LocationMessage($replyToken = null, $text)
         ]);
     }
 }
-
-
-
 public function AppLink()
 {
    $Link = null;
