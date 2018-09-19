@@ -4,7 +4,7 @@
 <?php 
   
 
-function square()
+public function square()
 {
    $Link = null;
    $files = glob('URL/*');
