@@ -7,21 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-        public $objOpen         = null;
-        public $file            = null;
-        public $LineAPIURL      = null;
-
-   
-    
-        $objOpen = null;opendir("URL");
-        $file = readdir($objOpen);
-        while (($file = readdir($objOpen)) !== false){ $LineAPIURL = $file; }
-
-        echo $LineAPIURL;
-
-
-    ?>
     <form action="Test123.php" method="post">
         <input type="text" name="AddIDTH">
     </form>
