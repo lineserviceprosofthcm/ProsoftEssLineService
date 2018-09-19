@@ -146,7 +146,7 @@ if (!empty($bot->isEvents)) {
                     $bot->default_text($bot->replyToken,$bot->text);
                 break;
                 }
-            breakl
+            break;
         default:
                 switch($bot->text){
                     case "ภาษาไทย (Thai)":
