@@ -191,10 +191,10 @@ public function Register($replyToken = null, $LineID){
           'messages'   => $outputText->buildMessage(),
       ]);
 }
-public function ApproveCenter($replyToken = null,$LineID)
+public function ApproveCenter($replyToken = null,$LineID,$ApiLink)
 {
     $actions = array(
-        New UriTemplateActionBuilder("ขออนุมัติลา", "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
+        New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$ApiLink."/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
         New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://lineservice.prosofthcm.com/LineService/AbstainTime/AbstainTimeInfo/".$LineID),
         New UriTemplateActionBuilder("อนุมัติเอกสารลา", "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$LineID),
         New UriTemplateActionBuilder("อนุมัติยกเว้นรูดบัตร", "https://lineservice.prosofthcm.com/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$LineID)
