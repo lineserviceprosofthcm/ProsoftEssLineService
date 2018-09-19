@@ -68,20 +68,17 @@ class BOT_API extends LINEBot
     /* ====================================================================================
      * Custom
      * ==================================================================================== */
-    
+    const DEFAULT_ENDPOINT_BASE = 'https://api.line.me';
     public function __construct($channelSecret, $access_token)
     {
         $this->httpClient     = new CurlHTTPClient($access_token);
         $this->channelSecret  = $channelSecret;
         $this->endpointBase   = LINEBot::DEFAULT_ENDPOINT_BASE;
-
         $this->content        = file_get_contents('php://input');
         $events               = json_decode($this->content, true);
-
         if (!empty($events['events'])) {
             $this->isEvents = true;
             $this->events   = $events['events'];
-
             foreach ($events['events'] as $event) {
                 $this->replyToken = $event['replyToken'];
                 $this->source     = (object) $event['source'];
@@ -92,13 +89,22 @@ class BOT_API extends LINEBot
                     $this->isText = true;
                     $this->text   = $event['message']['text'];
                 }
-
+                /*if ($event['type'] == 'message' && $event['message']['type'] == 'image') {
+                    $this->isImage = true;
+                }
+                if ($event['type'] == 'message' && $event['message']['type'] == 'sticker') {
+                    $this->isSticker = true;
+                }
+                if ($event['type'] == 'message' && $event['message']['type'] == 'imagemap') {
+                    $this->isImagemap = true;
+                }
+                if ($event['type'] == 'message' && $event['message']['type'] == 'message') {
+                    $this->isMessage = true;
+                }*/
             }
         }
-
         parent::__construct($this->httpClient, [ 'channelSecret' => $channelSecret ]);
     }
-
 public function SendMessageTo($ToLineID = null, $message = null){
     $messageBuilder = new TextMessageBuilder($message);
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
@@ -107,65 +113,32 @@ public function SendMessageTo($ToLineID = null, $message = null){
         'messages'  => $messageBuilder->buildMessage()
     ]);
 }
-
 public function SendMessageApproveTo($ToLineID = null, $message = null){
-    //$messageBuilder = new TextMessageBuilder($message);
+    $messageBuilder = new TextMessageBuilder($message);
     $Temp = new TemplateMessageBuilder('Approve Center',
         new ConfirmTemplateBuilder(
-            $message, // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
+                'Approve Center', // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
                 array(
                     new UriTemplateActionBuilder(
-                        'Go to', // ข้อความสำหรับปุ่มแรก
-                        "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        'Yes', // ข้อความสำหรับปุ่มแรก
+                        "https://lineservice.prosofthcm.com/LineService/ApproveRequest/ApproveRequestInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     ),
                     new MessageTemplateActionBuilder(
-                        'Approve', // ข้อความสำหรับปุ่มแรก
-                        "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        'No', // ข้อความสำหรับปุ่มแรก
+                        'NO' // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     )
                 )
             )
         );
-
     $multiMessage = new MultiMessageBuilder;
-    //$multiMessage->add($messageBuilder);
+    $multiMessage->add($messageBuilder);
     $multiMessage->add($Temp);
-
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
         'to' => $ToLineID,
         // 'toChannel' => 'Channel ID,
         'messages'  => $multiMessage->buildMessage()
     ]);
 }
-
-public function SendMessageToEmpRequest($ToLineID = null, $message = null){
-    //$messageBuilder = new TextMessageBuilder($message);
-    $Temp = new TemplateMessageBuilder('Approve Center',
-        new ConfirmTemplateBuilder(
-            $message, // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
-                array(
-                    new UriTemplateActionBuilder(
-                        'Go to information', // ข้อความสำหรับปุ่มแรก
-                        "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestList/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
-                    ),
-                    new UriTemplateActionBuilder(
-                        'Go to request', // ข้อความสำหรับปุ่มแรก
-                        "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestList/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
-                    )
-                )
-            )
-        );
-
-    $multiMessage = new MultiMessageBuilder;
-    //$multiMessage->add($messageBuilder);
-    $multiMessage->add($Temp);
-
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
-        'to' => $ToLineID,
-        // 'toChannel' => 'Channel ID,
-        'messages'  => $multiMessage->buildMessage()
-    ]);
-}
-
 public function replyMessageNew($replyToken = null, $message = null){
     $messageBuilder = new TextMessageBuilder($message);
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
@@ -173,29 +146,19 @@ public function replyMessageNew($replyToken = null, $message = null){
         'messages'   => $messageBuilder->buildMessage(),
     ]);
 }
-
 public function SendLanguage($replyToken = null, $LineID){
-    $img_url = "https://www.prosofthcm.com/upload/5934/LK2wVaS34N.jpg";
-        /*
+    $img_url = "https://www.prosofthcm.com/upload/5934/eo3hrcpDoM.png";
         $actions = array(
-            New UriTemplateActionBuilder("ภาษาไทย (Thai)", "https://lineservice.prosofthcm.com/LineService/Language/Language/".$LineID."/th-TH"),
-            New UriTemplateActionBuilder("ภาษาอังกฤษ (English)", "https://lineservice.prosofthcm.com/LineService/Language/Language/".$LineID."/en-US")
+            New UriTemplateActionBuilder("Thai", "https://lineservice.prosofthcm.com/LineService/Language/Language/".$LineID."/th-TH"),
+            New UriTemplateActionBuilder("English", "https://lineservice.prosofthcm.com/LineService/Language/Language/".$LineID."/en-US")
         );
-        */
-        $actions = array(
-            New MessageTemplateActionBuilder("ภาษาไทย (Thai)", "ภาษาไทย (Thai)"),
-            New MessageTemplateActionBuilder("ภาษาอังกฤษ (English)", "ภาษาอังกฤษ (English)")
-        );
-        $button = new ButtonTemplateBuilder("Language Setting","กรุณาเลือกภาษาที่ต้องการใช้งาน...\nPlease select language...", $img_url, $actions);
-        $outputText = new TemplateMessageBuilder("Language Setting", $button);
-
-
+        $button = new ButtonTemplateBuilder("Setting","กรุณาเลือกภาษาที่จะใช้\nPlease select a display language.", $img_url, $actions);
+        $outputText = new TemplateMessageBuilder("Setting Language", $button);
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
       'replyToken' => $replyToken,
       'messages'   => $outputText->buildMessage(),
   ]);
 }
-
 public function Register($replyToken = null, $LineID){
     $actions = array(
         New UriTemplateActionBuilder("ลงทะเบียน", "https://lineservice.prosofthcm.com/LineService/Register/RegisterInfo/".$LineID),
@@ -208,53 +171,30 @@ public function Register($replyToken = null, $LineID){
           'messages'   => $outputText->buildMessage(),
       ]);
 }
-
 public function ApproveCenter($replyToken = null,$LineID)
 {
     $actions = array(
-        New UriTemplateActionBuilder("ขออนุมัติลา", "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
-        New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://lineservice.prosofthcm.com/LineService/AbstainTime/AbstainTimeInfo/".$LineID),
-        New UriTemplateActionBuilder("อนุมัติเอกสารลา", "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$LineID),
-        New UriTemplateActionBuilder("อนุมัติยกเว้นรูดบัตร", "https://lineservice.prosofthcm.com/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$LineID)
-        );
-
-    $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
-    $button  = new ButtonTemplateBuilder("Approve Center", "สำหรับขอ/อนุมัติเอกสารต่าง ๆ...", $img_url, $actions);
+        New UriTemplateActionBuilder("Leave Record", "https://lineservice.prosofthcm.com/LineService/Leave/LeaveInfo/".$LineID),
+        New UriTemplateActionBuilder("Approve Request", "https://lineservice.prosofthcm.com/LineService/ApproveRequest/ApproveRequestInfo/".$LineID),
+        New UriTemplateActionBuilder("Approve Abstain", "https://lineservice.prosofthcm.com/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$LineID),
+        New MessageTemplateActionBuilder("Test", "Test")
+         );
+    $img_url = "https://www.prosofthcm.com/upload/5934/tIn6U0zMf6.jpg";
+    $button  = new ButtonTemplateBuilder("Approve Center", "รายการ", $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Approve Center", $button);
-
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
         'replyToken' => $replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
 }
-
-public function ApproveCenterEng($replyToken = null,$LineID)
-{
-    $actions = array(
-        New UriTemplateActionBuilder("Leave Request", "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
-        New UriTemplateActionBuilder("Abstain Time", "https://lineservice.prosofthcm.com/LineService/AbstainTime/AbstainTimeInfo/".$LineID),
-        New UriTemplateActionBuilder("Approve Leave", "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$LineID),
-        New UriTemplateActionBuilder("Approve Abstain", "https://lineservice.prosofthcm.com/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$LineID)
-        );
-
-    $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
-    $button  = new ButtonTemplateBuilder("Approve Center", "For request or approve documents...", $img_url, $actions);
-    $outputText = new TemplateMessageBuilder("Approve Center", $button);
-
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
-        'messages'   => $outputText->buildMessage(),
-    ]);
-}
-
 public function TimeAttendance($replyToken = null, $LineID)
 {
     $actions = array(
-        New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://lineservice.prosofthcm.com/LineService/TimeStamp/TimeStampInfo/".$LineID),
-        New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://lineservice.prosofthcm.com/LineService/WorkTime/WorkTimeInfo/".$LineID),
-        New MessageTemplateActionBuilder("สิทธิ์การลา", "สิทธิ์การลา"),
-        New UriTemplateActionBuilder("ข้อมูลการขอลา", "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestList/".$LineID)
-        );
+        New UriTemplateActionBuilder("Abstain Time Stamp", "https://lineservice.prosofthcm.com/LineService/AbstainTimeStamp/AbstainInfo/".$LineID),
+        New UriTemplateActionBuilder("Leave Information", "https://lineservice.prosofthcm.com/LineService/Leave/LeaveInformation/".$LineID),
+        New MessageTemplateActionBuilder("Leave Remain", "Leave Remain"),
+        New UriTemplateActionBuilder("Time Stamp", "https://lineservice.prosofthcm.com/LineService/Location/LocationInfo/".$LineID)
+         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
     $button  = new ButtonTemplateBuilder("Time Attendence", "สำหรับจัดการข้อมูลเวลาการทำงาน...", $img_url, $actions);
