@@ -3,15 +3,13 @@
 <BODY BGCOLOR=#FFFFFF>
 <?php 
   
-public function AppLink()
+
+function square($num)
 {
-   $Link = null;
-   $files = glob('URL/*');
-   foreach($files as $file) { $Link = str_replace("URL/","",(str_replace(".txt","",$file))); }
-   return $Link;
+    return $num * $num;
 }
-  
-  echo AppLink(); 
+echo square(4);   
+
 
   
 ?>
