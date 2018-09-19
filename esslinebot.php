@@ -63,7 +63,7 @@ if (!empty($bot->isEvents)) {
             case "Time Attendance":
                 $bot->TimeAttendance($bot->replyToken,$bot->userId);
             break;
-            case "สิทธิ์การลาและวันลาคงเหลือ":
+            case "สิทธิ์การลา":
                 $Text = LeaveRemainNum($bot->userId);
                 $bot->replyMessageNew($bot->replyToken,$Text);
             break;
