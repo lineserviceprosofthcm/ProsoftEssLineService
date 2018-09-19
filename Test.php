@@ -5,8 +5,7 @@
   echo "Hello World"; 
   $files = glob('URL/*');
    foreach($files as $file) {
-       echo substr($file,-4);
-       echo str_replace("URL/,"",(str_replace(".txt","",$file)));
+       echo str_replace("URL/","",(str_replace(".txt","",$file)));
    }
 
   
