@@ -5,7 +5,7 @@
   echo "Hello World"; 
   $files = glob('URL/*');
    foreach($files as $file) {
-       echo $file;
+       echo substr($file,-4);
    }
 
   
