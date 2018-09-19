@@ -275,7 +275,8 @@ if (!empty($bot->isEvents)) {
     }
     else
     {
-        $bot->SendLanguage($bot->replyToken,$bot->userId);
+        //$bot->SendLanguage($bot->replyToken,$bot->userId);
+        $bot->replyMessageNew($bot->replyToken,$Language);
     }
 }
 
