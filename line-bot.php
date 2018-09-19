@@ -63,8 +63,6 @@ class BOT_API extends LINEBot
     public $response        = null;
 
     public $userId          = null;
-    $files = glob('URL/*');
-    foreach($files as $file) { $ApiUrl = str_replace("URL/","",(str_replace(".txt","",$file))); }
 
 
     /* ====================================================================================
