@@ -15,10 +15,6 @@ $WaitApprove = $_POST['WaitApprove'];
 $LineID_EmpID = $_POST['LineID_EmpID'];
 $ApproveStatus = $_POST['ApproveStatus'];
 $bot = new BOT_API($channelSecret, $access_token);
-$ApiLink = null;
-  $files = glob('URL/*');
-   foreach($files as $file) { $ApiLink = str_replace("URL/","",(str_replace(".txt","",$file))); }
-
 
 // แจ้งข่าวสาร
 if(!empty($NewsHDID)){
