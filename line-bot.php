@@ -64,7 +64,7 @@ class BOT_API extends LINEBot
 
     public $userId          = null;
     public $TextURL         = null;
-    $TextURL                = AppLink();
+    
 
     /* ====================================================================================
      * Custom
@@ -87,6 +87,11 @@ class BOT_API extends LINEBot
                 $this->message    = (object) $event['message'];
                 $this->timestamp  = $event['timestamp'];
                 $this->userId     = $event['source']['userId'];
+                
+                $files = glob('URL/*');
+                foreach($files as $file) { 
+                $this->TextURL    = str_replace("URL/","",(str_replace(".txt","",$file)));
+                }
                 
                 if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
                     $this->isText = true;
@@ -604,13 +609,7 @@ public function LocationMessage($replyToken = null, $text)
         ]);
     }
 }
-function AppLink()
-{
-   $Link = null;
-   $files = glob('URL/*');
-   foreach($files as $file) { $Link = str_replace("URL/","",(str_replace(".txt","",$file))); }
-   return $Link;
-}
+
 
 }
 ?>
