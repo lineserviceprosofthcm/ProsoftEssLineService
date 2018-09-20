@@ -94,6 +94,15 @@ function EPaySlip($LineID){
     return $open;
 }
 
+function Withholdingtaxcertificate($LineID){
+    
+    $url = "https://lineservice.prosofthcm.com/api/TaxCertificateRequestAPI/".$LineID;
+    $open = json_decode(file_get_contents($url), true);
+    $textsp = explode(",",$open);
+
+    return $textsp;
+}
+
 function SendNewsTo($NewsHDID){
     $url = "https://lineservice.prosofthcm.com/Api/SendNewsToLineAPI/".$NewsHDID;
     $open = json_decode(file_get_contents($url), true);
