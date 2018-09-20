@@ -220,8 +220,8 @@ public function ApproveCenterEng($bot)
     $actions = array(
         New UriTemplateActionBuilder("Leave Request", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
         New UriTemplateActionBuilder("Abstain Time", "https://".$this->TextURL."/LineService/AbstainTime/AbstainTimeInfo/".$this->userId),
-        New UriTemplateActionBuilder("Approve Leave", "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$this->userId),
-        New UriTemplateActionBuilder("Approve Abstain", "https://".$this->TextURL."/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$this->userId)
+        New UriTemplateActionBuilder("Leave Request (Approve)", "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$this->userId),
+        New UriTemplateActionBuilder("Abstain Time (Approve)", "https://".$this->TextURL."/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$this->userId)
         );
     $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
     $button  = new ButtonTemplateBuilder("Approve Center", "For request or approve documents...", $img_url, $actions);
