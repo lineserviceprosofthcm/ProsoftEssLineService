@@ -234,13 +234,13 @@ public function ApproveCenter()
     ]);
 }
 
-public function ApproveCenterEng($replyToken = null,$LineID)
+public function ApproveCenterEng()
 {
     $actions = array(
-        New UriTemplateActionBuilder("Leave Request", "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
-        New UriTemplateActionBuilder("Abstain Time", "https://lineservice.prosofthcm.com/LineService/AbstainTime/AbstainTimeInfo/".$LineID),
-        New UriTemplateActionBuilder("Approve Leave", "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$LineID),
-        New UriTemplateActionBuilder("Approve Abstain", "https://lineservice.prosofthcm.com/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$LineID)
+        New UriTemplateActionBuilder("Leave Request", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
+        New UriTemplateActionBuilder("Abstain Time", "https://".$this->TextURL."/LineService/AbstainTime/AbstainTimeInfo/".$this->userId),
+        New UriTemplateActionBuilder("Approve Leave", "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$this->userId),
+        New UriTemplateActionBuilder("Approve Abstain", "https://".$this->TextURL."/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$this->userId)
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
@@ -248,18 +248,18 @@ public function ApproveCenterEng($replyToken = null,$LineID)
     $outputText = new TemplateMessageBuilder("Approve Center", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
+        'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
 }
 
-public function TimeAttendance($replyToken = null, $LineID)
+public function TimeAttendance()
 {
     $actions = array(
-        New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://lineservice.prosofthcm.com/LineService/TimeStamp/TimeStampInfo/".$LineID),
-        New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://lineservice.prosofthcm.com/LineService/WorkTime/WorkTimeInfo/".$LineID),
+        New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),
+        New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
         New MessageTemplateActionBuilder("สิทธิ์การลา/วันลาคงเหลือ", "สิทธิ์การลา/วันลาคงเหลือ"),
-        New UriTemplateActionBuilder("ข้อมูลการขอลา", "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestList/".$LineID)
+        New UriTemplateActionBuilder("ข้อมูลการขอลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$this->userId)
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
@@ -267,7 +267,7 @@ public function TimeAttendance($replyToken = null, $LineID)
     $outputText = new TemplateMessageBuilder("Time Attendence", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
+        'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
 }
@@ -275,10 +275,10 @@ public function TimeAttendance($replyToken = null, $LineID)
 public function TimeAttendanceEng($replyToken = null, $LineID)
 {
     $actions = array(
-        New UriTemplateActionBuilder("Time Stamp", "https://lineservice.prosofthcm.com/LineService/TimeStamp/TimeStampInfo/".$LineID),
-        New UriTemplateActionBuilder("WorkTime Information", "https://lineservice.prosofthcm.com/LineService/WorkTime/WorkTimeInfo/".$LineID),
+        New UriTemplateActionBuilder("Time Stamp", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),
+        New UriTemplateActionBuilder("Work Time Detail", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
         New MessageTemplateActionBuilder("Leave Remain", "Leave Remain"),
-        New UriTemplateActionBuilder("Leave Information", "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestList/".$LineID)
+        New UriTemplateActionBuilder("Leave Information", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$this->userId)
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
@@ -286,7 +286,7 @@ public function TimeAttendanceEng($replyToken = null, $LineID)
     $outputText = new TemplateMessageBuilder("Time Attendence", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
+        'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
 }
