@@ -101,9 +101,6 @@ if (!empty($bot->isEvents)) {
                 $Text = ChangeLanguage($bot->userId,$bot->text);
                 $bot->replyMessageNew($bot->replyToken,$Text);
             break;
-            case "AboutUs":
-                $bot->AboutUs($bot->replyToken);
-            break;
             default:
                 $bot->BOT_New($bot->replyToken,$bot->text);
             break;
@@ -157,9 +154,6 @@ if (!empty($bot->isEvents)) {
             case "ภาษาอังกฤษ (English)":
                 $Text = ChangeLanguage($bot->userId,$bot->text);
                 $bot->replyMessageNew($bot->replyToken,$Text);
-            break;
-            case "AboutUs":
-                $bot->AboutUs($bot->replyToken);
             break;
             default:
                 $bot->BOT_New($bot->replyToken,$bot->text);
