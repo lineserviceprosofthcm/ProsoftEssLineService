@@ -272,7 +272,7 @@ public function TimeAttendance()
     ]);
 }
 
-public function TimeAttendanceEng($replyToken = null, $LineID)
+public function TimeAttendanceEng()
 {
     $actions = array(
         New UriTemplateActionBuilder("Time Stamp", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),
