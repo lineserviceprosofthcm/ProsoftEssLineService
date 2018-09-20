@@ -3,15 +3,16 @@
 <BODY BGCOLOR=#FFFFFF>
 <?php 
   
+include('line-bot.php');
 
-function square()
+function show()
 {
-   $Link = null;
-   $files = glob('URL/*');
-   foreach($files as $file) { $Link = str_replace("URL/","",(str_replace(".txt","",$file))); }
-   return $Link;
+   $Link = AppLink();
+   echo AppLink(); 
 }
-echo square();   
+  
+ show();
+  
 
 ?>
   
