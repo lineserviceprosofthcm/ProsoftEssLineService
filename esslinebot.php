@@ -55,24 +55,24 @@ if (!empty($bot->isEvents)) {
     {
         switch($bot->text){
             case "Approve Center":
-                $bot->ApproveCenter($bot);
+                $bot->ApproveCenter();
             break;
             case "Time Attendance":
-                $bot->TimeAttendance($bot);
+                $bot->TimeAttendance();
             break;
             case "สิทธิ์การลา/วันลาคงเหลือ":
                 $Text = LeaveRemainNum($bot->userId);
                 $bot->replyMessageNew($bot,$Text);
             break;
             case "Payroll":
-                $bot->Payroll($bot);
+                $bot->Payroll();
             break;
             case "ขอสลิปเงินเดือน":
                 $Text = EPaySlip($bot->userId);
                 $bot->replyMessageNew($bot,$Text);
             break;
             case "Organization":
-                $bot->Organization($bot);
+                $bot->Organization();
             break;
             case "วันหยุดองค์กร":
                 $Text = calendar($bot->userId);
@@ -80,13 +80,13 @@ if (!empty($bot->isEvents)) {
             break;
             case "ที่ตั้งองค์กร":
                 $Text = LocationOrganization($bot->userId);
-                $bot->LocationOrg($bot->replyToken,$Text);
+                $bot->LocationOrg($Text);
             break;
             case "Setting":
-                $bot->Setting($bot);
+                $bot->Setting();
             break;
             case "เปลี่ยนภาษา":
-                $bot->SendLanguage($bot);
+                $bot->SendLanguage();
             break;
             case "ภาษาไทย (Thai)":
                 $Text = ChangeLanguage($bot->userId,$bot->text);
@@ -97,7 +97,7 @@ if (!empty($bot->isEvents)) {
                 $bot->replyMessageNew($bot,$Text);
             break;
             default:
-                $bot->BOT_New($bot->replyToken,$bot->text);
+                $bot->BOT_New($bot->text);
             break;
         }
     }
@@ -105,10 +105,10 @@ if (!empty($bot->isEvents)) {
     {
         switch($bot->text){
             case "Approve Center":
-                $bot->ApproveCenterEng($bot);
+                $bot->ApproveCenterEng();
             break;
             case "Time Attendance":
-                $bot->TimeAttendanceEng($bot);
+                $bot->TimeAttendanceEng();
             break;
             case "Leave Remain":
                 $Text = LeaveRemainNumEng($bot->userId);
@@ -130,13 +130,13 @@ if (!empty($bot->isEvents)) {
             break;
             case "Location of Organization":
                 $Text = LocationOrganization($bot->userId);
-                $bot->LocationOrg($bot->replyToken,$Text);
+                $bot->LocationOrg();
             break;
             case "Setting":
-                $bot->SettingEng($bot);
+                $bot->SettingEng();
             break;
             case "Language":
-                $bot->SendLanguage($bot);
+                $bot->SendLanguage();
             break;
             case "ภาษาไทย (Thai)":
                 $Text = ChangeLanguage($bot->userId,$bot->text);
@@ -145,9 +145,6 @@ if (!empty($bot->isEvents)) {
             case "ภาษาอังกฤษ (English)":
                 $Text = ChangeLanguage($bot->userId,$bot->text);
                 $bot->replyMessageNew($bot,$Text);
-            break;
-            case "AboutUs":
-                $bot->AboutUs($bot->replyToken);
             break;
             default:
                 $bot->BOT_New($bot->replyToken,$bot->text);
@@ -160,7 +157,7 @@ if (!empty($bot->isEvents)) {
             $Text = ChangeLanguage($bot->userId,$bot->text);
             $bot->replyMessageNew($bot,$Text);
         }else{
-            $bot->SendLanguage($bot);
+            $bot->SendLanguage();
         }
     }
 }
