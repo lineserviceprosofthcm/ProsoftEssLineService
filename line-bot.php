@@ -63,6 +63,7 @@ class BOT_API extends LINEBot
     public $response        = null;
 
     public $userId          = null;
+    public $TextURL         = null;
 
     /* ====================================================================================
      * Custom
@@ -88,6 +89,11 @@ class BOT_API extends LINEBot
                 $this->message    = (object) $event['message'];
                 $this->timestamp  = $event['timestamp'];
                 $this->userId     = $event['source']['userId'];
+                
+                $files = glob('URL/*');
+                foreach($files as $file) { 
+                $this->TextURL    = str_replace("URL/","",(str_replace(".txt","",$file))); }
+                    
                 if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
                     $this->isText = true;
                     $this->text   = $event['message']['text'];
@@ -209,13 +215,13 @@ public function Register($replyToken = null, $LineID){
       ]);
 }
 
-public function ApproveCenter($replyToken = null,$LineID)
+public function ApproveCenter()
 {
     $actions = array(
-        New UriTemplateActionBuilder("ขออนุมัติลา", "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
-        New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://lineservice.prosofthcm.com/LineService/AbstainTime/AbstainTimeInfo/".$LineID),
-        New UriTemplateActionBuilder("อนุมัติเอกสารลา", "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$LineID),
-        New UriTemplateActionBuilder("อนุมัติยกเว้นรูดบัตร", "https://lineservice.prosofthcm.com/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$LineID)
+        New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
+        New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://".$this->TextURL."/LineService/AbstainTime/AbstainTimeInfo/".$this->userId),
+        New UriTemplateActionBuilder("อนุมัติเอกสารลา", "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$this->userId),
+        New UriTemplateActionBuilder("อนุมัติยกเว้นรูดบัตร", "https://".$this->TextURL."/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$this->userId)
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
@@ -223,7 +229,7 @@ public function ApproveCenter($replyToken = null,$LineID)
     $outputText = new TemplateMessageBuilder("Approve Center", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
+        'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
 }
