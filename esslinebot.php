@@ -56,46 +56,45 @@ if (!empty($bot->isEvents)) {
         switch($bot->text){
             case "Approve Center":
                 $bot->ApproveCenter($bot);
-                  
             break;
             case "Time Attendance":
-                $bot->TimeAttendance($bot->replyToken,$bot->userId);
+                $bot->TimeAttendance($bot);
             break;
             case "สิทธิ์การลา/วันลาคงเหลือ":
                 $Text = LeaveRemainNum($bot->userId);
-                $bot->replyMessageNew($bot->replyToken,$Text);
+                $bot->replyMessageNew($bot,$Text);
             break;
             case "Payroll":
-                $bot->Payroll($bot->replyToken,$bot->userId);
+                $bot->Payroll($bot);
             break;
             case "ขอสลิปเงินเดือน":
                 $Text = EPaySlip($bot->userId);
-                $bot->replyMessageNew($bot->replyToken,$Text);
+                $bot->replyMessageNew($bot,$Text);
             break;
             case "Organization":
-                $bot->Organization($bot->replyToken,$bot->userId);
+                $bot->Organization($bot);
             break;
             case "วันหยุดองค์กร":
                 $Text = calendar($bot->userId);
-                $bot->replyMessageNew($bot->replyToken,$Text);
+                $bot->replyMessageNew($bot,$Text);
             break;
             case "ที่ตั้งองค์กร":
                 $Text = LocationOrganization($bot->userId);
                 $bot->LocationOrg($bot->replyToken,$Text);
             break;
             case "Setting":
-                $bot->Setting($bot->replyToken,$bot->userId);
+                $bot->Setting($bot);
             break;
             case "เปลี่ยนภาษา":
-                $bot->SendLanguage($bot->replyToken,$bot->userId);
+                $bot->SendLanguage($bot);
             break;
             case "ภาษาไทย (Thai)":
                 $Text = ChangeLanguage($bot->userId,$bot->text);
-                $bot->replyMessageNew($bot->replyToken,$Text);
+                $bot->replyMessageNew($bot,$Text);
             break;
             case "ภาษาอังกฤษ (English)":
                 $Text = ChangeLanguage($bot->userId,$bot->text);
-                $bot->replyMessageNew($bot->replyToken,$Text);
+                $bot->replyMessageNew($bot,$Text);
             break;
             default:
                 $bot->BOT_New($bot->replyToken,$bot->text);
@@ -109,43 +108,43 @@ if (!empty($bot->isEvents)) {
                 $bot->ApproveCenterEng($bot);
             break;
             case "Time Attendance":
-                $bot->TimeAttendanceEng($bot->replyToken,$bot->userId);
+                $bot->TimeAttendanceEng($bot);
             break;
             case "Leave Remain":
                 $Text = LeaveRemainNumEng($bot->userId);
-                $bot->replyMessageNew($bot->replyToken,$Text);
+                $bot->replyMessageNew($bot,$Text);
             break;
             case "Payroll":
-                $bot->PayrollEng($bot->replyToken,$bot->userId);
+                $bot->PayrollEng($bot);
             break;
             case "E-Pay Slip":
                 $Text = EPaySlip($bot->userId);
-                $bot->replyMessageNew($bot->replyToken,$Text);
+                $bot->replyMessageNew($bot,$Text);
             break;
             case "Organization":
-                $bot->OrganizationEng($bot->replyToken,$bot->userId);
+                $bot->OrganizationEng($bot);
             break;
             case "Organization Calendar":
                 $Text = CalendarEng($bot->userId);
-                $bot->replyMessageNew($bot->replyToken,$Text);
+                $bot->replyMessageNew($bot,$Text);
             break;
             case "Location of Organization":
                 $Text = LocationOrganization($bot->userId);
                 $bot->LocationOrg($bot->replyToken,$Text);
             break;
             case "Setting":
-                $bot->SettingEng($bot->replyToken,$bot->userId);
+                $bot->SettingEng($bot);
             break;
             case "Language":
-                $bot->SendLanguage($bot->replyToken,$bot->userId);
+                $bot->SendLanguage($bot);
             break;
             case "ภาษาไทย (Thai)":
                 $Text = ChangeLanguage($bot->userId,$bot->text);
-                $bot->replyMessageNew($bot->replyToken,$Text);
+                $bot->replyMessageNew($bot,$Text);
             break;
             case "ภาษาอังกฤษ (English)":
                 $Text = ChangeLanguage($bot->userId,$bot->text);
-                $bot->replyMessageNew($bot->replyToken,$Text);
+                $bot->replyMessageNew($bot,$Text);
             break;
             case "AboutUs":
                 $bot->AboutUs($bot->replyToken);
@@ -159,9 +158,9 @@ if (!empty($bot->isEvents)) {
     {
         if($bot->text == "ภาษาไทย (Thai)" || $bot->text == "ภาษาอังกฤษ (English)"){
             $Text = ChangeLanguage($bot->userId,$bot->text);
-            $bot->replyMessageNew($bot->replyToken,$Text);
+            $bot->replyMessageNew($bot,$Text);
         }else{
-            $bot->SendLanguage($bot->replyToken,$bot->userId);
+            $bot->SendLanguage($bot);
         }
     }
 }
