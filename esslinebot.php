@@ -66,14 +66,14 @@ if (!empty($bot->isEvents)) {
                 $bot->replyMessageNew($bot->replyToken,$Text);
             break;
             case "Payroll":
-                $bot->Payroll($bot->replyToken,$bot->userId);
+                $bot->Payroll();
             break;
             case "ขอสลิปเงินเดือน":
                 $Text = EPaySlip($bot->userId);
                 $bot->replyMessageNew($bot->replyToken,$Text);
             break;
             case "Organization":
-                $bot->Organization($bot->replyToken,$bot->userId);
+                $bot->Organization();
             break;
             case "วันหยุดองค์กร":
                 $Text = calendar($bot->userId);
@@ -88,7 +88,7 @@ if (!empty($bot->isEvents)) {
                 }
             break;
             case "Setting":
-                $bot->Setting($bot->replyToken,$bot->userId);
+                $bot->Setting();
             break;
             case "เปลี่ยนภาษา":
                 $bot->SendLanguage($bot->replyToken,$bot->userId);
@@ -123,14 +123,14 @@ if (!empty($bot->isEvents)) {
                 $bot->replyMessageNew($bot->replyToken,$Text);
             break;
             case "Payroll":
-                $bot->PayrollEng($bot->replyToken,$bot->userId);
+                $bot->PayrollEng();
             break;
             case "E-Pay Slip":
                 $Text = EPaySlip($bot->userId);
                 $bot->replyMessageNew($bot->replyToken,$Text);
             break;
             case "Organization":
-                $bot->OrganizationEng($bot->replyToken,$bot->userId);
+                $bot->OrganizationEng();
             break;
             case "Organization Calendar":
                 $Text = CalendarEng($bot->userId);
@@ -145,7 +145,7 @@ if (!empty($bot->isEvents)) {
                 }
             break;
             case "Setting":
-                $bot->SettingEng($bot->replyToken,$bot->userId);
+                $bot->SettingEng();
             break;
             case "Language":
                 $bot->SendLanguage($bot->replyToken,$bot->userId);
