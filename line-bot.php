@@ -55,7 +55,7 @@ class BOT_API extends LINEBot
     public $isMessage       = false;
 
     public $text            = null;
-    public $this->replyToken      = null;
+    public $replyToken      = null;
     public $source          = null;
     public $message         = null;
     public $timestamp       = null;
@@ -63,44 +63,42 @@ class BOT_API extends LINEBot
     public $response        = null;
 
     public $userId          = null;
-    public $TextURL         = null;
-    
 
     /* ====================================================================================
      * Custom
      * ==================================================================================== */
     const DEFAULT_ENDPOINT_BASE = 'https://api.line.me';
+
     public function __construct($channelSecret, $access_token)
     {
         $this->httpClient     = new CurlHTTPClient($access_token);
         $this->channelSecret  = $channelSecret;
         $this->endpointBase   = LINEBot::DEFAULT_ENDPOINT_BASE;
+
         $this->content        = file_get_contents('php://input');
         $events               = json_decode($this->content, true);
-        //$this->AppLink        = AppLink();
+
         if (!empty($events['events'])) {
             $this->isEvents = true;
             $this->events   = $events['events'];
+
             foreach ($events['events'] as $event) {
                 $this->replyToken = $event['replyToken'];
                 $this->source     = (object) $event['source'];
                 $this->message    = (object) $event['message'];
                 $this->timestamp  = $event['timestamp'];
                 $this->userId     = $event['source']['userId'];
-                
-                $files = glob('URL/*');
-                foreach($files as $file) { 
-                $this->TextURL    = str_replace("URL/","",(str_replace(".txt","",$file)));
-                }
-                
                 if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
                     $this->isText = true;
                     $this->text   = $event['message']['text'];
                 }
+
             }
         }
+
         parent::__construct($this->httpClient, [ 'channelSecret' => $channelSecret ]);
     }
+
 public function SendMessageTo($ToLineID = null, $message = null){
     $messageBuilder = new TextMessageBuilder($message);
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
@@ -629,5 +627,44 @@ public function LocationMessage($replyToken = null, $text)
     }
 }
 
+public function pho123($replyToken = null)
+{
+    $imageMapUrl = "https://lineservice.prosofthcm.com/upload/Resource/img.png";
+    $base = new BaseSizeBuilder(699,1040);
+    $imgmap = array(
+        new ImagemapMessageActionBuilder("Test", new AreaBuilder(0,0,355,699)),
+        new ImagemapMessageActionBuilder("Test", new AreaBuilder(686,0,354,699))
+    );
+    $replyData = new ImagemapMessageBuilder($imageMapUrl,"Imgmap",$base,$imgmap);
+
+    $test1 = new LocationMessageBuilder("TESTTi","SSS","12.12","21.21");
+
+    $asd = new AreaBuilder(0,0,355,699);
+    $az = new ImagemapUriActionBuilder("https://lineservice.prosofthcm.com/upload/Resource/img.png",$asd);
+
+    $sti = new StickerMessageBuilder("1","2563");
+
+        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+            'replyToken' => $replyToken,
+            'messages'   => $replyData->buildMessage(),
+        ]);
+}
+
+public function pho1234($replyToken = null)
+{
+
+    $temp = new UriTemplateActionBuilder("Uri","https://www.google.co.th");
+    $actions = array(
+        new ImageCarouselColumnTemplateBuilder("https://www.prosofthcm.com/upload/5934/5d1apZw0Oh.jpg",$temp),
+        new ImageCarouselColumnTemplateBuilder("https://www.prosofthcm.com/upload/5934/5d1apZw0Oh.jpg",$temp)
+    );
+    $button = new ImageCarouselTemplateBuilder($actions);
+    $outputText = new TemplateMessageBuilder("ImageCarousel", $button);
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $replyToken,
+        'messages'   => $replyData->buildMessage(),
+    ]);
+}
+    
 }
 ?>
