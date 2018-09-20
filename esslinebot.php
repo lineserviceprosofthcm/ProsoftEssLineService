@@ -59,7 +59,7 @@ if (!empty($bot->isEvents)) {
                 $bot->ApproveCenter();
             break;
             case "Time Attendance":
-                $bot->TimeAttendance($bot->replyToken,$bot->userId);
+                $bot->TimeAttendance();
             break;
             case "สิทธิ์การลา/วันลาคงเหลือ":
                 $Text = LeaveRemainNum($bot->userId);
@@ -116,7 +116,7 @@ if (!empty($bot->isEvents)) {
                 $bot->ApproveCenterEng();
             break;
             case "Time Attendance":
-                $bot->TimeAttendanceEng($bot->replyToken,$bot->userId);
+                $bot->TimeAttendanceEng();
             break;
             case "Leave Remain":
                 $Text = LeaveRemainNumEng($bot->userId);
