@@ -122,11 +122,11 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
                 array(
                     new UriTemplateActionBuilder(
                         'Go to', // ข้อความสำหรับปุ่มแรก
-                        "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     ),
                     new MessageTemplateActionBuilder(
                         'Approve', // ข้อความสำหรับปุ่มแรก
-                        "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     )
                 )
             )
@@ -151,11 +151,11 @@ public function SendMessageToEmpRequest($ToLineID = null, $message = null){
                 array(
                     new UriTemplateActionBuilder(
                         'Go to information', // ข้อความสำหรับปุ่มแรก
-                        "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestList/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     ),
                     new UriTemplateActionBuilder(
                         'Go to request', // ข้อความสำหรับปุ่มแรก
-                        "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestList/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     )
                 )
             )
@@ -204,7 +204,7 @@ public function SendLanguage($replyToken = null, $LineID){
 
 public function Register($replyToken = null, $LineID){
     $actions = array(
-        New UriTemplateActionBuilder("ลงทะเบียน", "https://lineservice.prosofthcm.com/LineService/Register/RegisterInfo/".$LineID),
+        New UriTemplateActionBuilder("ลงทะเบียน", "https://".$this->TextURL."/LineService/Register/RegisterInfo/".$LineID),
         New MessageTemplateActionBuilder("ย้อนกลับ", "ย้อนกลับ")
     );
     $button  = new ConfirmTemplateBuilder("ลงทะเบียนใช้งาน\nYou have not yet registered" , $actions);
@@ -414,29 +414,9 @@ public function SettingEng()
         'messages'   => $outputText->buildMessage(),
     ]);
 }
-
-public function AboutUs($replyToken = null)
-{
-    $actions = array(
-        New UriTemplateActionBuilder("Redirect", "https://www.prosofthcm.com/")
-        //New UriTemplateActionBuilder("TestGetURL", $a),
-        //New MessageTemplateActionBuilder("Test", "Test"),
-        //New MessageTemplateActionBuilder("Test", "Test")
-         );
-
-    $img_url = "https://www.prosofthcm.com/upload/5934/kXfjuHYzSj.jpg";
-    $button  = new ButtonTemplateBuilder("About Us", "Menu", $img_url, $actions);
-    $outputText = new TemplateMessageBuilder("About Us", $button);
-
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
-        'messages'   => $outputText->buildMessage(),
-    ]);
-}
-
 public function photoQR($replyToken = null)
 {
-$outputText = new ImageMessageBuilder("https://lineservice.prosofthcm.com/upload/Resource/Linebot.png", "https://lineservice.prosofthcm.com/upload/Resource/Linebot.png");
+$outputText = new ImageMessageBuilder("https://".$this->TextURL."/upload/Resource/Linebot.png", "https://".$this->TextURL."/upload/Resource/Linebot.png");
 $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
     'replyToken' => $replyToken,
     'messages'   => $outputText->buildMessage(),
@@ -464,130 +444,6 @@ public function BOT_New($replyToken = null, $text)
     $TEXT = substr($text, 0, 2);
     $textsub = substr($text, 2, 100);
     $split = explode(",", $textsub);
-    switch($TEXT){
-        case "Lo":
-            $outputText = new LocationMessageBuilder("GetLocation",$split[0].",".$split[1],$split[0],$split[1]);
-            $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $outputText->buildMessage(),
-            ]);
-        break;
-        case "Qr":
-            $outputText = new ImageMessageBuilder("https://lineservice.prosofthcm.com/upload/Resource/Linebot.png", "https://lineservice.prosofthcm.com/upload/Resource/Linebot.png");
-            $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $outputText->buildMessage(),
-            ]);
-        break;
-        case "St":
-            $replyData = new StickerMessageBuilder("1","17");
-            $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $replyData->buildMessage(),
-            ]);
-        break;
-        case "To":
-            $messageBuilder = new TextMessageBuilder($split[1]);
-            $StickerBuilder = new StickerMessageBuilder($split[2],$split[3]);
-            $multiMessage = new MultiMessageBuilder;
-            $multiMessage->add($messageBuilder);
-            $multiMessage->add($StickerBuilder);
-            $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
-            'to' => $split[0],
-            'messages'   => $multiMessage->buildMessage(),
-            ]);
-        break;
-        case "P1":
-            $outputText = new ImageMessageBuilder("https://avatars2.githubusercontent.com/u/1119714?s=300", "https://avatars2.githubusercontent.com/u/1119714?s=300");
-            $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $outputText->buildMessage(),
-            ]);
-        break;
-        case "Im":
-            $base = new BaseSizeBuilder(699,1040);
-            $arr = array(
-                new ImagemapUriActionBuilder("https://www.google.co.th", new AreaBuilder(0,0,520,699)),
-                new ImagemapMessageActionBuilder("Text", new AreaBuilder(520,0,520,699))
-            );
-            $replyData = new ImagemapMessageBuilder("https://avatars2.githubusercontent.com/u/1119714?s=1040","test",$base,$arr);
-            $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $replyData->buildMessage(),
-        ]);
-        break;
-        case "T1":
-            $base = new BaseSizeBuilder(1040,710);
-            $arr = array(
-                new ImagemapMessageActionBuilder("Text1", new AreaBuilder(0,790,1040,130)),
-                new ImagemapMessageActionBuilder("Text2", new AreaBuilder(0,660,1040,130)),
-                new ImagemapMessageActionBuilder("Text3", new AreaBuilder(0,530,1040,130)),
-                new ImagemapMessageActionBuilder("Text4", new AreaBuilder(0,400,1040,130))
-
-                //new ImagemapUriActionBuilder("https://www.google.co.th", new AreaBuilder(35,624,965,199)),
-                //new ImagemapUriActionBuilder("https://www.google.co.th", new AreaBuilder(35,823,965,186)),
-                //new ImagemapUriActionBuilder("https://www.google.co.th", new AreaBuilder(35,1009,965,188)),
-                //new ImagemapMessageActionBuilder("Text", new AreaBuilder(35,1197,965,187))
-            );
-            $replyData = new ImagemapMessageBuilder("https://www.prosofthcm.com/upload/5934/ZIkjVrH1Mv.png?S=699","test",$base,$arr);
-            $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $replyData->buildMessage(),
-        ]);
-        break;
-        case "T2":
-            $base = new BaseSizeBuilder(1040,710);
-            $arr = array(
-                new ImagemapMessageActionBuilder("Text4", new AreaBuilder(0,790,1040,130)),
-                new ImagemapMessageActionBuilder("Text3", new AreaBuilder(0,660,1040,130)),
-                new ImagemapMessageActionBuilder("Text2", new AreaBuilder(0,530,1040,130)),
-                new ImagemapMessageActionBuilder("Text1", new AreaBuilder(0,400,1040,130))
-            );
-            $replyData = new ImagemapMessageBuilder("https://www.prosofthcm.com/upload/5934/epGPOPH7LC.png?S=699","test",$base,$arr);
-            $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $replyData->buildMessage(),
-        ]);
-        break;
-        case "T3":
-            $base = new BaseSizeBuilder(699,900);
-            $arr = array(
-                new ImagemapUriActionBuilder("https://www.google.co.th", new AreaBuilder(0,0,520,699)),
-                new ImagemapMessageActionBuilder("Text", new AreaBuilder(520,0,520,699))
-            );
-            $replyData = new ImagemapMessageBuilder("https://www.prosofthcm.com/upload/5934/zMqgwsQ36v.png?S=600","test",$base,$arr);
-            $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $replyData->buildMessage(),
-        ]);
-        break;
-        case "T4":
-            $base = new BaseSizeBuilder(699,1040);
-            $arr = array(
-                new ImagemapUriActionBuilder("https://www.google.co.th", new AreaBuilder(0,0,520,699)),
-                new ImagemapMessageActionBuilder("Text", new AreaBuilder(520,0,520,699))
-            );
-            $replyData = new ImagemapMessageBuilder("https://www.prosofthcm.com/upload/5934/zMqgwsQ36v.png?S=251","test",$base,$arr);
-            $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-            'replyToken' => $replyToken,
-            'messages'   => $replyData->buildMessage(),
-        ]);
-        break;
-        case "Ur":
-        $imageMapUrl = "https://lineservice.prosofthcm.com/upload/Resource/imgtest.jpg";
-        $base = new BaseSizeBuilder(698,1039);
-        $imgmap = array();
-        $imgmap1 = array(
-            new ImagemapMessageActionBuilder("Test", new AreaBuilder(0,0,35,69)),
-            new ImagemapMessageActionBuilder("Test", new AreaBuilder(68,0,35,69))
-        );
-        $replyData = new UriTemplateActionBuilder("Imgmap","https://lineservice.prosofthcm.com/upload/Resource/imgtest.jpg");
-        $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
-        'messages'   => $replyData->buildTemplateAction(),
-        ]);
-        break;
-        default:
             $messageBuilder = new TextMessageBuilder("ไม่มีคำสั่ง ".$text." นี้");
             //$StickerBuilder = new StickerMessageBuilder("1","7");
             //$StickerBuilder = new StickerMessageBuilder("2","527");
@@ -600,8 +456,7 @@ public function BOT_New($replyToken = null, $text)
             'replyToken' => $replyToken,
             'messages'   => $multiMessage->buildMessage(),
             ]);
-        break;
-    }
+
 }
 public function Sticker($replyToken = null)
 {
