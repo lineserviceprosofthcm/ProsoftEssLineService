@@ -56,7 +56,7 @@ if (!empty($bot->isEvents)) {
     {
         switch($bot->text){
             case "Approve Center":
-                $bot->ApproveCenter($bot->replyToken,$bot->userId);
+                $bot->ApproveCenter();
             break;
             case "Time Attendance":
                 $bot->TimeAttendance($bot->replyToken,$bot->userId);
@@ -113,7 +113,7 @@ if (!empty($bot->isEvents)) {
     {
         switch($bot->text){
             case "Approve Center":
-                $bot->ApproveCenterEng($bot->replyToken,$bot->userId);
+                $bot->ApproveCenterEng();
             break;
             case "Time Attendance":
                 $bot->TimeAttendanceEng($bot->replyToken,$bot->userId);
