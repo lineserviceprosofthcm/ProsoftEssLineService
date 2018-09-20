@@ -7,7 +7,7 @@ include('line-bot.php');
   
 
 
-function show()
+public function show()
 {
    $Link = AppLink();
    echo $Link; 
