@@ -391,13 +391,10 @@ public function SettingEng($bot)
     ]);
 }
 
-public function AboutUs($this->replyToken = null)
+public function AboutUs($bot)
 {
     $actions = array(
         New UriTemplateActionBuilder("Redirect", "https://www.prosofthcm.com/")
-        //New UriTemplateActionBuilder("Getlocation", "https://".$this->TextURL."/LineService/GetLocaltion/GetLocaltion"),
-        //New MessageTemplateActionBuilder("Test", "Test"),
-        //New MessageTemplateActionBuilder("Test", "Test")
          );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/kXfjuHYzSj.jpg";
@@ -410,7 +407,7 @@ public function AboutUs($this->replyToken = null)
     ]);
 }
 
-public function photoQR($this->replyToken = null)
+public function photoQR($bot)
 {
 $outputText = new ImageMessageBuilder("https://".$this->TextURL."/upload/Resource/Linebot.png", "https://".$this->TextURL."/upload/Resource/Linebot.png");
 $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
