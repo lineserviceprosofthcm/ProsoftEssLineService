@@ -22,7 +22,6 @@ function ConnectDatabase()
 }
 
 function GetLanguage($LineID){
-    
     $url = "https://lineservice.prosofthcm.com/api/LanguageAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     
@@ -43,49 +42,52 @@ function ChangeLanguage($LineID,$Lang){
 }
 
 function LeaveRemainNum($LineID){
-    
     $url = "https://lineservice.prosofthcm.com/api/LeaveRemainAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
-    $sum = "ข้อมูลจำนวนวันลาคงเหลือ\n------------------------------";
+    $sum = "";
     if($open != null){
+        $sum = "ข้อมูลจำนวนวันลาคงเหลือ\n------------------------------";
         foreach($open as $text){
-            $sum = $sum."\nประเภทการลา : ".$text['LeaveTypeName'];
-            $sum = $sum."\nวันอนุญาตลา : ".$text['LeaveTypeDayNum'];
-            $sum = $sum."\nจำนวนวันลา : ".$text['Days'];
-            $sum = $sum."\nวันลาคงเหลือ : ".$text['Hours'];
-            $sum = $sum."\n-----------------------------";
+            if($text['LeaveTypeName'] == "ชื่อผู้ใช้ของคุณ ยังไม่ได้ลงทะเบียน" || $text['LeaveTypeName'] == "User not register"){
+                $sum = $text['LeaveTypeName'];
+            }else{
+                $sum = $sum."\nประเภทการลา : ".$text['LeaveTypeName'];
+                $sum = $sum."\nวันอนุญาตลา : ".$text['LeaveTypeDayNum'];
+                $sum = $sum."\nจำนวนวันลา : ".$text['Days'];
+                $sum = $sum."\nวันลาคงเหลือ : ".$text['Hours'];
+                $sum = $sum."\n-----------------------------";
+            }
         }
     }else{
-        //return "ไม่พบข้อมูล";
-        return "ชื่อผู้ใช้ของคุณ ยังไม่ได้ลงทะเบียน";
+        return "ไม่พบข้อมูล";
     }
-        
     return $sum;
 }
 
 function LeaveRemainNumEng($LineID){
-    
     $url = "https://lineservice.prosofthcm.com/api/LeaveRemainAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
-    $sum = "Leave Information Days Num\n-----------------------------";
+    $sum = "";
     if($open != null){
+        $sum = "Leave Information Days Num\n-----------------------------";
         foreach($open as $text){
-            $sum = $sum."\nLeave Type : ".$text['LeaveTypeName'];
-            $sum = $sum."\nLeave Approve : ".$text['LeaveTypeDayNum'];
-            $sum = $sum."\nLeave Record : ".$text['Days'];
-            $sum = $sum."\nLeave Days Num : ".$text['Hours'];
-            $sum = $sum."\n-----------------------------";
+            if($text['LeaveTypeName'] == "ชื่อผู้ใช้ของคุณ ยังไม่ได้ลงทะเบียน" || $text['LeaveTypeName'] == "User not register"){
+                $sum = $text['LeaveTypeName'];
+            }else{
+                $sum = $sum."\nLeave Type : ".$text['LeaveTypeName'];
+                $sum = $sum."\nLeave Approve : ".$text['LeaveTypeDayNum'];
+                $sum = $sum."\nLeave Record : ".$text['Days'];
+                $sum = $sum."\nLeave Days Num : ".$text['Hours'];
+                $sum = $sum."\n-----------------------------";
+            }
         }
     }else{
-        //return "No Data.";
-        return "User not register.";
+        return "No Data.";
     }
-        
     return $sum;
 }
 
 function EPaySlip($LineID){
-    
     $url = "https://lineservice.prosofthcm.com/api/EPaySlipAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     
@@ -93,7 +95,6 @@ function EPaySlip($LineID){
 }
 
 function SendNewsTo($NewsHDID){
-    
     $url = "https://lineservice.prosofthcm.com/Api/SendNewsToLineAPI/".$NewsHDID;
     $open = json_decode(file_get_contents($url), true);
     
@@ -101,7 +102,6 @@ function SendNewsTo($NewsHDID){
 }
 
 function LocationOrganization($LineID){
-    
     $url = "https://lineservice.prosofthcm.com/Api/LocationOrgAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     
@@ -111,44 +111,66 @@ function LocationOrganization($LineID){
 function Calendar($LineID){
     $url = "https://lineservice.prosofthcm.com/APi/CalendarAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
-    $sum = "วันหยุดองค์กร\n-----------------------------";
+    $sum = "";
+    $ischeck = true;
     $i = 0;
     if($open != null){
+        $sum = "วันหยุดองค์กร\n-----------------------------";
         foreach($open as $text){
-            $sum = $sum."\n".$text['countholiday'].".".$text['Subject'];
-            $sum = $sum."\n   ".$text['nameday']." ที่ ".$text['numday'];
-            $sum = $sum."\n   เดือน ".$text['namemounth']." ปี ".$text['year'];
-            $i = $i + 1;
+            if($text['headcalendar'] == "ชื่อผู้ใช้ของคุณ ยังไม่ได้ลงทะเบียน" || $text['headcalendar'] == "Please register to use system."){
+                $sum = $text['headcalendar'];
+                $ischeck = false;
+            }else if($text['headcalendar'] == "ปฎิทินของคุณไม่ได้กำหนดวัน" || $text['headcalendar'] == "Your calendar is not set the holiday."){
+                $sum = $text['headcalendar'];
+                $ischeck = false;
+            }else{
+                $sum = $sum."\n".$text['countholiday'].".".$text['Subject'];
+                $sum = $sum."\n   ".$text['nameday']." ที่ ".$text['numday'];
+                $sum = $sum."\n   เดือน ".$text['namemounth']." ปี ".$text['year'];
+                $i = $i + 1;
+            }
+        }
+        if($ischeck){
+            $sum = $sum."\n-----------------------------";
+            $sum = $sum."\nรวมวันหยุดประจำปี ".$i." วัน";
+            $sum = $sum."\n-----------------------------";
         }
     }else{
-        //return "ไม่พบข้อมูล";
-        return "ชื่อผู้ใช้ของคุณ ยังไม่ได้ลงทะเบียน";
+        return "ไม่พบข้อมูล";
     }
-    $sum = $sum."\n-----------------------------";
-    $sum = $sum."\nรวมวันหยุดประจำปี ".$i." วัน";
-    $sum = $sum."\n-----------------------------";
     return $sum;
 }
 
 function CalendarEng($LineID){
     $url = "https://lineservice.prosofthcm.com/APi/CalendarAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
-    $sum = "Organization Calender\n-----------------------------";
+    $sum = "";
+    $ischeck = true;
     $i = 0;
     if($open != null){
+        $sum = "Organization Calender\n-----------------------------";
         foreach($open as $text){
-            $sum = $sum."\n".$text['countholiday'].".".$text['Subject'];
-            $sum = $sum."\n   Day ".$text['nameday']." At ".$text['numday'];
-            $sum = $sum."\n   Mounth ".$text['namemounth']." Year ".$text['year'];
-            $i = $i + 1;
+            if($text['headcalendar'] == "ชื่อผู้ใช้ของคุณ ยังไม่ได้ลงทะเบียน" || $text['headcalendar'] == "Please register to use system."){
+                $sum = $text['headcalendar'];
+                $ischeck = false;
+            }else if($text['headcalendar'] == "ปฎิทินของคุณไม่ได้กำหนดวัน" || $text['headcalendar'] == "Your calendar is not set the holiday."){
+                $sum = $text['headcalendar'];
+                $ischeck = false;
+            }else{
+                $sum = $sum."\n".$text['countholiday'].".".$text['Subject'];
+                $sum = $sum."\n   Day ".$text['nameday']." At ".$text['numday'];
+                $sum = $sum."\n   Mounth ".$text['namemounth']." Year ".$text['year'];
+                $i = $i + 1;
+            }
+        }
+        if($ischeck){
+            $sum = $sum."\n-----------------------------";
+            $sum = $sum."\nTotal annual holiday ".$i;
+            $sum = $sum."\n-----------------------------";
         }
     }else{
-        //return "No data to display";
-        return "User not register.";
+        return "No data to display";
     }
-    $sum = $sum."\n-----------------------------";
-    $sum = $sum."\nTotal annual holiday ".$i;
-    $sum = $sum."\n-----------------------------";
     return $sum;
 }
 ?>
