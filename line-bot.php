@@ -292,7 +292,7 @@ public function Payroll($bot)
     ]);
 }
     
-public function PayrollEng($this->replyToken = null,$this->userId)
+public function PayrollEng($bot)
 {
     $actions = array(
         New MessageTemplateActionBuilder("E-Pay Slip", "E-Pay Slip")
