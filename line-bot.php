@@ -168,7 +168,7 @@ public function replyMessageNew($bot, $message = null){
         'messages'   => $messageBuilder->buildMessage(),
     ]);
 }
-public function SendLanguage($bot){
+public function SendLanguage(){
     $img_url = "https://www.prosofthcm.com/upload/5934/LK2wVaS34N.jpg";
         /*
         $actions = array(
@@ -187,7 +187,7 @@ public function SendLanguage($bot){
       'messages'   => $outputText->buildMessage(),
   ]);
 }
-public function Register($bot){
+public function Register(){
     $actions = array(
         New UriTemplateActionBuilder("ลงทะเบียน", "https://".$this->TextURL."/LineService/Register/RegisterInfo/".$this->userId),
         New MessageTemplateActionBuilder("ย้อนกลับ", "ย้อนกลับ")
@@ -199,7 +199,7 @@ public function Register($bot){
           'messages'   => $outputText->buildMessage(),
       ]);
 }
-public function ApproveCenter($bot)
+public function ApproveCenter()
 {
     $actions = array(
         New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
@@ -215,7 +215,7 @@ public function ApproveCenter($bot)
         'messages'   => $outputText->buildMessage(),
     ]);
 }
-public function ApproveCenterEng($bot)
+public function ApproveCenterEng()
 {
     $actions = array(
         New UriTemplateActionBuilder("Leave Request", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
@@ -231,7 +231,7 @@ public function ApproveCenterEng($bot)
         'messages'   => $outputText->buildMessage(),
     ]);
 }
-public function TimeAttendance($bot)
+public function TimeAttendance()
 {
     $actions = array(
         New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),
@@ -248,7 +248,7 @@ public function TimeAttendance($bot)
     ]);
 }
 
-public function TimeAttendanceEng($bot)
+public function TimeAttendanceEng()
 {
     $actions = array(
         New UriTemplateActionBuilder("Time Stamp", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),
@@ -267,7 +267,7 @@ public function TimeAttendanceEng($bot)
     ]);
 }
 
-public function Payroll($bot)
+public function Payroll()
 {
     $actions = array(
         New MessageTemplateActionBuilder("ขอสลิปเงินเดือน", "ขอสลิปเงินเดือน")
@@ -292,7 +292,7 @@ public function Payroll($bot)
     ]);
 }
     
-public function PayrollEng($bot)
+public function PayrollEng()
 {
     $actions = array(
         New MessageTemplateActionBuilder("E-Pay Slip", "E-Pay Slip")
@@ -317,7 +317,7 @@ public function PayrollEng($bot)
     ]);
 }
 
-public function Organization($bot)
+public function Organization()
 {
     $actions = array(
         New MessageTemplateActionBuilder("วันหยุดองค์กร", "วันหยุดองค์กร"),
@@ -337,7 +337,7 @@ public function Organization($bot)
     
 }
 
-public function OrganizationEng($bot)
+public function OrganizationEng()
 {
     $actions = array(
         New MessageTemplateActionBuilder("Calendar", "Organization Calendar"),
@@ -357,7 +357,7 @@ public function OrganizationEng($bot)
     
 }
 
-public function Setting($bot)
+public function Setting()
 {
     $actions = array(        
         New UriTemplateActionBuilder("ลงทะเบียน", "https://".$this->TextURL."/LineService/Register/RegisterInfo/".$this->userId),
@@ -374,7 +374,7 @@ public function Setting($bot)
     ]);
 }
 
-public function SettingEng($bot)
+public function SettingEng()
 {
     $actions = array(        
         New UriTemplateActionBuilder("Register", "https://".$this->TextURL."/LineService/Register/RegisterInfo/".$this->userId),
@@ -391,33 +391,16 @@ public function SettingEng($bot)
     ]);
 }
 
-public function AboutUs($bot)
-{
-    $actions = array(
-        New UriTemplateActionBuilder("Redirect", "https://www.prosofthcm.com/")
-         );
-
-    $img_url = "https://www.prosofthcm.com/upload/5934/kXfjuHYzSj.jpg";
-    $button  = new ButtonTemplateBuilder("About Us", "Menu", $img_url, $actions);
-    $outputText = new TemplateMessageBuilder("About Us", $button);
-
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $this->replyToken,
-        'messages'   => $outputText->buildMessage(),
-    ]);
-}
-
-public function photoQR($bot)
+public function photoQR()
 {
 $outputText = new ImageMessageBuilder("https://".$this->TextURL."/upload/Resource/Linebot.png", "https://".$this->TextURL."/upload/Resource/Linebot.png");
 $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
     'replyToken' => $this->replyToken,
     'messages'   => $outputText->buildMessage(),
 ]);
-//$response = $bot->replyMessage($event->getReplyToken(), $outputText);
 }
 
-public function LocationOrg($this->replyToken = null,$Text)
+public function LocationOrg($Text)
 {
     $split = explode(",", $Text);
     $DetailOrg = $split[0];
@@ -432,7 +415,7 @@ public function LocationOrg($this->replyToken = null,$Text)
     ]);
 }
 
-public function BOT_New($this->replyToken = null, $text)
+public function BOT_New($text)
 {
     $TEXT = substr($text, 0, 2);
     $textsub = substr($text, 2, 100);
@@ -576,7 +559,7 @@ public function BOT_New($this->replyToken = null, $text)
         break;
     }
 }
-public function Sticker($this->replyToken = null)
+public function Sticker()
 {
     $sti = new StickerMessageBuilder("1","17");
 
@@ -586,7 +569,7 @@ public function Sticker($this->replyToken = null)
         ]);
 }
 
-public function LocationMessage($this->replyToken = null, $text)
+public function LocationMessage($text)
 {
     $split = explode(",", $text); 
     if($split[1] != null){
