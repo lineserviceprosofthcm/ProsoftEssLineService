@@ -291,7 +291,7 @@ public function TimeAttendanceEng()
     ]);
 }
 
-public function Payroll($replyToken = null,$LineID)
+public function Payroll()
 {
     $actions = array(
         New MessageTemplateActionBuilder("ขอสลิปเงินเดือน", "ขอสลิปเงินเดือน")
@@ -311,12 +311,12 @@ public function Payroll($replyToken = null,$LineID)
     $outputText = new TemplateMessageBuilder("Payroll", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
+        'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
 }
     
-public function PayrollEng($replyToken = null,$LineID)
+public function PayrollEng()
 {
     $actions = array(
         New MessageTemplateActionBuilder("E-Pay Slip", "E-Pay Slip")
@@ -336,17 +336,17 @@ public function PayrollEng($replyToken = null,$LineID)
     $outputText = new TemplateMessageBuilder("Payroll", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
+        'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
 }
 
-public function Organization($replyToken = null,$LineID)
+public function Organization()
 {
     $actions = array(
         New MessageTemplateActionBuilder("วันหยุดองค์กร", "วันหยุดองค์กร"),
-        New UriTemplateActionBuilder("สร้างข่าวสารองค์กร", "https://lineservice.prosofthcm.com/LineService/News/NewsInfo/".$LineID),
-        New UriTemplateActionBuilder("ข้อมูลข่าวสาร", "https://lineservice.prosofthcm.com/LineService/News/NewsList/".$LineID),
+        New UriTemplateActionBuilder("สร้างข่าวสารองค์กร", "https://".$this->TextURL."/LineService/News/NewsInfo/".$this->userId),
+        New UriTemplateActionBuilder("ข้อมูลข่าวสาร", "https://".$this->TextURL."/LineService/News/NewsList/".$this->userId),
         New MessageTemplateActionBuilder("ที่ตั้งองค์กร", "ที่ตั้งองค์กร")
         );
 
@@ -355,18 +355,18 @@ public function Organization($replyToken = null,$LineID)
     $outputText = new TemplateMessageBuilder("Organization", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
+        'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
     
 }
 
-public function OrganizationEng($replyToken = null,$LineID)
+public function OrganizationEng()
 {
     $actions = array(
         New MessageTemplateActionBuilder("Calendar", "Organization Calendar"),
-        New UriTemplateActionBuilder("Create News", "https://lineservice.prosofthcm.com/LineService/News/NewsInfo/".$LineID),
-        New UriTemplateActionBuilder("News List", "https://lineservice.prosofthcm.com/LineService/News/NewsList/".$LineID),
+        New UriTemplateActionBuilder("Create News", "https://".$this->TextURL."/LineService/News/NewsInfo/".$this->userId),
+        New UriTemplateActionBuilder("News List", "https://".$this->TextURL."/LineService/News/NewsList/".$this->userId),
         New MessageTemplateActionBuilder("Location", "Location of Organization")
         );    
 
@@ -375,16 +375,16 @@ public function OrganizationEng($replyToken = null,$LineID)
     $outputText = new TemplateMessageBuilder("Organization", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
+        'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
     
 }
 
-public function Setting($replyToken = null, $LineID)
+public function Setting()
 {
     $actions = array(        
-        New UriTemplateActionBuilder("ลงทะเบียน", "https://lineservice.prosofthcm.com/LineService/Register/RegisterInfo/".$LineID),
+        New UriTemplateActionBuilder("ลงทะเบียน", "https://".$this->TextURL."/LineService/Register/RegisterInfo/".$this->userId),
         New MessageTemplateActionBuilder("เปลี่ยนภาษา", "เปลี่ยนภาษา")
         );
 
@@ -393,15 +393,15 @@ public function Setting($replyToken = null, $LineID)
     $outputText = new TemplateMessageBuilder("Setting", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
+        'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
 }
 
-public function SettingEng($replyToken = null, $LineID)
+public function SettingEng()
 {
     $actions = array(        
-        New UriTemplateActionBuilder("Register", "https://lineservice.prosofthcm.com/LineService/Register/RegisterInfo/".$LineID),
+        New UriTemplateActionBuilder("Register", "https://".$this->TextURL."/LineService/Register/RegisterInfo/".$this->userId),
         New MessageTemplateActionBuilder("Language", "Language")
         );
 
@@ -410,7 +410,7 @@ public function SettingEng($replyToken = null, $LineID)
     $outputText = new TemplateMessageBuilder("Setting", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
+        'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
 }
