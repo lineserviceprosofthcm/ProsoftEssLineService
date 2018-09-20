@@ -241,7 +241,7 @@ public function TimeAttendance($replyToken = null, $LineID)
     $actions = array(
         New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://lineservice.prosofthcm.com/LineService/TimeStamp/TimeStampInfo/".$LineID),
         New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://lineservice.prosofthcm.com/LineService/WorkTime/WorkTimeInfo/".$LineID),
-        New MessageTemplateActionBuilder("สิทธิ์การลาและวันลาคงเหลือ", "สิทธิ์การลาและวันลาคงเหลือ"),
+        New MessageTemplateActionBuilder("สิทธิ์การลา/วันลาคงเหลือ", "สิทธิ์การลา/วันลาคงเหลือ"),
         New UriTemplateActionBuilder("ข้อมูลการขอลา", "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestList/".$LineID)
         );
     $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
