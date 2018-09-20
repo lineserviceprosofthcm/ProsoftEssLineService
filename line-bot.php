@@ -201,11 +201,6 @@ public function Register($replyToken = null, $LineID){
 }
 public function ApproveCenter($bot)
 {
-    //$Link = AppLink();
-    //$bot->replyToken;
-    //$bot->userId;
-    //$bot->TextURL;
-    
     $actions = array(
         New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
         New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://".$this->TextURL."/LineService/AbstainTime/AbstainTimeInfo/".$this->userId),
@@ -220,19 +215,19 @@ public function ApproveCenter($bot)
         'messages'   => $outputText->buildMessage(),
     ]);
 }
-public function ApproveCenterEng($replyToken = null,$LineID)
+public function ApproveCenterEng($bot)
 {
     $actions = array(
-        New UriTemplateActionBuilder("Leave Request", "https://lineservice.prosofthcm.com/LineService/LeaveRequest/LeaveRequestInfo/".$LineID),
-        New UriTemplateActionBuilder("Abstain Time", "https://lineservice.prosofthcm.com/LineService/AbstainTime/AbstainTimeInfo/".$LineID),
-        New UriTemplateActionBuilder("Approve Leave", "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$LineID),
-        New UriTemplateActionBuilder("Approve Abstain", "https://lineservice.prosofthcm.com/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$LineID)
+        New UriTemplateActionBuilder("Leave Request", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
+        New UriTemplateActionBuilder("Abstain Time", "https://".$this->TextURL."/LineService/AbstainTime/AbstainTimeInfo/".$this->userId),
+        New UriTemplateActionBuilder("Approve Leave", "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$this->userId),
+        New UriTemplateActionBuilder("Approve Abstain", "https://".$this->TextURL."/LineService/ApproveRequestAbstain/ApproveAbstainlnfo/".$this->userId)
         );
     $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
     $button  = new ButtonTemplateBuilder("Approve Center", "For request or approve documents...", $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Approve Center", $button);
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
+        'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
 }
