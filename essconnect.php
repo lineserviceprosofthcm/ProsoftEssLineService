@@ -133,14 +133,13 @@ function Calendar($LineID){
                 $sum = $text['headcalendar'];
                 $ischeck = false;
             }else{
-                $sum = $sum."\n".$text['countholiday'].".".$text['Subject'];
-                $sum = $sum."\n   ".$text['nameday']." ที่ ".$text['numday'];
-                $sum = $sum."\n   เดือน ".$text['namemounth']." ปี ".$text['year'];
+                $sum = $sum."\n".$text['countholiday'].".".$text['nameday']." ".$text['numday'];
+                $sum = $sum."\n".": ".$text['Subject'];
                 $i = $i + 1;
+                $sum = $sum."\n-----------------------------";
             }
         }
         if($ischeck){
-            $sum = $sum."\n-----------------------------";
             $sum = $sum."\nรวมวันหยุดประจำปี ".$i." วัน";
             $sum = $sum."\n-----------------------------";
         }
@@ -166,14 +165,13 @@ function CalendarEng($LineID){
                 $sum = $text['headcalendar'];
                 $ischeck = false;
             }else{
-                $sum = $sum."\n".$text['countholiday'].".".$text['Subject'];
-                $sum = $sum."\n   Day ".$text['nameday']." At ".$text['numday'];
-                $sum = $sum."\n   Mounth ".$text['namemounth']." Year ".$text['year'];
+                $sum = $sum."\n".$text['countholiday'].".".$text['nameday']." ".$text['numday'];
+                $sum = $sum."\n".": ".$text['Subject'];
                 $i = $i + 1;
+                $sum = $sum."\n-----------------------------";
             }
         }
         if($ischeck){
-            $sum = $sum."\n-----------------------------";
             $sum = $sum."\nTotal annual holiday ".$i;
             $sum = $sum."\n-----------------------------";
         }
