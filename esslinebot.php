@@ -24,30 +24,21 @@ if(!empty($NewsHDID)){
     for ($i = 0; $i<$iCount; $i++) {
         $bot->SendMessageTo($arr[$i],$News);
     }
-    //$ArrID = array("U7fb3dc484426fb164c424df09b7a42ba","U05a39ae3a619678ef4b1b58111980a79");
-    //$iCount = count($ArrID);
-    //for ($i = 0; $i<$iCount; $i++) {
-    //    $bot->SendMessageTo($ArrID[$i],$News);
-    //}
-    //$bot->SendMessageTo("U7fb3dc484426fb164c424df09b7a42ba",$News);
 }
 
 // แจ้งเอกสารลาหาผู้อนุมัติ
 if(!empty($LineIDLeaveRecord)){
     $bot->SendMessageApproveTo($LineIDLeaveRecord,$Detail);
-    //$bot->SendMessageApproveTo("U7fb3dc484426fb164c424df09b7a42ba",$Detail);
 }
 
 // แจ้งเอกสารคนอนุมัติถัดไป
 if(!empty($LineID_NextApprove)){
     $bot->SendMessageApproveTo($LineID_NextApprove ,$WaitApprove);
-    //$bot->SendMessageApproveTo("U7fb3dc484426fb164c424df09b7a42ba",$WaitApprove);
 }
 
 // แจ้งเอกสารหาผู้ขอลา
 if(!empty($LineID_EmpID)){
     $bot->SendMessageToEmpRequest($LineID_EmpID ,$ApproveStatus);
-    //$bot->SendMessageToEmpRequest("U7fb3dc484426fb164c424df09b7a42ba",$ApproveStatus);
 }
 
 if (!empty($bot->isEvents)) {
