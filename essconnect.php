@@ -96,7 +96,7 @@ function EPaySlip($LineID){
 
 function Withholdingtaxcertificate($LineID){
     
-    $url = "https://lineservice.prosofthcm.com/api/TaxCertificateRequestAPI/".$LineID;
+    $url = "https://lineservice.prosofthcm.com/api/TaxCert_RequestAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $textsp = explode(",",$open);
 
