@@ -155,7 +155,7 @@ public function SendMessageToEmpRequest($ToLineID = null, $message = null){
                     ),
                     new UriTemplateActionBuilder(
                         'Go to request', // ข้อความสำหรับปุ่มแรก
-                        "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestinfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     )
                 )
             )
@@ -296,8 +296,8 @@ public function Payroll()
     $actions = array(
         New MessageTemplateActionBuilder("ขอสลิปเงินเดือน", "ขอสลิปเงินเดือน"),
         New MessageTemplateActionBuilder("ขอเอกสาร 50 ทวิ", "ขอเอกสาร 50 ทวิ"),
-        //New MessageTemplateActionBuilder("Works Cer.Request", "Works Cer.Request"),
-        //New MessageTemplateActionBuilder("Salary Cer.Request", "Salary Cer.Request")
+        New MessageTemplateActionBuilder("ขอเอกสารรับรองการทำงาน", "ขอเอกสารรับรองการทำงาน"),
+        New MessageTemplateActionBuilder("ขอเอกสารรับรองเงินเดือน", "ขอเอกสารรับรองเงินเดือน")
         
         /*
         New UriTemplateActionBuilder("Tax Calculator", "https://www.prosofthcm.com/Article/Detail/65472"),
@@ -321,8 +321,8 @@ public function PayrollEng()
     $actions = array(
         New MessageTemplateActionBuilder("E-Pay Slip", "E-Pay Slip"),
         New MessageTemplateActionBuilder("ขอเอกสาร 50 ทวิ", "ขอเอกสาร 50 ทวิ"),
-        //New MessageTemplateActionBuilder("Works Cer.Request", "Works Cer.Request"),
-        //New MessageTemplateActionBuilder("Salary Cer.Request", "Salary Cer.Request")
+        New MessageTemplateActionBuilder("Works Cer.Request", "Works Cer.Request"),
+        New MessageTemplateActionBuilder("Salary Cer.Request", "Salary Cer.Request")
         
         /*
         New UriTemplateActionBuilder("Tax Calculator", "https://www.prosofthcm.com/Article/Detail/65472"),
