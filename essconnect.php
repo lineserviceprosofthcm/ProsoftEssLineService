@@ -103,6 +103,24 @@ function Withholdingtaxcertificate($LineID){
     return $textsp;
 }
 
+function SalaryCert($LineID){
+    
+    $url = "https://lineservice.prosofthcm.com/api/SalaryCert_RequestAPI/".$LineID;
+    $open = json_decode(file_get_contents($url), true);
+    $textsp = explode(",",$open);
+
+    return $textsp;
+}
+
+function WorkCert($LineID){
+    
+    $url = "https://lineservice.prosofthcm.com/api/WorkCert_RequestAPI/".$LineID;
+    $open = json_decode(file_get_contents($url), true);
+    $textsp = explode(",",$open);
+
+    return $textsp;
+}
+
 function SendNewsTo($NewsHDID){
     $url = "https://lineservice.prosofthcm.com/Api/SendNewsToLineAPI/".$NewsHDID;
     $open = json_decode(file_get_contents($url), true);
