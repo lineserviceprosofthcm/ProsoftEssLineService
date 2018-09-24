@@ -65,18 +65,30 @@ if (!empty($bot->isEvents)) {
             break;
             case "ขอเอกสาร 50 ทวิ":
                 $Text = Withholdingtaxcertificate($bot->userId);
-                $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
-                $bot->replyMessageNew($bot->replyToken,$Text[2]); // ส่งข้อความหาผู้ขอ
+                if(count($Text) > 1){
+                    $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
+                    $bot->replyMessageNew($bot->replyToken,$Text[2]); // ส่งข้อความหาผู้ขอ
+                }else{
+                    $bot->replyMessageNew($bot->replyToken,$Text[0]); // ส่งข้อความหาผู้ขอ
+                }
             break;
             case "ขอเอกสารรับรองทำงาน":
                 $Text = WorkCert($bot->userId);
-                $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
-                $bot->replyMessageNew($bot->replyToken,$Text[2]); // ส่งข้อความหาผู้ขอ
+                if(count($Text) > 1){
+                    $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
+                    $bot->replyMessageNew($bot->replyToken,$Text[2]); // ส่งข้อความหาผู้ขอ
+                }else{
+                    $bot->replyMessageNew($bot->replyToken,$Text[0]); // ส่งข้อความหาผู้ขอ
+                }
             break;
             case "ขอเอกสารรับรองเงินเดือน":
                 $Text = SalaryCert($bot->userId);
-                $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
-                $bot->replyMessageNew($bot->replyToken,$Text[2]); // ส่งข้อความหาผู้ขอ
+                if(count($Text) > 1){
+                    $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
+                    $bot->replyMessageNew($bot->replyToken,$Text[2]); // ส่งข้อความหาผู้ขอ
+                }else{
+                    $bot->replyMessageNew($bot->replyToken,$Text[0]); // ส่งข้อความหาผู้ขอ
+                }
             break;
             case "Organization":
                 $bot->Organization();
@@ -134,18 +146,30 @@ if (!empty($bot->isEvents)) {
             break;
             case "ขอเอกสาร 50 ทวิ":
                 $Text = Withholdingtaxcertificate($bot->userId);
-                $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
-                $bot->replyMessageNew($bot->replyToken,$Text[2]); // ส่งข้อความหาผู้ขอ
+                if(count($Text) > 1){
+                    $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
+                    $bot->replyMessageNew($bot->replyToken,$Text[2]); // ส่งข้อความหาผู้ขอ
+                }else{
+                    $bot->replyMessageNew($bot->replyToken,$Text[0]); // ส่งข้อความหาผู้ขอ
+                }
             break;
             case "Works Cer.Request":
                 $Text = WorkCert($bot->userId);
-                $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
-                $bot->replyMessageNew($bot->replyToken,$Text[2]); // ส่งข้อความหาผู้ขอ
+                if(count($Text) > 1){
+                    $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
+                    $bot->replyMessageNew($bot->replyToken,$Text[2]); // ส่งข้อความหาผู้ขอ
+                }else{
+                    $bot->replyMessageNew($bot->replyToken,$Text[0]); // ส่งข้อความหาผู้ขอ
+                }
             break;
             case "Salary Cer.Request":
                 $Text = SalaryCert($bot->userId);
-                $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
-                $bot->replyMessageNew($bot->replyToken,$Text[2]); // ส่งข้อความหาผู้ขอ
+                if(count($Text) > 1){
+                    $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
+                    $bot->replyMessageNew($bot->replyToken,$Text[2]); // ส่งข้อความหาผู้ขอ
+                }else{
+                    $bot->replyMessageNew($bot->replyToken,$Text[0]); // ส่งข้อความหาผู้ขอ
+                }
             break;
             case "Organization":
                 $bot->OrganizationEng();
