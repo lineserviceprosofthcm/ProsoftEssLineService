@@ -144,7 +144,7 @@ if (!empty($bot->isEvents)) {
                 $Text = EPaySlip($bot->userId);
                 $bot->replyMessageNew($bot->replyToken,$Text);
             break;
-            case "ขอเอกสาร 50 ทวิ":
+            case "Withholding tax cert":
                 $Text = Withholdingtaxcertificate($bot->userId);
                 if(count($Text) > 1){
                     $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
