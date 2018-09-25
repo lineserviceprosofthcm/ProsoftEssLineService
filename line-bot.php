@@ -119,7 +119,7 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
     $files_App = glob('URL/*');
     foreach($files_App as $file_App) { 
     $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }
- /*   
+   
     $Temp = new TemplateMessageBuilder('Approve Center',
         new ConfirmTemplateBuilder(
             $message, // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
@@ -144,17 +144,6 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
         'to' => $ToLineID,
         // 'toChannel' => 'Channel ID,
         'messages'  => $multiMessage->buildMessage()
-    ]);
-    */
-        $actions = array(
-        New UriTemplateActionBuilder("Approve Center", "https://".$TextURL_App."/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID),
-        );
-    $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
-    $button  = new ButtonTemplateBuilder("", $message, $img_url, $actions);
-    $outputText = new TemplateMessageBuilder("Approve Request", $button);
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $this->replyToken,
-        'messages'   => $outputText->buildMessage(),
     ]);
 }
 
