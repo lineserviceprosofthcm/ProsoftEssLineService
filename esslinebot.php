@@ -144,7 +144,7 @@ if (!empty($bot->isEvents)) {
                 $Text = EPaySlip($bot->userId);
                 $bot->replyMessageNew($bot->replyToken,$Text);
             break;
-            case "Withholding tax cer.":
+            case "50 Bis Request":
                 $Text = Withholdingtaxcertificate($bot->userId);
                 if(count($Text) > 1){
                     $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
@@ -153,7 +153,7 @@ if (!empty($bot->isEvents)) {
                     $bot->replyMessageNew($bot->replyToken,$Text[0]); // ส่งข้อความหาผู้ขอ
                 }
             break;
-            case "Works Cer.Request":
+            case "Works Cer. Request":
                 $Text = WorkCert($bot->userId);
                 if(count($Text) > 1){
                     $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
@@ -162,7 +162,7 @@ if (!empty($bot->isEvents)) {
                     $bot->replyMessageNew($bot->replyToken,$Text[0]); // ส่งข้อความหาผู้ขอ
                 }
             break;
-            case "Salary Cer.Request":
+            case "Salary Cer. Request":
                 $Text = SalaryCert($bot->userId);
                 if(count($Text) > 1){
                     $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
