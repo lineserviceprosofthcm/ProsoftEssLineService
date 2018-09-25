@@ -331,9 +331,9 @@ public function PayrollEng()
 {
     $actions = array(
         New MessageTemplateActionBuilder("E-Pay Slip", "E-Pay Slip"),
-        New MessageTemplateActionBuilder("Withholding tax cer.", "Withholding tax cer."),
-        New MessageTemplateActionBuilder("Works Cer.Request", "Works Cer.Request"),
-        New MessageTemplateActionBuilder("Salary Cer.Request", "Salary Cer.Request")
+        New MessageTemplateActionBuilder("50 Bis Request", "50 Bis Request"),
+        New MessageTemplateActionBuilder("Works Cer. Request", "Works Cer. Request"),
+        New MessageTemplateActionBuilder("Salary Cer. Request", "Salary Cer. Request")
         
         /*
         New UriTemplateActionBuilder("Tax Calculator", "https://www.prosofthcm.com/Article/Detail/65472"),
