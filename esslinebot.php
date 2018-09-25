@@ -72,7 +72,7 @@ if (!empty($bot->isEvents)) {
                     $bot->replyMessageNew($bot->replyToken,$Text[0]); // ส่งข้อความหาผู้ขอ
                 }
             break;
-            case "ขอเอกสารรับรองทำงาน":
+            case "ขอใบรับรองการทำงาน":
                 $Text = WorkCert($bot->userId);
                 if(count($Text) > 1){
                     $bot->SendMessageTo($Text[1],$Text[0]); // ส่งข้อความหาHR
