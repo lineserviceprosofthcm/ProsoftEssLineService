@@ -115,18 +115,22 @@ public function SendMessageTo($ToLineID = null, $message = null){
 }
 
 public function SendMessageApproveTo($ToLineID = null, $message = null){
-    //$messageBuilder = new TextMessageBuilder($message);
+
+    $files_App = glob('URL/*');
+    foreach($files_App as $file_App) { 
+    $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }
+    
     $Temp = new TemplateMessageBuilder('Approve Center',
         new ConfirmTemplateBuilder(
             $message, // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
                 array(
                     new UriTemplateActionBuilder(
                         'Go to', // ข้อความสำหรับปุ่มแรก
-                        "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        "https://".$TextURL_App."/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     ),
                     new MessageTemplateActionBuilder(
                         'Approve', // ข้อความสำหรับปุ่มแรก
-                        "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        "https://".$TextURL_App."/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     )
                 )
             )
