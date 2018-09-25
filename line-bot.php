@@ -125,7 +125,7 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
             $message, // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
                 array(
                     new UriTemplateActionBuilder(
-                        '', // ข้อความสำหรับปุ่มแรก
+                        ' ', // ข้อความสำหรับปุ่มแรก
                         "https://".$TextURL_App."/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     ),
                     new UriTemplateActionBuilder(
