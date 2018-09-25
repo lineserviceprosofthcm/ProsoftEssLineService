@@ -148,18 +148,22 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
 }
 
 public function SendMessageToEmpRequest($ToLineID = null, $message = null){
-    //$messageBuilder = new TextMessageBuilder($message);
+
+    $files_App = glob('URL/*');
+    foreach($files_App as $file_App) { 
+    $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }
+    
     $Temp = new TemplateMessageBuilder('Approve Center',
         new ConfirmTemplateBuilder(
             $message, // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
                 array(
                     new UriTemplateActionBuilder(
                         'Go to information', // ข้อความสำหรับปุ่มแรก
-                        "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     ),
                     new UriTemplateActionBuilder(
                         'Go to request', // ข้อความสำหรับปุ่มแรก
-                        "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestinfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestinfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     )
                 )
             )
