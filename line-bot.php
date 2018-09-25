@@ -119,7 +119,7 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
     $files_App = glob('URL/*');
     foreach($files_App as $file_App) { 
     $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }
-   
+   /*
     $Temp = new TemplateMessageBuilder('Approve Center',
         new ConfirmTemplateBuilder(
             $message, // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
@@ -127,12 +127,11 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
                     new UriTemplateActionBuilder(
                         'Approve', // ข้อความสำหรับปุ่มแรก
                         "https://".$TextURL_App."/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
-                    )
-                    /*,
+                    ),
                     new UriTemplateActionBuilder(
                         'Approve', // ข้อความสำหรับปุ่มแรก
                         "https://".$TextURL_App."/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
-                    )*/
+                    )
                 )
             )
         );
@@ -145,7 +144,18 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
         'to' => $ToLineID,
         // 'toChannel' => 'Channel ID,
         'messages'  => $multiMessage->buildMessage()
+    ]);*/
+    
+    $actions = array(
+    New UriTemplateActionBuilder("Approve", "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestinfo/".$ToLineID));
+    $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
+    $button  = new ButtonTemplateBuilder("Approve", "$message", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Approve", $button);
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $ToLineID,
+        'messages'   => $outputText->buildMessage(),
     ]);
+    
 }
 
 public function SendMessageToEmpRequest($ToLineID = null, $message = null){
@@ -154,7 +164,7 @@ public function SendMessageToEmpRequest($ToLineID = null, $message = null){
     foreach($files_App as $file_App) { 
     $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }
     
-    /*$Temp = new TemplateMessageBuilder('Approve Center',
+    $Temp = new TemplateMessageBuilder('Approve Center',
         new ConfirmTemplateBuilder(
             $message, // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
                 array(
@@ -168,20 +178,7 @@ public function SendMessageToEmpRequest($ToLineID = null, $message = null){
                     )
                 )
             )
-        );*/
-    
-        $actions = array(
-        New UriTemplateActionBuilder("Approve", "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestinfo/".$ToLineID)
         );
-    $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
-    $button  = new ButtonTemplateBuilder("Approve", "", $img_url, $actions);
-    $outputText = new TemplateMessageBuilder("Approve", $button);
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $ToLineID,
-        'messages'   => $outputText->buildMessage(),
-    ]);
-    
-/*
     $multiMessage = new MultiMessageBuilder;
     //$multiMessage->add($messageBuilder);
     $multiMessage->add($Temp);
@@ -190,7 +187,7 @@ public function SendMessageToEmpRequest($ToLineID = null, $message = null){
         'to' => $ToLineID,
         // 'toChannel' => 'Channel ID,
         'messages'  => $multiMessage->buildMessage()
-    ]);*/
+    ]);
 }
 
 public function replyMessageNew($replyToken = null, $message = null){
