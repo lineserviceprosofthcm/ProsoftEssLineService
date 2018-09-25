@@ -151,9 +151,12 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
     $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
     $button  = new ButtonTemplateBuilder("Approve", $message, $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Approve", $button);
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $ToLineID,
-        'messages'   => $outputText->buildMessage(),
+    
+    $multiMessage = new MultiMessageBuilder;
+    $multiMessage->add($outputText);
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
+        'to' => $ToLineID,
+        'messages'  => $multiMessage->buildMessage()
     ]);
     
 }
