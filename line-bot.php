@@ -126,11 +126,11 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
                 array(
                     new UriTemplateActionBuilder(
                         'Go to', // ข้อความสำหรับปุ่มแรก
-                        "https://".$TextURL_App."/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     ),
                     new MessageTemplateActionBuilder(
                         'Approve', // ข้อความสำหรับปุ่มแรก
-                        "https://".$TextURL_App."/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
+                        "https://lineservice.prosofthcm.com/LineService/ApproveLeave/ApproveLeaveInfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
                     )
                 )
             )
