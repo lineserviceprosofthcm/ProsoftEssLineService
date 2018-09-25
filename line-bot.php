@@ -154,7 +154,7 @@ public function SendMessageToEmpRequest($ToLineID = null, $message = null){
     foreach($files_App as $file_App) { 
     $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }
     
-    $Temp = new TemplateMessageBuilder('Approve Center',
+    /*$Temp = new TemplateMessageBuilder('Approve Center',
         new ConfirmTemplateBuilder(
             $message, // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
                 array(
@@ -168,8 +168,20 @@ public function SendMessageToEmpRequest($ToLineID = null, $message = null){
                     )
                 )
             )
+        );*/
+    
+        $actions = array(
+        New UriTemplateActionBuilder("Approve", "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestinfo/".$ToLineID)
         );
-
+    $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
+    $button  = new ButtonTemplateBuilder("Approve", "", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Approve", $button);
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $ToLineID,
+        'messages'   => $outputText->buildMessage(),
+    ]);
+    
+/*
     $multiMessage = new MultiMessageBuilder;
     //$multiMessage->add($messageBuilder);
     $multiMessage->add($Temp);
@@ -178,7 +190,7 @@ public function SendMessageToEmpRequest($ToLineID = null, $message = null){
         'to' => $ToLineID,
         // 'toChannel' => 'Channel ID,
         'messages'  => $multiMessage->buildMessage()
-    ]);
+    ]);*/
 }
 
 public function replyMessageNew($replyToken = null, $message = null){
