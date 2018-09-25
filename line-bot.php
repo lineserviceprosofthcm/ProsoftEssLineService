@@ -170,10 +170,10 @@ public function SendMessageToEmpRequest($ToLineID = null, $message = null){
     $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }
     
     $actions = array(
-    New UriTemplateActionBuilder("More Information", "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID));
+    New UriTemplateActionBuilder("View Description", "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID));
     $img_url = "https://www.prosofthcm.com/upload/5934/zwLbACxL0c.jpg";
     $button  = new ButtonTemplateBuilder("Notice Approval", $message, $img_url, $actions);
-    $outputText = new TemplateMessageBuilder("More Information", $button);
+    $outputText = new TemplateMessageBuilder("View Description", $button);
     
     $multiMessage = new MultiMessageBuilder;
     $multiMessage->add($outputText);
