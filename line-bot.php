@@ -149,7 +149,7 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
     $actions = array(
     New UriTemplateActionBuilder("Approve", "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestinfo/".$ToLineID));
     $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
-    $button  = new ButtonTemplateBuilder("Approve", "$message", $img_url, $actions);
+    $button  = new ButtonTemplateBuilder("Approve", $message, $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Approve", $button);
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
         'replyToken' => $ToLineID,
