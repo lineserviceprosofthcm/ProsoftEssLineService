@@ -307,7 +307,7 @@ public function Payroll()
     $actions = array(
         New MessageTemplateActionBuilder("ขอสลิปเงินเดือน", "ขอสลิปเงินเดือน"),
         New MessageTemplateActionBuilder("ขอเอกสาร 50 ทวิ", "ขอเอกสาร 50 ทวิ"),
-        New MessageTemplateActionBuilder("ขอเอกสารับรองการทำงาน", "ขอเอกสารการับรองทำงาน"),
+        New MessageTemplateActionBuilder("ขอเอกสารรับรองการทำงาน", "ขอเอกสารการรับรองทำงาน"),
         New MessageTemplateActionBuilder("ขอเอกสารรับรองเงินเดือน", "ขอเอกสารรับรองเงินเดือน")
         
         /*
