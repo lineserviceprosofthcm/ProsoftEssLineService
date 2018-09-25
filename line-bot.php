@@ -369,7 +369,6 @@ public function Organization()
         'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
     ]);
-    
 }
 
 public function OrganizationEng()
