@@ -174,7 +174,7 @@ function CalendarEng($LineID){
     $ischeck = true;
     $i = 0;
     if($open != null){
-        $sum = "Organization Calender\n-----------------------------";
+        $sum = "Organization Calendar\n-----------------------------";
         foreach($open as $text){
             if($text['headcalendar'] == "ชื่อผู้ใช้ของคุณ ยังไม่ได้ลงทะเบียน" || $text['headcalendar'] == "Please register to use system."){
                 $sum = $text['headcalendar'];
