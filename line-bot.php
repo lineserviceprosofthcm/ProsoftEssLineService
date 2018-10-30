@@ -90,9 +90,11 @@ class BOT_API extends LINEBot
                 $this->timestamp  = $event['timestamp'];
                 $this->userId     = $event['source']['userId'];
                 
-                $files = glob('URL/*');
+                /*$files = glob('URL/*');
                 foreach($files as $file) { 
-                $this->TextURL    = str_replace("URL/","",(str_replace(".txt","",$file))); }
+                $this->TextURL    = str_replace("URL/","",(str_replace(".txt","",$file))); }*/
+                $this->TextURL    = file_get_contents("URL/LineAPI.txt");
+                
                     
                 if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
                     $this->isText = true;
@@ -116,10 +118,10 @@ public function SendMessageTo($ToLineID = null, $message = null){
 
 public function SendMessageApproveTo($ToLineID = null, $message = null){
 
-    $files_App = glob('URL/*');
+    /*$files_App = glob('URL/*');
     foreach($files_App as $file_App) { 
-    $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }
-    
+    $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }*/
+    $TextURL_App    = file_get_contents("URL/LineAPI.txt");
     $actions = array(
     New UriTemplateActionBuilder("Go To Approve", "https://".$TextURL_App."/Lineservice/approveleave/approveleaveinfo/".$ToLineID));
     $img_url = "https://www.prosofthcm.com/upload/5934/zwLbACxL0c.jpg";
@@ -135,40 +137,12 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
 }
 
 public function SendMessageToEmpRequest($ToLineID = null, $message = null){
-
-    $files_App = glob('URL/*');
+    
+    /*$files_App = glob('URL/*');
     foreach($files_App as $file_App) { 
-    $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }
+    $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }*/
     
-    /*$Temp = new TemplateMessageBuilder('Approve Center',
-        new ConfirmTemplateBuilder(
-            $message, // ข้อความแนะนำหรือบอกวิธีการ หรือคำอธิบาย
-                array(
-                    new UriTemplateActionBuilder(
-                        'Go to information', // ข้อความสำหรับปุ่มแรก
-                        "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
-                    ),
-                    new UriTemplateActionBuilder(
-                        'Go to request', // ข้อความสำหรับปุ่มแรก
-                        "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestinfo/".$ToLineID // ข้อความที่จะแสดงฝั่งผู้ใช้ เมื่อคลิกเลือก
-                    )
-                )
-            )
-        );
-    $multiMessage = new MultiMessageBuilder;
-    //$multiMessage->add($messageBuilder);
-    $multiMessage->add($Temp);
-
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
-        'to' => $ToLineID,
-        // 'toChannel' => 'Channel ID,
-        'messages'  => $multiMessage->buildMessage()
-    ]);*/
-    
-    $files_App = glob('URL/*');
-    foreach($files_App as $file_App) { 
-    $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }
-    
+    $TextURL_App    = file_get_contents("URL/LineAPI.txt");
     $actions = array(
     New UriTemplateActionBuilder("View Description", "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID));
     $img_url = "https://www.prosofthcm.com/upload/5934/zwLbACxL0c.jpg";
@@ -310,11 +284,6 @@ public function Payroll()
         New MessageTemplateActionBuilder("ขอใบรับรองการทำงาน", "ขอใบรับรองการทำงาน"),
         New MessageTemplateActionBuilder("ขอเอกสารรับรองเงินเดือน", "ขอเอกสารรับรองเงินเดือน")
         
-        /*
-        New UriTemplateActionBuilder("Tax Calculator", "https://www.prosofthcm.com/Article/Detail/65472"),
-        New UriTemplateActionBuilder("Google", "http://www.Google.co.th"),
-        New MessageTemplateActionBuilder("Test", "Test")
-        */
          );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/CGD9pX8Q9X.jpg";
@@ -335,11 +304,6 @@ public function PayrollEng()
         New MessageTemplateActionBuilder("Works Cer. Request", "Works Cer. Request"),
         New MessageTemplateActionBuilder("Salary Cer. Request", "Salary Cer. Request")
         
-        /*
-        New UriTemplateActionBuilder("Tax Calculator", "https://www.prosofthcm.com/Article/Detail/65472"),
-        New UriTemplateActionBuilder("Google", "http://www.Google.co.th"),
-        New MessageTemplateActionBuilder("Test", "Test")
-        */
          );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/CGD9pX8Q9X.jpg";
@@ -431,7 +395,6 @@ $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message
     'replyToken' => $replyToken,
     'messages'   => $outputText->buildMessage(),
 ]);
-//$response = $bot->replyMessage($event->getReplyToken(), $outputText);
 }
 
 public function LocationOrg($replyToken = null,$Text)
