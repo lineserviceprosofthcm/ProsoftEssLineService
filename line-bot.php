@@ -34,7 +34,7 @@ use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselTemplateBuilder;
 use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselColumnTemplateBuilder;
 
-echo file_get_contents("URL/LineAPI.txt");
+/*echo file_get_contents("URL/LineAPI.txt");*/
 
 class BOT_API extends LINEBot
 {
@@ -365,7 +365,7 @@ public function Setting()
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/3dHoTCaSmu.jpg";
-    $button  = new ButtonTemplateBuilder("Settingsss", "สำหรับตั้งค่าการใช้งานระบบ...", $img_url, $actions);
+    $button  = new ButtonTemplateBuilder("Settings", $this->TextURL, $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Setting", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
