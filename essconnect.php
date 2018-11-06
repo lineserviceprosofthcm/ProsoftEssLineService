@@ -1,4 +1,5 @@
 <?php 
+public $TextURL         = null;
 function ConnectDatabase()
 {
 
