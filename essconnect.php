@@ -29,7 +29,11 @@ function ChangeLanguage($LineID,$Lang){
     }else{
         $SetLang = "en-US";
     }
-    $url = "https://lineservice.prosofthcm.com/api/LanguageSettingAPI/".$LineID."/".$SetLang;
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $TextURL_App    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    
+    $url = "https://".$TextURL_App."/api/LanguageSettingAPI/".$LineID."/".$SetLang;
     $open = json_decode(file_get_contents($url), true);
     
     return $open;
