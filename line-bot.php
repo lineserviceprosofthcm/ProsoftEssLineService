@@ -365,7 +365,7 @@ public function Setting()
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/3dHoTCaSmu.jpg";
-    $button  = new ButtonTemplateBuilder("Setting", "สำหรับตั้งค่าการใช้งานระบบ...", $img_url, $actions);
+    $button  = new ButtonTemplateBuilder("Settingsss", "สำหรับตั้งค่าการใช้งานระบบ...", $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Setting", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
