@@ -22,27 +22,38 @@ function ConnectDatabase()
 }
 
 function GetLanguage($LineID){
-    $url = "https://lineservice.prosofthcm.com/api/LanguageAPI/".$LineID;
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    
+    $url = "https://".$TextURL."/api/LanguageAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     
     return $open;
 }
 
 function ChangeLanguage($LineID,$Lang){
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    
     $SetLang = "";
     if($Lang == "ภาษาไทย (Thai)"){
         $SetLang = "th-TH";
     }else{
         $SetLang = "en-US";
     }
-    $url = "https://lineservice.prosofthcm.com/api/LanguageSettingAPI/".$LineID."/".$SetLang;
+    $url = "https://".$TextURL."/api/LanguageSettingAPI/".$LineID."/".$SetLang;
     $open = json_decode(file_get_contents($url), true);
     
     return $open;
 }
 
 function LeaveRemainNum($LineID){
-    $url = "https://lineservice.prosofthcm.com/api/LeaveRemainAPI/".$LineID;
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    $url = "https://".$TextURL."/api/LeaveRemainAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $sum = "";
     if($open != null){
@@ -65,7 +76,10 @@ function LeaveRemainNum($LineID){
 }
 
 function LeaveRemainNumEng($LineID){
-    $url = "https://lineservice.prosofthcm.com/api/LeaveRemainAPI/".$LineID;
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    $url = "https://".$TextURL."/api/LeaveRemainAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $sum = "";
     if($open != null){
@@ -88,15 +102,20 @@ function LeaveRemainNumEng($LineID){
 }
 
 function EPaySlip($LineID){
-    $url = "https://lineservice.prosofthcm.com/api/EPaySlipAPI/".$LineID;
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    $url = "https://".$TextURL."/api/EPaySlipAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     
     return $open;
 }
 
 function Withholdingtaxcertificate($LineID){
-    
-    $url = "https://lineservice.prosofthcm.com/api/TaxCert_RequestAPI/".$LineID;
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    $url = "https://".$TextURL."/api/TaxCert_RequestAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $textsp = explode(",",$open);
 
@@ -104,8 +123,10 @@ function Withholdingtaxcertificate($LineID){
 }
 
 function SalaryCert($LineID){
-    
-    $url = "https://lineservice.prosofthcm.com/api/SalaryCert_RequestAPI/".$LineID;
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    $url = "https://".$TextURL."/api/SalaryCert_RequestAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $textsp = explode(",",$open);
 
@@ -113,8 +134,10 @@ function SalaryCert($LineID){
 }
 
 function WorkCert($LineID){
-    
-    $url = "https://lineservice.prosofthcm.com/api/WorkCert_RequestAPI/".$LineID;
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    $url = "https://".$TextURL."/api/WorkCert_RequestAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $textsp = explode(",",$open);
 
@@ -122,21 +145,30 @@ function WorkCert($LineID){
 }
 
 function SendNewsTo($NewsHDID){
-    $url = "https://lineservice.prosofthcm.com/Api/SendNewsToLineAPI/".$NewsHDID;
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    $url = "https://".$TextURL."/Api/SendNewsToLineAPI/".$NewsHDID;
     $open = json_decode(file_get_contents($url), true);
     
     return $open;
 }
 
 function LocationOrganization($LineID){
-    $url = "https://lineservice.prosofthcm.com/Api/LocationOrgAPI/".$LineID;
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    $url = "https://".$TextURL."/Api/LocationOrgAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     
     return $open;
 }
 
 function Calendar($LineID){
-    $url = "https://lineservice.prosofthcm.com/APi/CalendarAPI/".$LineID;
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    $url = "https://".$TextURL."/APi/CalendarAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $sum = "";
     $ischeck = true;
@@ -168,7 +200,10 @@ function Calendar($LineID){
 }
 
 function CalendarEng($LineID){
-    $url = "https://lineservice.prosofthcm.com/APi/CalendarAPI/".$LineID;
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    $url = "https://".$TextURL."/APi/CalendarAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $sum = "";
     $ischeck = true;
