@@ -95,7 +95,8 @@ class BOT_API extends LINEBot
                 /*$files = glob('URL/*');
                 foreach($files as $file) { 
                 $this->TextURL    = str_replace("URL/","",(str_replace(".txt","",$file))); }*/
-                $this->TextURL    = file_get_contents("URL/LineAPI.txt");
+                /*$this->TextURL    = file_get_contents("URL/LineAPI.txt");*/
+                $this->TextURL    = "prosoft.gotdns.com/ESS/";
                 
                     
                 if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
