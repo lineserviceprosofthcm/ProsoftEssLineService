@@ -34,6 +34,8 @@ use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselTemplateBuilder;
 use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselColumnTemplateBuilder;
 
+echo file_get_contents("URL/LineAPI.txt");
+
 class BOT_API extends LINEBot
 {
 /* ====================================================================================
