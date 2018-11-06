@@ -127,7 +127,7 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
     
     $actions = array(
-    New UriTemplateActionBuilder("Go To Approve", "https://".$TextURL_App."/Lineservice/approveleave/approveleaveinfo/".$ToLineID));
+    New UriTemplateActionBuilder("Go To Approve", "https://".$TextURL."/Lineservice/approveleave/approveleaveinfo/".$ToLineID));
     $img_url = "https://www.prosofthcm.com/upload/5934/zwLbACxL0c.jpg";
     $button  = new ButtonTemplateBuilder("Notice Approval", $message, $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Notice Approval", $button);
@@ -147,7 +147,7 @@ public function SendMessageToEmpRequest($ToLineID = null, $message = null){
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
     
     $actions = array(
-    New UriTemplateActionBuilder("View Description", "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID));
+    New UriTemplateActionBuilder("View Description", "https://".$TextURL."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID));
     $img_url = "https://www.prosofthcm.com/upload/5934/zwLbACxL0c.jpg";
     $button  = new ButtonTemplateBuilder("Notice Approval", $message, $img_url, $actions);
     $outputText = new TemplateMessageBuilder("View Description", $button);
