@@ -26,7 +26,7 @@ function GetLanguage($LineID){
     foreach($files as $file) { 
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
     
-    $url = "https://".$TextURL."/api/LanguageAPI/".$LineID;
+    $url = "https://".$this->TextURL."/api/LanguageAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     
     return $open;
@@ -43,7 +43,7 @@ function ChangeLanguage($LineID,$Lang){
     }else{
         $SetLang = "en-US";
     }
-    $url = "https://".$TextURL."/api/LanguageSettingAPI/".$LineID."/".$SetLang;
+    $url = "https://".$this->TextURL."/api/LanguageSettingAPI/".$LineID."/".$SetLang;
     $open = json_decode(file_get_contents($url), true);
     
     return $open;
@@ -53,7 +53,7 @@ function LeaveRemainNum($LineID){
     $files = glob('URL/*');
     foreach($files as $file) { 
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
-    $url = "https://".$TextURL."/api/LeaveRemainAPI/".$LineID;
+    $url = "https://".$this->TextURL."/api/LeaveRemainAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $sum = "";
     if($open != null){
@@ -79,7 +79,7 @@ function LeaveRemainNumEng($LineID){
     $files = glob('URL/*');
     foreach($files as $file) { 
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
-    $url = "https://".$TextURL."/api/LeaveRemainAPI/".$LineID;
+    $url = "https://".$this->TextURL."/api/LeaveRemainAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $sum = "";
     if($open != null){
@@ -105,7 +105,7 @@ function EPaySlip($LineID){
     $files = glob('URL/*');
     foreach($files as $file) { 
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
-    $url = "https://".$TextURL."/api/EPaySlipAPI/".$LineID;
+    $url = "https://".$this->TextURL."/api/EPaySlipAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     
     return $open;
@@ -115,7 +115,7 @@ function Withholdingtaxcertificate($LineID){
     $files = glob('URL/*');
     foreach($files as $file) { 
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
-    $url = "https://".$TextURL."/api/TaxCert_RequestAPI/".$LineID;
+    $url = "https://".$this->TextURL."/api/TaxCert_RequestAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $textsp = explode(",",$open);
 
@@ -126,7 +126,7 @@ function SalaryCert($LineID){
     $files = glob('URL/*');
     foreach($files as $file) { 
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
-    $url = "https://".$TextURL."/api/SalaryCert_RequestAPI/".$LineID;
+    $url = "https://".$this->TextURL."/api/SalaryCert_RequestAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $textsp = explode(",",$open);
 
@@ -137,7 +137,7 @@ function WorkCert($LineID){
     $files = glob('URL/*');
     foreach($files as $file) { 
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
-    $url = "https://".$TextURL."/api/WorkCert_RequestAPI/".$LineID;
+    $url = "https://".$this->TextURL."/api/WorkCert_RequestAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $textsp = explode(",",$open);
 
@@ -148,7 +148,7 @@ function SendNewsTo($NewsHDID){
     $files = glob('URL/*');
     foreach($files as $file) { 
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
-    $url = "https://".$TextURL."/Api/SendNewsToLineAPI/".$NewsHDID;
+    $url = "https://".$this->TextURL."/Api/SendNewsToLineAPI/".$NewsHDID;
     $open = json_decode(file_get_contents($url), true);
     
     return $open;
@@ -158,7 +158,7 @@ function LocationOrganization($LineID){
     $files = glob('URL/*');
     foreach($files as $file) { 
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
-    $url = "https://".$TextURL."/Api/LocationOrgAPI/".$LineID;
+    $url = "https://".$this->TextURL."/Api/LocationOrgAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     
     return $open;
@@ -168,7 +168,7 @@ function Calendar($LineID){
     $files = glob('URL/*');
     foreach($files as $file) { 
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
-    $url = "https://".$TextURL."/APi/CalendarAPI/".$LineID;
+    $url = "https://".$this->TextURL."/APi/CalendarAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $sum = "";
     $ischeck = true;
@@ -203,7 +203,7 @@ function CalendarEng($LineID){
     $files = glob('URL/*');
     foreach($files as $file) { 
     $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
-    $url = "https://".$TextURL."/APi/CalendarAPI/".$LineID;
+    $url = "https://".$this->TextURL."/APi/CalendarAPI/".$LineID;
     $open = json_decode(file_get_contents($url), true);
     $sum = "";
     $ischeck = true;
