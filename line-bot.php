@@ -92,10 +92,11 @@ class BOT_API extends LINEBot
                 $this->timestamp  = $event['timestamp'];
                 $this->userId     = $event['source']['userId'];
                 
-                /*$files = glob('URL/*');
+                $files = glob('URL/*');
                 foreach($files as $file) { 
-                $this->TextURL    = str_replace("URL/","",(str_replace(".txt","",$file))); }*/
-                $this->TextURL    = file_get_contents("URL/LineAPI.txt");
+                $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+                
+                /*$this->TextURL    = file_get_contents("URL/LineAPI.txt");*/
                 /*$this->TextURL    = "prosoft.gotdns.com/ESS/";*/
                 
                     
@@ -120,11 +121,11 @@ public function SendMessageTo($ToLineID = null, $message = null){
 }
 
 public function SendMessageApproveTo($ToLineID = null, $message = null){
-
-    /*$files_App = glob('URL/*');
-    foreach($files_App as $file_App) { 
-    $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }*/
-    $TextURL_App    = file_get_contents("URL/LineAPI.txt");
+    
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    
     $actions = array(
     New UriTemplateActionBuilder("Go To Approve", "https://".$TextURL_App."/Lineservice/approveleave/approveleaveinfo/".$ToLineID));
     $img_url = "https://www.prosofthcm.com/upload/5934/zwLbACxL0c.jpg";
@@ -141,11 +142,10 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
 
 public function SendMessageToEmpRequest($ToLineID = null, $message = null){
     
-    /*$files_App = glob('URL/*');
-    foreach($files_App as $file_App) { 
-    $TextURL_App    = str_replace("URL/","",(str_replace(".txt","",$file_App))); }*/
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
     
-    $TextURL_App    = file_get_contents("URL/LineAPI.txt");
     $actions = array(
     New UriTemplateActionBuilder("View Description", "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID));
     $img_url = "https://www.prosofthcm.com/upload/5934/zwLbACxL0c.jpg";
@@ -366,7 +366,7 @@ public function Setting()
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/3dHoTCaSmu.jpg";
-    $button  = new ButtonTemplateBuilder("Settings", $this->TextURL, $img_url, $actions);
+    $button  = new ButtonTemplateBuilder("Setting", "สำหรับตั้งค่าการใช้งานระบบ...", $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Setting", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
