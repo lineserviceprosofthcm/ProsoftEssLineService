@@ -23,6 +23,8 @@ echo "<br>".$bot->userId;
 if(!empty($va)){
     $bot->SendMessageTo("U3b8800b03f1c9d49899b6fd2da70bbb6","5555");
 	echo "<br>".$va;
+	$Language = GetLanguage("U3b8800b03f1c9d49899b6fd2da70bbb6");
+	echo $Language;
 }
 
 if (!empty($bot->isEvents)) {
