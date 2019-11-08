@@ -16,7 +16,7 @@ $LineID_EmpID = $_POST['LineID_EmpID'];
 $ApproveStatus = $_POST['ApproveStatus'];
 $bot = new BOT_API($channelSecret, $access_token);
 
-echo "Start Code";
+echo json_encode(array('success' => 1));
 // แจ้งข่าวสาร
 if(!empty($NewsHDID)){
     $arr = SendNewsTo($NewsHDID);
