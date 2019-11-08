@@ -23,9 +23,10 @@ if(!empty($NewsHDID)){
     $iCount = count($arr);
     for ($i = 0; $i<$iCount; $i++) {
         $bot->SendMessageTo($arr[$i],$News);
+        echo "<br>".$arr[$i];
     }
     echo "OK".$NewsHDID.$News;
-    echo "<br>".$arr;
+    echo "<br>".$iCount;
 }
 
 // แจ้งเอกสารลาหาผู้อนุมัติ
