@@ -109,6 +109,15 @@ class BOT_API extends LINEBot
 
         parent::__construct($this->httpClient, [ 'channelSecret' => $channelSecret ]);
     }
+	
+	public function SendMessageTo($ToLineID = null, $message = null){
+		$messageBuilder = new TextMessageBuilder($message);
+		$this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
+			'to' => $ToLineID,
+			// 'toChannel' => 'Channel ID,
+			'messages'  => $messageBuilder->buildMessage()
+		]);
+	}
 }
 
 echo "Start Code";
@@ -117,14 +126,5 @@ $va = $_GET['va'];
 
 if(!empty($va)){
     SendMessageTo("U3b8800b03f1c9d49899b6fd2da70bbb6","5555");
-}
-
-public function SendMessageTo($ToLineID = null, $message = null){
-    $messageBuilder = new TextMessageBuilder($message);
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
-        'to' => $ToLineID,
-        // 'toChannel' => 'Channel ID,
-        'messages'  => $messageBuilder->buildMessage()
-    ]);
 }
 ?>
