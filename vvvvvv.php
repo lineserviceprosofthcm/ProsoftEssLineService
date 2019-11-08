@@ -1,5 +1,5 @@
 <?php
-$NewsHDID = $_POST['NewsHDID'];
+$NewsHDID = $_GET['NewsHDID'];
 if(!empty($NewsHDID)){
 	echo "ok" + $NewsHDID;
 }
