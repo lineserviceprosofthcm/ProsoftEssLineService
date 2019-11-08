@@ -112,6 +112,14 @@ class BOT_API extends LINEBot
 }
 $files = glob('URL/*');
 foreach($files as $file) { 
-	echo = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));
+	echo = $file;
+}
+
+public function test($replyToken = null, $message = null){
+	$messageBuilder = new TextMessageBuilder($message);
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $replyToken,
+        'messages'   => $messageBuilder->buildMessage(),
+    ]);
 }
 ?>
