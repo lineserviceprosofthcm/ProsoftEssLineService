@@ -34,8 +34,6 @@ use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselTemplateBuilder;
 use \LINE\LINEBot\MessageBuilder\TemplateBuilder\ImageCarouselColumnTemplateBuilder;
 
-/*echo file_get_contents("URL/LineAPI.txt");*/
-
 class BOT_API extends LINEBot
 {
 /* ====================================================================================
@@ -112,5 +110,8 @@ class BOT_API extends LINEBot
         parent::__construct($this->httpClient, [ 'channelSecret' => $channelSecret ]);
     }
 }
-echo $files = glob('URL/*');
+$files = glob('URL/*');
+foreach($files as $file) { 
+	echo = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));
+}
 ?>
