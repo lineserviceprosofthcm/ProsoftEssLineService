@@ -92,9 +92,9 @@ class BOT_API extends LINEBot
                 $this->timestamp  = $event['timestamp'];
                 $this->userId     = $event['source']['userId'];
                 
-                $files = glob('URL/*');
-                foreach($files as $file) { 
-                $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+                //$files = glob('URL/*');
+                //foreach($files as $file) { 
+                //$this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
                 
                 /*$this->TextURL    = file_get_contents("URL/LineAPI.txt");*/
                 /*$this->TextURL    = "prosoft.gotdns.com/ESS/";*/
