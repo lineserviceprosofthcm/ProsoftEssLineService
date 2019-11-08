@@ -111,15 +111,23 @@ class BOT_API extends LINEBot
     }
 }
 $files = glob('URL/*');
-foreach($files as $file) { 
-	echo = $file;
+for($i = 0; $i < $files ; $i++){
+	echo = $file[$i];
+}
+echo "END CODE";
+
+$va = $_GET['va'];
+
+if(!empty($va)){
+    test("U3b8800b03f1c9d49899b6fd2da70bbb6","5555555");
 }
 
-public function test($replyToken = null, $message = null){
+public function test($LineID = null, $message = null){
 	$messageBuilder = new TextMessageBuilder($message);
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $replyToken,
-        'messages'   => $messageBuilder->buildMessage(),
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
+        'to' => $LineID,
+        // 'toChannel' => 'Channel ID,
+        'messages'  => $messageBuilder->buildMessage()
     ]);
 }
 ?>
