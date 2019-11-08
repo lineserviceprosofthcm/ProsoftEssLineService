@@ -1,9 +1,11 @@
 <?php 
+
 require('line-bot.php');
 include('essconnect.php');
+
 $channelSecret = 'b777323834edf3fd96558faf97a3a69a';
 $access_token  = '5ZP5bMi9tgEXR9Zwq5+TBJ6C5pv5SMbaIWBes4l1MGHQph3JbHhQyqRWD+e7pxEKsmwy0i5qQWc7gEAhudIS2GuUPEQmNY21zhsL0nrRbkQVCVUl8HoKS7s11KpkPiOXIapgGt7EALkwBLicU19DqgdB04t89/1O/w1cDnyilFU=';
-$bot = new BOT_API($channelSecret, $access_token);
+
 $NewsHDID = $_POST['NewsHDID'];
 $News = $_POST['News'];
 $LineIDLeaveRecord = $_POST['LineIDLeaveRecord'];
@@ -13,6 +15,7 @@ $WaitApprove = $_POST['WaitApprove'];
 $LineID_EmpID = $_POST['LineID_EmpID'];
 $ApproveStatus = $_POST['ApproveStatus'];
 $va = $_GET['va'];
+$bot = new BOT_API($channelSecret, $access_token);
 
 echo "Start Code";
 echo "<br>OK BOT_API";
@@ -212,6 +215,5 @@ if ($bot->isSuccess())
   exit();
 }
 
-echo $bot->response->getHTTPStatus . ' ' . $bot->response->getRawBody();
 exit();
 ?>
