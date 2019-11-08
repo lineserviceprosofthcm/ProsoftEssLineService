@@ -220,13 +220,4 @@ if (!empty($bot->isEvents)) {
     }
 }
 
-if ($bot->isSuccess()) 
-{
-  echo 'Succeeded!';
-  exit();
-}
-
-// Failed
-echo $bot->response->getHTTPStatus . ' ' . $bot->response->getRawBody();
-exit();
 ?>
