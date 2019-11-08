@@ -214,6 +214,4 @@ if ($bot->isSuccess())
   echo 'Succeeded!';
   exit();
 }
-
-exit();
 ?>
