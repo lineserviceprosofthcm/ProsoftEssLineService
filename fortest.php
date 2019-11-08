@@ -65,7 +65,6 @@ class BOT_API extends LINEBot
     public $response        = null;
 
     public $userId          = null;
-    public $TextURL         = null;
 
     /* ====================================================================================
      * Custom
@@ -91,14 +90,6 @@ class BOT_API extends LINEBot
                 $this->message    = (object) $event['message'];
                 $this->timestamp  = $event['timestamp'];
                 $this->userId     = $event['source']['userId'];
-                
-                //$files = glob('URL/*');
-                //foreach($files as $file) { 
-                //$this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
-                
-                /*$this->TextURL    = file_get_contents("URL/LineAPI.txt");*/
-                /*$this->TextURL    = "prosoft.gotdns.com/ESS/";*/
-                
                     
                 if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
                     $this->isText = true;
