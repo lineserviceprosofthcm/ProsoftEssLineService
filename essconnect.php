@@ -137,11 +137,7 @@ function WorkCert($LineID){
     return $textsp;
 }
 function SendNewsTo($NewsHDID){
-    $files = glob('URL/*');
-    foreach($files as $file) { 
-    $TextURL_App    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
     $url2 = "https://responsive.prosoft.co.th/Api/SendNewsToLineAPI/".$NewsHDID;
-    $url = "https://".$TextURL_App."/Api/SendNewsToLineAPI/".$NewsHDID;
     $open = json_decode(file_get_contents($url2), true);
     
     return $open;
