@@ -142,8 +142,7 @@ function SendNewsTo($NewsHDID){
     $TextURL_App    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
     
     $url = "https://".$TextURL_App."/Api/SendNewsToLineAPI/".$NewsHDID;
-    $url2 = "https://responsive.prosoft.co.th/Api/SendNewsToLineAPI/".$NewsHDID;
-    $open = json_decode(file_get_contents($url2), true);
+    $open = json_decode(file_get_contents($url), true);
     
     return $open;
 }
