@@ -9,7 +9,7 @@ echo "<br>OK Require";
 $va = $_GET['va'];
 
 if(!empty($va)){
-    //bot->SendMessageTo("U3b8800b03f1c9d49899b6fd2da70bbb6","5555");
+    bot->SendMessageTo("U3b8800b03f1c9d49899b6fd2da70bbb6","5555");
 	echo "<br>".$va;
 }
 ?>
