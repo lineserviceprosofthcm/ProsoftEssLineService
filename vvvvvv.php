@@ -111,8 +111,8 @@ class BOT_API extends LINEBot
     }
 }
 $files = glob('URL/*');
-for($i = 0; $i < $files ; $i++){
-	echo = $file[$i];
+for($i = 0; $i < count($files) ; $i++){
+	echo = $files[$i];
 }
 echo "END CODE";
 
