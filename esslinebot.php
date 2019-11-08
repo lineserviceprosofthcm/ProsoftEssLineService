@@ -25,6 +25,7 @@ if(!empty($NewsHDID)){
         $bot->SendMessageTo($arr[$i],$News);
     }
     echo "OK".$NewsHDID.$News;
+    echo "<br>".$arr;
 }
 
 // แจ้งเอกสารลาหาผู้อนุมัติ
