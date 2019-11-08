@@ -1,7 +1,7 @@
 <?php
 $NewsHDID = $_GET['NewsHDID'];
 if(!empty($NewsHDID)){
-	echo "ok" + $NewsHDID;
+	echo "ok";
 }
 echo "asdf";
 ?>
