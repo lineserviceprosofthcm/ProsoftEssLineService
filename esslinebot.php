@@ -22,7 +22,7 @@ if(!empty($NewsHDID)){
     $arr = SendNewsTo($NewsHDID);
     $iCount = count($arr);
     for ($i = 0; $i<$iCount; $i++) {
-        $bot->SendMessageTo($arr[$i],$News
+        $bot->SendMessageTo($arr[$i],$News);
     }
 }
 
