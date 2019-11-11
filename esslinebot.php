@@ -25,9 +25,7 @@ if(!empty($NewsHDID)){
         //$bot->SendMessageTo($arr[$i],$News);
     //}
     
-    echo json_encode(array('success' => 1));
-    //return true;
-    die();
+    return json_encode(array('success' => 1));
 }
 
 // แจ้งเอกสารลาหาผู้อนุมัติ
