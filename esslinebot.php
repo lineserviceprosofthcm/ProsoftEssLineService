@@ -32,7 +32,7 @@ if(!empty($NewsHDID)){
 // แจ้งเอกสารลาหาผู้อนุมัติ
 if(!empty($LineIDLeaveRecord)){
     $bot->SendMessageApproveTo($LineIDLeaveRecord,$Detail);
-    return json_encode(array('success' => '1'));
+    echo json_encode(array('success' => '1'));
 }
 
 // แจ้งเอกสารคนอนุมัติถัดไป
