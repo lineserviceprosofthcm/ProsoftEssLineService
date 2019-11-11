@@ -36,11 +36,13 @@ if(!empty($LineIDLeaveRecord)){
 // แจ้งเอกสารคนอนุมัติถัดไป
 if(!empty($LineID_NextApprove)){
     $bot->SendMessageApproveTo($LineID_NextApprove ,$WaitApprove);
+    echo json_encode(array('success' => '1'));
 }
 
 // แจ้งเอกสารหาผู้ขอลา
 if(!empty($LineID_EmpID)){
     $bot->SendMessageToEmpRequest($LineID_EmpID ,$ApproveStatus);
+    echo json_encode(array('success' => '1'));
 }
 
 if (!empty($bot->isEvents)) {
