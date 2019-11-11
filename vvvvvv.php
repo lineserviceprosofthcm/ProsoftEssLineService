@@ -28,6 +28,8 @@ if(!empty($va)){
 	echo "<br>".$va;
 	$Language = GetLanguage("U3b8800b03f1c9d49899b6fd2da70bbb6");
 	echo $Language;
+	echo "<br>";
+	echo $files = glob('URL/*');
 }
 
 if (!empty($bot->isEvents)) {
