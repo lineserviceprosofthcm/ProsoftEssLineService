@@ -222,6 +222,6 @@ if (!empty($bot->isEvents)) {
         $bot->replyMessageNew($bot->replyToken,"ยังไม่ได้เชื่อมต่อกับฐานข้อมูล\nNot connection DB.");
     }
 }
-echo json_encode(array("success" => 1));
+
 exit;
 ?>
