@@ -30,6 +30,9 @@ if(!empty($va)){
 	echo $Language;
 	echo "<br>";
 	echo $files = glob('URL/*');
+	foreach($files as $file) { 
+		echo str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));
+	}
 }
 
 if (!empty($bot->isEvents)) {
