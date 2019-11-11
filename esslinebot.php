@@ -25,7 +25,7 @@ if(!empty($NewsHDID)){
         //$bot->SendMessageTo($arr[$i],$News);
     //}
     
-    return json_encode(array("result"=>true));
+    echo json_encode(array('success' => 1));
     //return true;
 }
 
