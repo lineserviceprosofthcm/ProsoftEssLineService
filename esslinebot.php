@@ -27,6 +27,7 @@ if(!empty($NewsHDID)){
     
     echo json_encode(array('success' => 1));
     //return true;
+    die();
 }
 
 // แจ้งเอกสารลาหาผู้อนุมัติ
