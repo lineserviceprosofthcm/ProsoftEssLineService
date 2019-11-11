@@ -1,5 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
+
 require('line-bot.php');
 include('essconnect.php');
 
