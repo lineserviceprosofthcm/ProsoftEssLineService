@@ -25,10 +25,10 @@ if(!empty($NewsHDID)){
         //$bot->SendMessageTo($arr[$i],$News);
     //}
     $response = array(
-        'status' => true,
-        'message' => $NewsHDID,
-        'message2' => $News,
-        'message3' => $arr
+        status => true,
+        message => $NewsHDID,
+        message2 => $News,
+        message3 => $arr
     );
     echo json_encode($response);
 }
