@@ -16,7 +16,7 @@ $LineID_EmpID = $_POST['LineID_EmpID'];
 $ApproveStatus = $_POST['ApproveStatus'];
 $bot = new BOT_API($channelSecret, $access_token);
 
-echo json_encode(array('success' => 1));
+
 // แจ้งข่าวสาร
 if(!empty($NewsHDID)){
     $arr = SendNewsTo($NewsHDID);
@@ -24,6 +24,8 @@ if(!empty($NewsHDID)){
     for ($i = 0; $i<$iCount; $i++) {
         $bot->SendMessageTo($arr[$i],$News);
     }
+    $myObj->result = true;
+    echo json_encode($myObj);
 }
 
 // แจ้งเอกสารลาหาผู้อนุมัติ
@@ -219,5 +221,5 @@ if (!empty($bot->isEvents)) {
         $bot->replyMessageNew($bot->replyToken,"ยังไม่ได้เชื่อมต่อกับฐานข้อมูล\nNot connection DB.");
     }
 }
-
+exit();
 ?>
