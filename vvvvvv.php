@@ -34,9 +34,25 @@ if(!empty($va)){
 	foreach($files as $file) { 
 		echo str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));
 	}
-	    $myObj->result = true;
+	//echo "<br>";
+	//$response = array(
+    //    'status' => false,
+    /    'message' => 'An error occured...'
+    /);
+    //echo json_encode($response);
 	echo "<br>";
-    echo json_encode($myObj);
+	$test_array = array (
+	  'bla' => 'blub',
+	  'foo' => 'bar',
+	  'another_array' => array (
+		'stack' => 'overflow',
+	  ),
+	);
+	$xml = new SimpleXMLElement('<root/>');
+	array_walk_recursive($test_array, array ($xml, 'addChild'));
+	print $xml->asXML();
+	echo "<br>";
+	echo $xml->asXML();
 }
 
 if (!empty($bot->isEvents)) {
