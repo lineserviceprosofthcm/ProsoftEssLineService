@@ -40,19 +40,17 @@ if(!empty($va)){
     /    'message' => 'An error occured...'
     /);
     //echo json_encode($response);
-	echo "<br>";
-	$test_array = array (
-	  'bla' => 'blub',
-	  'foo' => 'bar',
-	  'another_array' => array (
-		'stack' => 'overflow',
-	  ),
-	);
-	$xml = new SimpleXMLElement('<root/>');
-	array_walk_recursive($test_array, array ($xml, 'addChild'));
-	print $xml->asXML();
-	echo "<br>";
-	echo $xml->asXML();
+	$myXMLData =
+"<?xml version='1.0' encoding='UTF-8'?>
+<note>
+<to>Tove</to>
+<from>Jani</from>
+<heading>Reminder</heading>
+<body>Don't forget me this weekend!</body>
+</note>";
+
+$xml=simplexml_load_string($myXMLData) or die("Error: Cannot create object");
+print_r($xml);
 }
 
 if (!empty($bot->isEvents)) {
