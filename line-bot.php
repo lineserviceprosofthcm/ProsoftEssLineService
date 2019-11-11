@@ -65,7 +65,7 @@ class BOT_API extends LINEBot
     public $response        = null;
 
     public $userId          = null;
-    //public $TextURL         = null;
+    public $TextURL         = null;
 
     /* ====================================================================================
      * Custom
@@ -92,10 +92,9 @@ class BOT_API extends LINEBot
                 $this->timestamp  = $event['timestamp'];
                 $this->userId     = $event['source']['userId'];
                 
-                //$files = glob('URL/*');
-                //foreach($files as $file) { 
-                //$this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));
-                //}
+                $files = glob('URL/*');
+                foreach($files as $file) { 
+                $this->TextURL    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
                 
                 /*$this->TextURL    = file_get_contents("URL/LineAPI.txt");*/
                 /*$this->TextURL    = "prosoft.gotdns.com/ESS/";*/
@@ -123,12 +122,12 @@ public function SendMessageTo($ToLineID = null, $message = null){
 
 public function SendMessageApproveTo($ToLineID = null, $message = null){
     
-    //$files = glob('URL/*');
-    //foreach($files as $file) { 
-    //$TextURL_App    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $TextURL_App    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
     
     $actions = array(
-    New UriTemplateActionBuilder("Go To Approve", "https://responsive.prosoft.co.th/Lineservice/approveleave/approveleaveinfo/".$ToLineID));
+    New UriTemplateActionBuilder("Go To Approve", "https://".$TextURL_App."/Lineservice/approveleave/approveleaveinfo/".$ToLineID));
     $img_url = "https://www.prosofthcm.com/upload/5934/zwLbACxL0c.jpg";
     $button  = new ButtonTemplateBuilder("Notice Approval", $message, $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Notice Approval", $button);
@@ -143,12 +142,12 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
 
 public function SendMessageToEmpRequest($ToLineID = null, $message = null){
     
-    //$files = glob('URL/*');
-    //foreach($files as $file) { 
-    //$TextURL_App    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $TextURL_App    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
     
     $actions = array(
-    New UriTemplateActionBuilder("View Description", "https://responsive.prosoft.co.th/LineService/LeaveRequest/LeaveRequestList/".$ToLineID));
+    New UriTemplateActionBuilder("View Description", "https://".$TextURL_App."/LineService/LeaveRequest/LeaveRequestList/".$ToLineID));
     $img_url = "https://www.prosofthcm.com/upload/5934/zwLbACxL0c.jpg";
     $button  = new ButtonTemplateBuilder("Notice Approval", $message, $img_url, $actions);
     $outputText = new TemplateMessageBuilder("View Description", $button);
@@ -193,7 +192,7 @@ public function SendLanguage($replyToken = null, $LineID){
 
 public function Register($replyToken = null, $LineID){
     $actions = array(
-        New UriTemplateActionBuilder("ลงทะเบียน", "https://responsive.prosoft.co.th/LineService/Register/RegisterInfo/".$LineID),
+        New UriTemplateActionBuilder("ลงทะเบียน", "https://".$this->TextURL."/LineService/Register/RegisterInfo/".$LineID),
         New MessageTemplateActionBuilder("ย้อนกลับ", "ย้อนกลับ")
     );
     $button  = new ConfirmTemplateBuilder("ลงทะเบียนใช้งาน\nYou have not yet registered" , $actions);
@@ -207,10 +206,10 @@ public function Register($replyToken = null, $LineID){
 public function ApproveCenter()
 {
     $actions = array(
-        New UriTemplateActionBuilder("ขออนุมัติลา", "https://responsive.prosoft.co.th/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
-        New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://responsive.prosoft.co.th/LineService/AbstainTime/AbstainTimeInfo/".$this->userId),
-        New UriTemplateActionBuilder("อนุมัติเอกสารลา", "https://responsive.prosoft.co.th/LineService/ApproveLeave/ApproveLeaveInfo/".$this->userId),
-        New UriTemplateActionBuilder("อนุมัติยกเว้นรูดบัตร", "https://responsive.prosoft.co.th/LineService/ApproveAbstain/ApproveAbstainInfo/".$this->userId)
+        New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
+        New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://".$this->TextURL."/LineService/AbstainTime/AbstainTimeInfo/".$this->userId),
+        New UriTemplateActionBuilder("อนุมัติเอกสารลา", "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$this->userId),
+        New UriTemplateActionBuilder("อนุมัติยกเว้นรูดบัตร", "https://".$this->TextURL."/LineService/ApproveAbstain/ApproveAbstainInfo/".$this->userId)
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
@@ -226,10 +225,10 @@ public function ApproveCenter()
 public function ApproveCenterEng()
 {
     $actions = array(
-        New UriTemplateActionBuilder("Leave Request", "https://responsive.prosoft.co.th/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
-        New UriTemplateActionBuilder("Abstain Time", "https://responsive.prosoft.co.th/LineService/AbstainTime/AbstainTimeInfo/".$this->userId),
-        New UriTemplateActionBuilder("Approve Leave", "https://responsive.prosoft.co.th/LineService/ApproveLeave/ApproveLeaveInfo/".$this->userId),
-        New UriTemplateActionBuilder("Approve Abstain", "https://responsive.prosoft.co.th/LineService/ApproveAbstain/ApproveAbstainInfo/".$this->userId)
+        New UriTemplateActionBuilder("Leave Request", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
+        New UriTemplateActionBuilder("Abstain Time", "https://".$this->TextURL."/LineService/AbstainTime/AbstainTimeInfo/".$this->userId),
+        New UriTemplateActionBuilder("Approve Leave", "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$this->userId),
+        New UriTemplateActionBuilder("Approve Abstain", "https://".$this->TextURL."/LineService/ApproveAbstain/ApproveAbstainInfo/".$this->userId)
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
@@ -245,10 +244,10 @@ public function ApproveCenterEng()
 public function TimeAttendance()
 {
     $actions = array(
-        New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://responsive.prosoft.co.th/LineService/TimeStamp/TimeStampInfo/".$this->userId),
-        New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://responsive.prosoft.co.th/LineService/WorkTime/WorkTimeInfo/".$this->userId),
+        New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),
+        New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
         New MessageTemplateActionBuilder("สิทธิ์การลา/วันลาคงเหลือ", "สิทธิ์การลา/วันลาคงเหลือ"),
-        New UriTemplateActionBuilder("ข้อมูลการขอลา", "https://responsive.prosoft.co.th/LineService/LeaveRequest/LeaveRequestList/".$this->userId)
+        New UriTemplateActionBuilder("ข้อมูลการขอลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$this->userId)
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
@@ -264,10 +263,10 @@ public function TimeAttendance()
 public function TimeAttendanceEng()
 {
     $actions = array(
-        New UriTemplateActionBuilder("Time Stamp", "https://responsive.prosoft.co.th/LineService/TimeStamp/TimeStampInfo/".$this->userId),
-        New UriTemplateActionBuilder("Work Time Detail", "https://responsive.prosoft.co.th/LineService/WorkTime/WorkTimeInfo/".$this->userId),
+        New UriTemplateActionBuilder("Time Stamp", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),
+        New UriTemplateActionBuilder("Work Time Detail", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
         New MessageTemplateActionBuilder("Leave Remain", "Leave Remain"),
-        New UriTemplateActionBuilder("Leave Information", "https://responsive.prosoft.co.th/LineService/LeaveRequest/LeaveRequestList/".$this->userId)
+        New UriTemplateActionBuilder("Leave Information", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$this->userId)
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
@@ -324,8 +323,8 @@ public function Organization()
 {
     $actions = array(
         New MessageTemplateActionBuilder("วันหยุดองค์กร", "วันหยุดองค์กร"),
-        New UriTemplateActionBuilder("สร้างข่าวสารองค์กร", "https://responsive.prosoft.co.th/LineService/News/NewsInfo/".$this->userId),
-        New UriTemplateActionBuilder("ข้อมูลข่าวสาร", "https://responsive.prosoft.co.th/LineService/News/NewsList/".$this->userId),
+        New UriTemplateActionBuilder("สร้างข่าวสารองค์กร", "https://".$this->TextURL."/LineService/News/NewsInfo/".$this->userId),
+        New UriTemplateActionBuilder("ข้อมูลข่าวสาร", "https://".$this->TextURL."/LineService/News/NewsList/".$this->userId),
         New MessageTemplateActionBuilder("ที่ตั้งองค์กร", "ที่ตั้งองค์กร")
         );
 
@@ -343,8 +342,8 @@ public function OrganizationEng()
 {
     $actions = array(
         New MessageTemplateActionBuilder("Calendar", "Organization Calendar"),
-        New UriTemplateActionBuilder("Create News", "https://responsive.prosoft.co.th/LineService/News/NewsInfo/".$this->userId),
-        New UriTemplateActionBuilder("News List", "https://responsive.prosoft.co.th/LineService/News/NewsList/".$this->userId),
+        New UriTemplateActionBuilder("Create News", "https://".$this->TextURL."/LineService/News/NewsInfo/".$this->userId),
+        New UriTemplateActionBuilder("News List", "https://".$this->TextURL."/LineService/News/NewsList/".$this->userId),
         New MessageTemplateActionBuilder("Location", "Location of Organization")
         );    
 
@@ -362,7 +361,7 @@ public function OrganizationEng()
 public function Setting()
 {
     $actions = array(        
-        New UriTemplateActionBuilder("ลงทะเบียน", "https://responsive.prosoft.co.th/LineService/Register/RegisterInfo/".$this->userId),
+        New UriTemplateActionBuilder("ลงทะเบียน", "https://".$this->TextURL."/LineService/Register/RegisterInfo/".$this->userId),
         New MessageTemplateActionBuilder("เปลี่ยนภาษา", "เปลี่ยนภาษา")
         );
 
@@ -379,7 +378,7 @@ public function Setting()
 public function SettingEng()
 {
     $actions = array(        
-        New UriTemplateActionBuilder("Register", "https://responsive.prosoft.co.th/LineService/Register/RegisterInfo/".$this->userId),
+        New UriTemplateActionBuilder("Register", "https://".$this->TextURL."/LineService/Register/RegisterInfo/".$this->userId),
         New MessageTemplateActionBuilder("Language", "Language")
         );
 
@@ -394,7 +393,7 @@ public function SettingEng()
 }
 public function photoQR($replyToken = null)
 {
-$outputText = new ImageMessageBuilder("https://responsive.prosoft.co.th/upload/Resource/Linebot.png", "https://responsive.prosoft.co.th/upload/Resource/Linebot.png");
+$outputText = new ImageMessageBuilder("https://".$this->TextURL."/upload/Resource/Linebot.png", "https://".$this->TextURL."/upload/Resource/Linebot.png");
 $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
     'replyToken' => $replyToken,
     'messages'   => $outputText->buildMessage(),
