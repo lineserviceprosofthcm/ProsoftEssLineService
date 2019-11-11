@@ -21,9 +21,9 @@ $bot = new BOT_API($channelSecret, $access_token);
 if(!empty($NewsHDID)){
     $arr = SendNewsTo($NewsHDID);
     $iCount = count($arr);
-    for ($i = 0; $i<$iCount; $i++) {
-        $bot->SendMessageTo($arr[$i],$News);
-    }
+    //for ($i = 0; $i<$iCount; $i++) {
+        //$bot->SendMessageTo($arr[$i],$News);
+    //}
     
     //return json_encode(array("result"=>true));
     return true;
