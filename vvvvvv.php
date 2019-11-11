@@ -39,6 +39,6 @@
 		$dom->appendChild($root);
 
 	$dom->save($xml_file_name);
-
+	$dom->open($xml_file_name,0);
 	echo "$xml_file_name has been successfully created";
 ?>
