@@ -30,7 +30,7 @@ if(!empty($NewsHDID)){
         //message2 => $News,
         //message3 => $arr
     //);
-    echo json_encode($response);
+    //echo json_encode($response);
     
     $myXMLData = "<?xml version='1.0' encoding='UTF-8'?><note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>";
     $xml=simplexml_load_string($myXMLData) or die("Error: Cannot create object");
