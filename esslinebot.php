@@ -60,7 +60,7 @@ if(!empty($LineID_EmpID)){
     echo json_encode(array('success' => '1'));
 }
 
-// แจ้งเอกสารหาผู้ขอลา
+// แจ้งเอกสารหาผู้ขอยกเว้นรูดบัตร
 if(!empty($LineID_EmpIDAbstain)){
     $bot->SendMessageToEmpRequestAbstain($LineID_EmpIDAbstain ,$ApproveStatus);
     echo json_encode(array('success' => '1'));
