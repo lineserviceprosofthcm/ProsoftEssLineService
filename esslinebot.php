@@ -15,6 +15,7 @@ $LineID_NextApprove = $_POST['LineID_NextApprove'];
 $LineID_NextApproveAbstain = $_POST['LineID_NextApproveAbstain'];
 $WaitApprove = $_POST['WaitApprove'];
 $LineID_EmpID = $_POST['LineID_EmpID'];
+$LineID_EmpIDAbstain = $_POST['LineID_EmpIDAbstain'];
 $ApproveStatus = $_POST['ApproveStatus'];
 $bot = new BOT_API($channelSecret, $access_token);
 
@@ -56,6 +57,12 @@ if(!empty($LineID_NextApproveAbstain)){
 // แจ้งเอกสารหาผู้ขอลา
 if(!empty($LineID_EmpID)){
     $bot->SendMessageToEmpRequest($LineID_EmpID ,$ApproveStatus);
+    echo json_encode(array('success' => '1'));
+}
+
+// แจ้งเอกสารหาผู้ขอลา
+if(!empty($LineID_EmpIDAbstain)){
+    $bot->SendMessageToEmpRequestAbstain($LineID_EmpIDAbstain ,$ApproveStatus);
     echo json_encode(array('success' => '1'));
 }
 
