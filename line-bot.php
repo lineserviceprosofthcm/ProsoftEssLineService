@@ -393,7 +393,8 @@ public function SettingEng()
 }
 public function photoQR($replyToken = null)
 {
-$outputText = new ImageMessageBuilder("https://".$this->TextURL."/upload/Resource/Linebot.png", "https://".$this->TextURL."/upload/Resource/Linebot.png");
+//$outputText = new ImageMessageBuilder("https://".$this->TextURL."/upload/Resource/Linebot.png", "https://".$this->TextURL."/upload/Resource/Linebot.png");
+$outputText = new ImageMessageBuilder("https://prosoftesslineservice.herokuapp.com/img/QR-ProsoftLine.png", "https://prosoftesslineservice.herokuapp.com/img/QR-ProsoftLine.png");
 $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
     'replyToken' => $replyToken,
     'messages'   => $outputText->buildMessage(),
