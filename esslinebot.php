@@ -34,15 +34,21 @@ if(!empty($LineIDLeaveRecord)){
     echo json_encode(array('success' => '1'));
 }
 
+// แจ้งเอกสารลาคนอนุมัติถัดไป
+if(!empty($LineID_NextApprove)){
+    $bot->SendMessageApproveTo($LineID_NextApprove ,$WaitApprove);
+    echo json_encode(array('success' => '1'));
+}
+
 // แจ้งเอกสารยกเว้นรูดบัตรหาผู้อนุมัติ
 if(!empty($LineIDAbstain)){
     $bot->SendMessageApproveAbstainTo($LineIDAbstain,$Detail);
     echo json_encode(array('success' => '1'));
 }
 
-// แจ้งเอกสารคนอนุมัติถัดไป
+// แจ้งเอกสารยกเว้นรูดบัตรคนอนุมัติถัดไป
 if(!empty($LineID_NextApprove)){
-    $bot->SendMessageApproveTo($LineID_NextApprove ,$WaitApprove);
+    $bot->SendMessageApproveAbstainTo($LineID_NextApprove ,$WaitApprove);
     echo json_encode(array('success' => '1'));
 }
 
