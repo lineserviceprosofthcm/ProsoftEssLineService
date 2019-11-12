@@ -139,6 +139,26 @@ public function SendMessageApproveTo($ToLineID = null, $message = null){
         'messages'  => $multiMessage->buildMessage()
     ]);
 }
+    
+public function SendMessageApproveAbstainTo($ToLineID = null, $message = null){
+    
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $TextURL_App    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    
+    $actions = array(
+    New UriTemplateActionBuilder("Go To Approve", "https://".$TextURL_App."/Lineservice/ApproveAbstain/ApproveAbstaininfo/".$ToLineID));
+    $img_url = "https://www.prosofthcm.com/upload/5934/zwLbACxL0c.jpg";
+    $button  = new ButtonTemplateBuilder("Notice Approval", $message, $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Notice Approval", $button);
+    
+    $multiMessage = new MultiMessageBuilder;
+    $multiMessage->add($outputText);
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/push', [
+        'to' => $ToLineID,
+        'messages'  => $multiMessage->buildMessage()
+    ]);
+}
 
 public function SendMessageToEmpRequest($ToLineID = null, $message = null){
     
