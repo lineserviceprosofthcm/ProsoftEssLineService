@@ -36,7 +36,7 @@ if(!empty($LineIDLeaveRecord)){
 
 // แจ้งเอกสารยกเว้นรูดบัตรหาผู้อนุมัติ
 if(!empty($LineIDAbstain)){
-    $bot->SendMessageApproveAbstainTo($LineIDLeaveRecord,$Detail);
+    $bot->SendMessageApproveAbstainTo($LineIDAbstain,$Detail);
     echo json_encode(array('success' => '1'));
 }
 
