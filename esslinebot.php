@@ -19,7 +19,6 @@ $LineID_EmpIDAbstain = $_POST['LineID_EmpIDAbstain'];
 $ApproveStatus = $_POST['ApproveStatus'];
 $bot = new BOT_API($channelSecret, $access_token);
 
-
 // แจ้งข่าวสาร
 if(!empty($NewsHDID)){
     $arr = SendNewsTo($NewsHDID);
@@ -147,9 +146,6 @@ if (!empty($bot->isEvents)) {
             case "QR":
                 $bot->photoQR($bot->replyToken);
             break;
-            case "Sti":
-                $bot->Sticker($bot->replyToken);
-            break;
             default:
                 $bot->BOT_New($bot->replyToken,$bot->text);
             break;
@@ -251,5 +247,5 @@ if (!empty($bot->isEvents)) {
     }
 }
 
-exit;
+exit();
 ?>
