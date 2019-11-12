@@ -187,7 +187,7 @@ public function SendMessageToEmpRequestAbstain($ToLineID = null, $message = null
     $TextURL_App    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
     
     $actions = array(
-    New UriTemplateActionBuilder(" ", ""));
+    New UriTemplateActionBuilder("OK", ""));
     $img_url = "https://www.prosofthcm.com/upload/5934/zwLbACxL0c.jpg";
     $button  = new ButtonTemplateBuilder("Notice Approval", $message, $img_url, $actions);
     $outputText = new TemplateMessageBuilder("View Description", $button);
