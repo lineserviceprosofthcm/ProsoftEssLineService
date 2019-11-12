@@ -9,6 +9,7 @@ $access_token  = '5ZP5bMi9tgEXR9Zwq5+TBJ6C5pv5SMbaIWBes4l1MGHQph3JbHhQyqRWD+e7px
 $NewsHDID = $_POST['NewsHDID'];
 $News = $_POST['News'];
 $LineIDLeaveRecord = $_POST['LineIDLeaveRecord'];
+$LineIDAbstain = $_POST['LineIDAbstain'];
 $Detail = $_POST['Detail'];
 $LineID_NextApprove = $_POST['LineID_NextApprove'];
 $WaitApprove = $_POST['WaitApprove'];
@@ -30,6 +31,12 @@ if(!empty($NewsHDID)){
 // แจ้งเอกสารลาหาผู้อนุมัติ
 if(!empty($LineIDLeaveRecord)){
     $bot->SendMessageApproveTo($LineIDLeaveRecord,$Detail);
+    echo json_encode(array('success' => '1'));
+}
+
+// แจ้งเอกสารยกเว้นรูดบัตรหาผู้อนุมัติ
+if(!empty($LineIDAbstain)){
+    $bot->SendMessageApproveAbstainTo($LineIDLeaveRecord,$Detail);
     echo json_encode(array('success' => '1'));
 }
 
