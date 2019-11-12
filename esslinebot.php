@@ -12,6 +12,7 @@ $LineIDLeaveRecord = $_POST['LineIDLeaveRecord'];
 $LineIDAbstain = $_POST['LineIDAbstain'];
 $Detail = $_POST['Detail'];
 $LineID_NextApprove = $_POST['LineID_NextApprove'];
+$LineID_NextApproveAbstain = $_POST['LineID_NextApproveAbstain'];
 $WaitApprove = $_POST['WaitApprove'];
 $LineID_EmpID = $_POST['LineID_EmpID'];
 $ApproveStatus = $_POST['ApproveStatus'];
@@ -47,8 +48,8 @@ if(!empty($LineIDAbstain)){
 }
 
 // แจ้งเอกสารยกเว้นรูดบัตรคนอนุมัติถัดไป
-if(!empty($LineID_NextApprove)){
-    $bot->SendMessageApproveAbstainTo($LineID_NextApprove ,$WaitApprove);
+if(!empty($LineID_NextApproveAbstain)){
+    $bot->SendMessageApproveAbstainTo($LineID_NextApproveAbstain ,$WaitApprove);
     echo json_encode(array('success' => '1'));
 }
 
