@@ -123,6 +123,10 @@ if (!empty($bot->isEvents)) {
                 $Text = ChangeLanguage($bot->userId,$bot->text);
                 $bot->replyMessageNew($bot->replyToken,$Text);
             break;
+            case "QR": case "Qr": case "qr":
+                $bot->Sticker($bot->replyToken);
+                $bot->photoQR($bot->replyToken);
+            break;
             default:
                 $bot->BOT_New($bot->replyToken,$bot->text);
             break;
