@@ -468,7 +468,7 @@ public function BOT_New($replyToken = null, $text)
             //$StickerBuilder = new StickerMessageBuilder("1","109");
             $multiMessage = new MultiMessageBuilder;
             $multiMessage->add($messageBuilder);
-            $multiMessage->add($StickerBuilder);
+            //$multiMessage->add($StickerBuilder);
             $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
             'replyToken' => $replyToken,
             'messages'   => $multiMessage->buildMessage(),
