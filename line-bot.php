@@ -246,7 +246,13 @@ public function Register($replyToken = null, $LineID){
 public function ApproveCenter()
 {
     $actions = array(
-        New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
+        $Text = TimeStampAPI($this->userId);
+        if($Text == "true"){
+            New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/TimeAttendance/TimeStamp/Info?LineID=".$this->userId),
+        }else{
+            New MessageTemplateActionBuilder("วันหยุดองค์กร", "ผิดพลาดดด"),
+        }   
+        //New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
         New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://".$this->TextURL."/LineService/AbstainTime/AbstainTimeInfo/".$this->userId),
         New UriTemplateActionBuilder("อนุมัติเอกสารลา", "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$this->userId),
         New UriTemplateActionBuilder("อนุมัติยกเว้นรูดบัตร", "https://".$this->TextURL."/LineService/ApproveAbstain/ApproveAbstainInfo/".$this->userId)
