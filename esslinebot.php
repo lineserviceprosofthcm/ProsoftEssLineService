@@ -146,14 +146,14 @@ if (!empty($bot->isEvents)) {
             case "QR":
                 $bot->photoQR($bot->replyToken);
             break;
-            case "Test":  
+            /*case "Test":  
                 $Text = TimeStampAPI($bot->userId);
                 if($Text == "true"){
                     $bot->replyMessageNew($bot->replyToken,"true");
                 }else{
                     $bot->replyMessageNew($bot->replyToken,$Text);
                 }
-            break;
+            break;*/
             default:
                 $bot->BOT_New($bot->replyToken,$bot->text);
             break;
