@@ -245,8 +245,8 @@ public function Register($replyToken = null, $LineID){
 
 public function ApproveCenter()
 {
+    $Text = TimeStampAPI($this->userId);
     $actions = array(
-        $Text = TimeStampAPI($this->userId);
         if($Text == "true"){
             New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/TimeAttendance/TimeStamp/Info?LineID=".$this->userId),
         }else{
