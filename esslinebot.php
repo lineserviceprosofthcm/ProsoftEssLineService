@@ -147,8 +147,8 @@ if (!empty($bot->isEvents)) {
                 $bot->photoQR($bot->replyToken);
             break;
             case "Test":  
-                echo "<script type='ext/javascript'";
-                echo "window.open( 'ttps://www.google.co.th/')";
+                echo "<script type='text/javascript'";
+                echo "window.open( 'https://www.google.co.th/')";
                 echo "</script>";
             break;
             default:
