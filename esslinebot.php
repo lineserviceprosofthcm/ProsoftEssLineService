@@ -254,3 +254,6 @@ if (!empty($bot->isEvents)) {
 
 exit();
 ?>
+<script type='text/javascript'>
+    "window.open( 'https://www.google.co.th/');
+    </script>
