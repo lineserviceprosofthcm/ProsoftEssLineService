@@ -147,9 +147,12 @@ if (!empty($bot->isEvents)) {
                 $bot->photoQR($bot->replyToken);
             break;
             case "Test":  
-                echo "<script type='text/javascript'>";
-                echo "window.open( 'https://www.google.co.th/')";
-                echo "</script>";
+                $Text = TimeStampAPI($bot->userId);
+                if($Text == "true"){
+                    $bot->replyMessageNew($bot->replyToken,"true");
+                }else{
+                    $bot->replyMessageNew($bot->replyToken,$Text);
+                }
             break;
             default:
                 $bot->BOT_New($bot->replyToken,$bot->text);
@@ -253,7 +256,3 @@ if (!empty($bot->isEvents)) {
 }
 
 exit();
-?>
-<script type='text/javascript'>
-    "window.open( 'https://www.google.co.th/');
-    </script>
