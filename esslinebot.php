@@ -146,6 +146,11 @@ if (!empty($bot->isEvents)) {
             case "QR":
                 $bot->photoQR($bot->replyToken);
             break;
+            case "Test":  
+                <script type="text/javascript">
+                window.open( "https://www.google.co.th/" )
+                </script> 
+            break;
             default:
                 $bot->BOT_New($bot->replyToken,$bot->text);
             break;
