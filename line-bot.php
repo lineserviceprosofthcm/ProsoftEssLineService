@@ -315,10 +315,10 @@ public function TimeAttendance()
     ]);*/
     
     $multiMessage = new MultiMessageBuilder;
+    $multiMessage->add($outputText);
     if($Text != "true"){
-        $multiMessage->add($outputText);
+        $multiMessage->add($messageBuilder);
     }
-    $multiMessage->add($messageBuilder);
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
             'replyToken' => $this->replyToken,
             'messages'   => $multiMessage->buildMessage(),
