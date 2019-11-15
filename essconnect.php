@@ -28,13 +28,6 @@ function TimeStampAPI($LineID){
     return $open;
 }
 
-function Test(){
-    $url = "https://www.google.co.th/";
-    $open = file_get_contents($url);
-    
-    return $open;
-}
-
 function GetLanguage($LineID){
     $files = glob('URL/*');
     foreach($files as $file) { 
