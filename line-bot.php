@@ -284,7 +284,6 @@ public function ApproveCenterEng()
 public function TimeAttendance()
 {
     $Text = TimeStampAPI($this->userId);
-    $messageBuilder = "";
     if($Text == "true"){
         $actions = array(
             New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/Member/Signin"),
@@ -316,7 +315,9 @@ public function TimeAttendance()
     ]);*/
     
     $multiMessage = new MultiMessageBuilder;
-    $multiMessage->add($outputText);
+    if($Text != "true"){
+        $multiMessage->add($outputText);
+    }
     $multiMessage->add($messageBuilder);
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
             'replyToken' => $this->replyToken,
