@@ -297,7 +297,7 @@ public function TimeAttendance()
     else
     {
     $actions = array(
-        New MessageTemplateActionBuilder("ลงเวลาเข้างาน", new TextMessageBuilder($Text);),
+        New MessageTemplateActionBuilder("ลงเวลาเข้างาน", new TextMessageBuilder($Text)),
         /*New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),*/
         New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
         New MessageTemplateActionBuilder("สิทธิ์การลา/วันลาคงเหลือ", "สิทธิ์การลา/วันลาคงเหลือ"),
