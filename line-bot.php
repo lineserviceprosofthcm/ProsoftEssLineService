@@ -313,7 +313,8 @@ public function TimeAttendance()
         'messages'   => $outputText->buildMessage(),
     ]);*/
     
-    $messageBuilder = new TextMessageBuilder("ไม่มีคำสั่ง ".$text." นี้");
+    $messageBuilder = new TextMessageBuilder($Text);
+    
             $multiMessage = new MultiMessageBuilder;
             $multiMessage->add($outputText);
             $multiMessage->add($messageBuilder);
