@@ -285,6 +285,17 @@ public function TimeAttendance()
 {
     $Text = TimeStampAPI($this->userId);
     
+    if($Text = "true"){
+    $actions = array(
+        New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/TimeAttendance/TimeStamp/Info?LineID=".$this->userId),
+        /*New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),*/
+        New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
+        New MessageTemplateActionBuilder("สิทธิ์การลา/วันลาคงเหลือ", "สิทธิ์การลา/วันลาคงเหลือ"),
+        New UriTemplateActionBuilder("ข้อมูลการขอลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$this->userId)
+        );
+    }
+    else
+    {
     $actions = array(
         New MessageTemplateActionBuilder("ลงเวลาเข้างาน", $Text."ผิดพลาดดด"),
         /*New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),*/
@@ -292,7 +303,8 @@ public function TimeAttendance()
         New MessageTemplateActionBuilder("สิทธิ์การลา/วันลาคงเหลือ", "สิทธิ์การลา/วันลาคงเหลือ"),
         New UriTemplateActionBuilder("ข้อมูลการขอลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$this->userId)
         );
-
+    }
+    
     $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
     $button  = new ButtonTemplateBuilder("Time Attendence", "สำหรับจัดการข้อมูลเวลาการทำงาน...", $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Time Attendence", $button);
