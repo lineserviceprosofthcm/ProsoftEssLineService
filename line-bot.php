@@ -286,7 +286,7 @@ public function TimeAttendance()
     $Text = TimeStampAPI($this->userId);
     if($Text == "true"){
         $actions = array(
-            New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/TimeAttendance/TimeStamp/Info?LineID=".$this->userId),
+            New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/TimeAttendance/TimeStamp/TimeStampAPI?LineID=".$this->userId),
             /*New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),*/
             New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
             New MessageTemplateActionBuilder("สิทธิ์การลา/วันลาคงเหลือ", "สิทธิ์การลา/วันลาคงเหลือ"),
