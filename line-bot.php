@@ -297,7 +297,6 @@ public function TimeAttendance()
     else
     {
     $actions = array(
-        New MessageTemplateActionBuilder("ลงเวลาเข้างาน", new TextMessageBuilder($Text)),
         /*New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),*/
         New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
         New MessageTemplateActionBuilder("สิทธิ์การลา/วันลาคงเหลือ", "สิทธิ์การลา/วันลาคงเหลือ"),
@@ -309,10 +308,19 @@ public function TimeAttendance()
     $button  = new ButtonTemplateBuilder("Time Attendence", "สำหรับจัดการข้อมูลเวลาการทำงาน...", $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Time Attendence", $button);
 
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+    /*$this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
         'replyToken' => $this->replyToken,
         'messages'   => $outputText->buildMessage(),
-    ]);
+    ]);*/
+    
+    $messageBuilder = new TextMessageBuilder("ไม่มีคำสั่ง ".$text." นี้");
+            $multiMessage = new MultiMessageBuilder;
+            $multiMessage->add($outputText);
+            $multiMessage->add($messageBuilder);
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+            'replyToken' => $this->replyToken,
+            'messages'   => $multiMessage->buildMessage(),
+            ]);
 }
 
 public function TimeAttendanceEng()
