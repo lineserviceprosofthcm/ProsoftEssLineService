@@ -17,6 +17,17 @@
     return $link;
 }*/
 
+function TimeStampAPI($LineID){
+    $files = glob('URL/*');
+    foreach($files as $file) { 
+    $TextURL_App    = str_replace("_","/",(str_replace("URL/","",(str_replace(".txt","",$file)))));}
+    
+    $url = "https://".$TextURL_App."/api/TimeStampAPI/".$LineID;
+    $open = json_decode(file_get_contents($url), true);
+    
+    return $open;
+}
+
 function GetLanguage($LineID){
     $files = glob('URL/*');
     foreach($files as $file) { 
