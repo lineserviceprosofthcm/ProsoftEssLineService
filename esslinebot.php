@@ -145,10 +145,7 @@ if (!empty($bot->isEvents)) {
             break;
             case "QR":
                 $bot->photoQR($bot->replyToken);
-            break;
-            case "Test":
-                Test();
-            break;
+            break;            
             default:
                 $bot->BOT_New($bot->replyToken,$bot->text);
             break;
