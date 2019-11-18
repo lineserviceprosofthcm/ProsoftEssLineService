@@ -283,46 +283,55 @@ public function ApproveCenterEng()
 
 public function TimeAttendance()
 {
-    $Text = TimeStampAPI($this->userId);
+    /*$Text = TimeStampAPI($this->userId);
     if($Text == "true"){
         $actions = array(
-            New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/TimeAttendance/TimeStamp/info?LineID=".$this->userId),
+            New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/TimeAttendance/TimeStamp/info?LineID=".$this->userId),*/
             /*New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),*/
-            New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
+            /*New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
             New MessageTemplateActionBuilder("สิทธิ์การลา/วันลาคงเหลือ", "สิทธิ์การลา/วันลาคงเหลือ"),
             New UriTemplateActionBuilder("ข้อมูลการขอลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$this->userId)
         );
     }
     else
     {
-        $actions = array(
+        $actions = array(*/
             /*New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),*/
-            New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
+            /*New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
             New MessageTemplateActionBuilder("สิทธิ์การลา/วันลาคงเหลือ", "สิทธิ์การลา/วันลาคงเหลือ"),
             New UriTemplateActionBuilder("ข้อมูลการขอลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$this->userId)
         );
         
         $messageBuilder = new TextMessageBuilder($Text);
-    }
+    }*/
+    
+$actions = array(
+            New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/TimeAttendance/TimeStamp/info?LineID=".$this->userId),
+            /*New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),*/
+            New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
+            New MessageTemplateActionBuilder("สิทธิ์การลา/วันลาคงเหลือ", "สิทธิ์การลา/วันลาคงเหลือ"),
+            New UriTemplateActionBuilder("ข้อมูลการขอลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestList/".$this->userId)
+        );
     
     $img_url = "https://www.prosofthcm.com/upload/5934/4XNG8W47Yn.jpg";
     $button  = new ButtonTemplateBuilder("Time Attendence", "สำหรับจัดการข้อมูลเวลาการทำงาน...", $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Time Attendence", $button);
 
-    /*$this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
-        'replyToken' => $this->replyToken,
-        'messages'   => $outputText->buildMessage(),
-    ]);*/
-    
-    $multiMessage = new MultiMessageBuilder;
+    /*$multiMessage = new MultiMessageBuilder;
     $multiMessage->add($outputText);
     if($Text != "true"){
         $multiMessage->add($messageBuilder);
-    }
-    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+    }*/
+    
+    /*$this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
             'replyToken' => $this->replyToken,
             'messages'   => $multiMessage->buildMessage(),
-            ]);
+            ]);*/
+    
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $this->replyToken,
+        'messages'   => $outputText->buildMessage(),
+    ]);
 }
 
 public function TimeAttendanceEng()
