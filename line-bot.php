@@ -342,7 +342,7 @@ public function TimeAttendance()
     }*/
     
 $actions = array(
-            New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/TimeAttendance/TimeStamp/info?LineID=".$this->userId),
+            New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/TimeAttendance/TimeStamp/info?LineID=U39ec52f0cdd913aa3040d3e404ea738a"),
             /*New UriTemplateActionBuilder("ลงเวลาเข้างาน", "https://".$this->TextURL."/LineService/TimeStamp/TimeStampInfo/".$this->userId),*/
             New UriTemplateActionBuilder("ข้อมูลเวลาทำงาน", "https://".$this->TextURL."/LineService/WorkTime/WorkTimeInfo/".$this->userId),
             New MessageTemplateActionBuilder("สิทธิ์การลา/วันลาคงเหลือ", "สิทธิ์การลา/วันลาคงเหลือ"),
