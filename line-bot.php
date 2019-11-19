@@ -291,8 +291,8 @@ public function Approve()
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
-    $button  = new ButtonTemplateBuilder("Approve Center", "สำหรับขอ/อนุมัติเอกสารต่าง ๆ...", $img_url, $actions);
-    $outputText = new TemplateMessageBuilder("Approve Center", $button);
+    $button  = new ButtonTemplateBuilder("Approve", "สำหรับอนุมัติเอกสารต่าง ๆ...", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Approve", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
         'replyToken' => $this->replyToken,
@@ -308,8 +308,8 @@ public function Request()
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
-    $button  = new ButtonTemplateBuilder("Approve Center", "สำหรับขอ/อนุมัติเอกสารต่าง ๆ...", $img_url, $actions);
-    $outputText = new TemplateMessageBuilder("Approve Center", $button);
+    $button  = new ButtonTemplateBuilder("Request", "สำหรับขออนุมัติเอกสารต่าง ๆ...", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Request", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
         'replyToken' => $this->replyToken,
