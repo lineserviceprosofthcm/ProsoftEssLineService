@@ -246,10 +246,12 @@ public function Register($replyToken = null, $LineID){
 public function ApproveCenter()
 {    
     $actions = array(
-        New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
+        /*New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
         New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://".$this->TextURL."/LineService/AbstainTime/AbstainTimeInfo/".$this->userId),
         New UriTemplateActionBuilder("อนุมัติเอกสารลา", "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$this->userId),
-        New UriTemplateActionBuilder("อนุมัติยกเว้นรูดบัตร", "https://".$this->TextURL."/LineService/ApproveAbstain/ApproveAbstainInfo/".$this->userId)
+        New UriTemplateActionBuilder("อนุมัติยกเว้นรูดบัตร", "https://".$this->TextURL."/LineService/ApproveAbstain/ApproveAbstainInfo/".$this->userId)*/
+        New MessageTemplateActionBuilder("ขออนุมัติเอกสาร", "ขออนุมัติเอกสาร"),
+        New MessageTemplateActionBuilder("อนุมัติเอกสาร", "อนุมัติเอกสาร")        
         );
 
     $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
@@ -273,6 +275,40 @@ public function ApproveCenterEng()
 
     $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
     $button  = new ButtonTemplateBuilder("Approve Center", "For request or approve documents...", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Approve Center", $button);
+
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $this->replyToken,
+        'messages'   => $outputText->buildMessage(),
+    ]);
+}
+    
+public function Approve()
+{    
+    $actions = array(
+        New UriTemplateActionBuilder("อนุมัติเอกสารลา", "https://".$this->TextURL."/LineService/ApproveLeave/ApproveLeaveInfo/".$this->userId),
+        New UriTemplateActionBuilder("อนุมัติยกเว้นรูดบัตร", "https://".$this->TextURL."/LineService/ApproveAbstain/ApproveAbstainInfo/".$this->userId)
+        );
+
+    $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
+    $button  = new ButtonTemplateBuilder("Approve Center", "สำหรับขอ/อนุมัติเอกสารต่าง ๆ...", $img_url, $actions);
+    $outputText = new TemplateMessageBuilder("Approve Center", $button);
+
+    $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
+        'replyToken' => $this->replyToken,
+        'messages'   => $outputText->buildMessage(),
+    ]);
+}
+    
+public function Request()
+{    
+    $actions = array(
+        New UriTemplateActionBuilder("ขออนุมัติลา", "https://".$this->TextURL."/LineService/LeaveRequest/LeaveRequestInfo/".$this->userId),
+        New UriTemplateActionBuilder("ขอยกเว้นรูดบัตร", "https://".$this->TextURL."/LineService/AbstainTime/AbstainTimeInfo/".$this->userId),        
+        );
+
+    $img_url = "https://www.prosofthcm.com/upload/5934/BEQPPo7iiF.jpg";
+    $button  = new ButtonTemplateBuilder("Approve Center", "สำหรับขอ/อนุมัติเอกสารต่าง ๆ...", $img_url, $actions);
     $outputText = new TemplateMessageBuilder("Approve Center", $button);
 
     $this->response = $this->httpClient->post($this->endpointBase . '/v2/bot/message/reply', [
