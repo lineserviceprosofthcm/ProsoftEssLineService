@@ -73,6 +73,12 @@ if (!empty($bot->isEvents)) {
             case "Approve Center":
                 $bot->ApproveCenter();
             break;
+            case "ขออนุมัติเอกสาร":
+                $bot->Approve();
+            break;
+            case "อนุมัติเอกสาร":
+                $bot->Request();
+            break;
             case "Time Attendance":
                 $bot->TimeAttendance();
             break;
