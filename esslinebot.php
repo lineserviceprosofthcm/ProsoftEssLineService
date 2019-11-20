@@ -74,10 +74,10 @@ if (!empty($bot->isEvents)) {
                 $bot->ApproveCenter();
             break;
             case "ขออนุมัติเอกสาร":
-                $bot->Approve();
+                $bot->Request();
             break;
             case "อนุมัติเอกสาร":
-                $bot->Request();
+                $bot->Approve();
             break;
             case "Time Attendance":
                 $bot->TimeAttendance();
