@@ -163,6 +163,12 @@ if (!empty($bot->isEvents)) {
             case "Approve Center":
                 $bot->ApproveCenterEng();
             break;
+            case "Request":
+                $bot->RequestEng();
+            break;
+            case "Approve":
+                $bot->ApproveEng();
+            break;
             case "Time Attendance":
                 $bot->TimeAttendanceEng();
             break;
@@ -233,6 +239,9 @@ if (!empty($bot->isEvents)) {
                 $Text = ChangeLanguage($bot->userId,$bot->text);
                 $bot->replyMessageNew($bot->replyToken,$Text);
             break;
+            case "QR":
+                $bot->photoQR($bot->replyToken);
+            break;  
             default:
                 $bot->BOT_New($bot->replyToken,$bot->text);
             break;
